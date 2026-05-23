@@ -692,7 +692,7 @@
         <label for="settings-key" class="settings-label">OPENROUTER API KEY (OPTIONAL)</label>
         <input id="settings-key" class="settings-input" type="password" placeholder="sk-or-v1-..." autocomplete="off" />
         <div class="settings-help">
-          Provide your **OpenRouter key** to enable Llama 3.3 API completion. If left blank, the bot runs in **Local Mode**, answering prompts instantly using the offline Knowledge Base.
+          Provide your **OpenRouter key** to enable Gemini API completion. If left blank, the bot runs in **Local Mode**, answering prompts instantly using the offline Knowledge Base.
         </div>
       </div>
 
@@ -715,6 +715,7 @@ const HARI_KB = `
 
 ## Personal Info
 - Full Name: Hariharan
+- Birth Date: July 06, 2008 (Age: 17 as of 2026)
 - Location: Coimbatore, Tamil Nadu, India
 - Email: hariharanmct06@gmail.com
 - LinkedIn: linkedin.com/in/hariharan-m-4a8533407
@@ -723,16 +724,16 @@ const HARI_KB = `
 - Languages: Tamil (Native), English (Fluent), Malayalam (Proficient), French (Basic)
 
 ## Education
-- B.E. Mechatronics Engineering — SNS Institution, Coimbatore (Sept 2026 – Present)
-  Specializing in Automation, Robotics & Embedded Systems
-- 12th Standard (HSC) — Suguna RIP V School, Coimbatore (2024–2026)
-- 10th Standard (SSLC) — Suguna RIP V School, Coimbatore (2024)
+- B.E. Mechatronics Engineering (MCT Department) — SNS Institutions, Coimbatore (Sept 2026 – Present)
+  Specializing in Automation, Robotics, Embedded Systems, and Mechatronics.
+- 12th Standard (HSC) — Suguna RIP V School, Coimbatore (Graduated in 2026)
+- 10th Standard (SSLC) — Suguna RIP V School, Coimbatore (Graduated in 2024)
 
-## Technical Skills
+## Technical Skills & Interests
 - Python: 80%
 - C++: 65%
-- Cyber Security: 70%
-- UI/UX Design: 65%
+- Ethical Hacking: 60% (Currently learning and exploring Cyber Security principles)
+- UI/UX Design: 75% (Loves designing modern, high-fidelity UI/UX mockups)
 - Automation Systems: 60%
 - Problem Solving: 85%
 - Robotics Basics: 55%
@@ -761,7 +762,7 @@ const HARI_KB = `
 - Laptop: ASUS ROG — beast of a machine!
 - Favourite Actor: Vijay (Thalapathy Vijay) — Tamil superstar
 - Chess: State-level Chess player ♟️ — a true strategic mastermind!
-- Cricket Team: RCB (Royal Challengers Bangalore) 🔴 fan + India supporter
+- Cricket Team: RCB (Royal Challengers Bangalore) 🔴 fan + India supporter. Slogan/Meme: EE SALA CUP NAMDU! 🏆
 - Favourite Cricket Player: AB de Villiers (ABD) — the legendary Mr. 360°
 - Best Friend: AI! (Hari Bot itself) 🤖
 
@@ -770,16 +771,34 @@ Hariharan is passionate, creative, and multi-talented — blending the worlds of
 `;
 
 // ============================================================
+// POPUP BLOCKER BYPASS LINK OPENER (User initiated triggers)
+// ============================================================
+function checkAndOpenLink(text) {
+  const t = text.toLowerCase();
+  const hasContact = t.includes('whatsapp') || t.includes('linkedin') || t.includes('gmail') || t.includes('email') || t.includes('contact') || t.includes('reach');
+  
+  if (hasContact) {
+    if (t.includes('whatsapp') || t.includes('number') || t.includes('phone') || t.includes('8667808803')) {
+      window.open('https://wa.me/918667808803', '_blank');
+    } else if (t.includes('linkedin') || t.includes('profile')) {
+      window.open('https://www.linkedin.com/in/hariharan-m-4a8533407', '_blank');
+    } else if (t.includes('gmail') || t.includes('email') || t.includes('mail') || t.includes('hariharanmct06@gmail.com')) {
+      window.open('mailto:hariharanmct06@gmail.com', '_blank');
+    }
+  }
+}
+
+// ============================================================
 // LOCAL RESPONSE GENERATOR (OFFLINE FALLBACK ENGINE)
 // ============================================================
 function getLocalResponse(text) {
   const t = text.toLowerCase();
   
-  if (t.includes('email') || t.includes('contact') || t.includes('mail') || t.includes('whatsapp') || t.includes('phone') || t.includes('linkedin') || t.includes('reach')) {
+  if (t.includes('email') || t.includes('contact') || t.includes('mail') || t.includes('whatsapp') || t.includes('phone') || t.includes('linkedin') || t.includes('reach') || t.includes('number') || t.includes('8667808803')) {
     return "You can reach **Hariharan** through the following channels:\n\n" +
            "• **Email**: hariharanmct06@gmail.com 📧\n" +
-           "• **WhatsApp**: +91 86678 08803 💬\n" +
-           "• **LinkedIn**: [linkedin.com/in/hariharan-m-4a8533407](https://linkedin.com/in/hariharan-m-4a8533407) 🔗\n\nHe is currently *Open to Opportunities*!";
+           "• **WhatsApp**: [Click to chat on WhatsApp (+91 86678 08803)](https://wa.me/918667808803) 💬\n" +
+           "• **LinkedIn**: [linkedin.com/in/hariharan-m-4a8533407](https://www.linkedin.com/in/hariharan-m-4a8533407) 🔗\n\nHe is currently *Open to Opportunities*! I have also opened a direct link for you.";
   }
   
   if (t.includes('heal') || t.includes('reiki') || t.includes('ama deus') || t.includes('amadeus') || t.includes('lama') || t.includes('fera') || t.includes('kwan') || t.includes('yin') || t.includes('acupuncture') || t.includes('sujok') || t.includes('energy') || t.includes('wellness') || t.includes('meditation')) {
@@ -803,8 +822,8 @@ function getLocalResponse(text) {
     return "A true dilemma! Hariharan loves both **Tea** ☕ and **Coffee** ☕ equally! He refuses to pick between them — it just depends on the mood!";
   }
   
-  if (t.includes('cricket') || t.includes('rcb') || t.includes('ipl') || t.includes('player') || t.includes('abd') || t.includes('villiers') || t.includes('royal chargers')) {
-    return "Hariharan is a hardcore **RCB (Royal Challengers Bangalore) fan**! 🔴 He supports Team India and is a huge fan of the legendary Mr. 360°, **AB de Villiers (ABD)**!";
+  if (t.includes('cricket') || t.includes('rcb') || t.includes('ipl') || t.includes('team') || t.includes('royal chargers')) {
+    return "**EE SALA CUP NAMDU**! 🔴🏆\n\nHariharan is a die-hard **RCB (Royal Challengers Bangalore) fan**! His favorite player is the legendary AB de Villiers (ABD) — Mr. 360°!";
   }
 
   if (t.includes('actor') || t.includes('vijay') || t.includes('thalapathy') || t.includes('movie')) {
@@ -815,17 +834,23 @@ function getLocalResponse(text) {
     return "Hariharan codes and builds on a beastly **ASUS ROG** laptop! 💻 He's very proud of his gaming and development machine.";
   }
 
-  if (t.includes('skill') || t.includes('tech') || t.includes('code') || t.includes('program') || t.includes('python') || t.includes('c++') || t.includes('figma') || t.includes('design') || t.includes('language')) {
+  if (t.includes('skill') || t.includes('tech') || t.includes('code') || t.includes('program') || t.includes('python') || t.includes('c++') || t.includes('figma') || t.includes('design') || t.includes('language') || t.includes('hacking') || t.includes('security') || t.includes('cyber')) {
     return "Hariharan has a robust engineering skillset:\n\n" +
-           "• **Python** (80%) — Automation, ML, scripting\n" +
-           "• **Cyber Security** (70%) — Threat monitoring & network security\n" +
-           "• **C++** (65%) — Embedded systems & microcontrollers\n" +
-           "• **UI/UX Design** (65%) — UI prototyping using Figma\n" +
+           "• **Python** (80%) & **C++** (65%) — Coding and systems scripting.\n" +
+           "• **UI/UX Design** (75%) — Designing high-fidelity interactive mockups in Figma.\n" +
+           "• **Ethical Hacking & Cyber Security** (70%) — Currently learning ethical hacking principles and threat diagnostics.\n" +
            "• **Automation & Robotics** (60%) — PLC programming, IoT, MQTT, and sensor integration.";
   }
 
-  if (t.includes('education') || t.includes('study') || t.includes('college') || t.includes('school') || t.includes('degree') || t.includes('mechatronics') || t.includes('university') || t.includes('sns')) {
-    return "Hariharan is currently pursuing a **B.E. in Mechatronics Engineering** at SNS Institution, Coimbatore (started Sept 2026), focusing on automation and robotics. Prior to this, he completed his SSLC (10th) and HSC (12th) at Suguna RIP V School.";
+  if (t.includes('education') || t.includes('study') || t.includes('college') || t.includes('school') || t.includes('degree') || t.includes('mechatronics') || t.includes('university') || t.includes('sns') || t.includes('suguna') || t.includes('12th')) {
+    return "Hariharan's educational path:\n\n" +
+           "• **B.E. Mechatronics Engineering (MCT Department)** — SNS Institutions, Coimbatore (Started in 2026).\n" +
+           "• **12th Standard (HSC)** — Completed in 2026 at Suguna RIP V School, Coimbatore.\n" +
+           "• **10th Standard (SSLC)** — Completed in 2024 at Suguna RIP V School, Coimbatore.";
+  }
+
+  if (t.includes('birthday') || t.includes('born') || t.includes('birth') || t.includes('age') || t.includes('july')) {
+    return "Hariharan was born on **July 06, 2008**! 🎂";
   }
 
   if (t.includes('project') || t.includes('make') || t.includes('build') || t.includes('app') || t.includes('dashboard') || t.includes('robot')) {
@@ -847,6 +872,86 @@ function getLocalResponse(text) {
 
   return "I could not find a specific match in my offline database, but **Hariharan** is a Mechatronics student, State-level Chess player, and Energy Healer. " +
          "For detailed queries, you can reach him at **hariharanmct06@gmail.com**! 📧";
+}
+
+// ============================================================
+// DYNAMIC LIVE NEWS RETRIEVER
+// ============================================================
+let cachedNews = "";
+let lastNewsFetchTime = 0;
+
+async function fetchLatestNewsContext() {
+  const now = Date.now();
+  if (cachedNews && (now - lastNewsFetchTime < 300000)) {
+    return cachedNews;
+  }
+  
+  try {
+    const res = await fetch('https://saurav.tech/NewsAPI/top-headlines/category/general/in.json');
+    if (res.ok) {
+      const data = await res.json();
+      if (data.articles && data.articles.length > 0) {
+        const tnKeywords = ['tamil', 'chennai', 'coimbatore', 'madurai', 'stalin', 'tn', 'south india'];
+        const tnArticles = data.articles.filter(a => {
+          const content = `${a.title} ${a.description || ''}`.toLowerCase();
+          return tnKeywords.some(kw => content.includes(kw));
+        });
+        
+        const selectedArticles = [...tnArticles];
+        for (const art of data.articles) {
+          if (selectedArticles.length >= 6) break;
+          if (!selectedArticles.some(a => a.url === art.url)) {
+            selectedArticles.push(art);
+          }
+        }
+        
+        const headlines = selectedArticles.map((art, idx) => {
+          return `${idx + 1}. [${art.source.name}] ${art.title} - ${art.description || ''}`;
+        }).join('\n');
+        
+        cachedNews = `LATEST INDIA & TAMIL NADU NEWS:\n${headlines}\n\n`;
+        lastNewsFetchTime = now;
+        return cachedNews;
+      }
+    }
+  } catch (e) {
+    console.error("Failed to fetch live news:", e);
+  }
+  return "";
+}
+
+async function getLocalNewsResponse() {
+  try {
+    const res = await fetch('https://saurav.tech/NewsAPI/top-headlines/category/general/in.json');
+    if (res.ok) {
+      const data = await res.json();
+      if (data.articles && data.articles.length > 0) {
+        const tnKeywords = ['tamil', 'chennai', 'coimbatore', 'madurai', 'stalin', 'tn'];
+        const tnArticles = data.articles.filter(a => {
+          const content = `${a.title} ${a.description || ''}`.toLowerCase();
+          return tnKeywords.some(kw => content.includes(kw));
+        });
+        
+        const selectedArticles = [...tnArticles];
+        for (const art of data.articles) {
+          if (selectedArticles.length >= 5) break;
+          if (!selectedArticles.some(a => a.url === art.url)) {
+            selectedArticles.push(art);
+          }
+        }
+        
+        const headlines = selectedArticles.map(art => {
+          const isTn = tnKeywords.some(kw => `${art.title} ${art.description || ''}`.toLowerCase().includes(kw));
+          return `• ${isTn ? '⭐ ' : ''}**${art.title}** (${art.source.name})`;
+        }).join('\n\n');
+        
+        return `Here are the latest headlines in India and Tamil Nadu (⭐ indicates regional news):\n\n${headlines}`;
+      }
+    }
+  } catch (e) {
+    console.error(e);
+  }
+  return "I'm having trouble fetching live news right now. Please check back later!";
 }
 
 // ============================================================
@@ -1112,6 +1217,9 @@ async function sendMessage(text) {
   text = text.trim();
   if (!text) return;
 
+  // Run synchronously to avoid popup blocker
+  checkAndOpenLink(text);
+
   addUserMsg(text);
   
   if (suggestionsShown) {
@@ -1122,7 +1230,6 @@ async function sendMessage(text) {
   const btn = document.getElementById('send-btn');
   btn.disabled = true;
 
-  // Intercept classified files request (Easter Egg)
   const trigger = detectTrigger(text);
 
   if (trigger === 'CRUSH') {
@@ -1148,10 +1255,18 @@ async function sendMessage(text) {
 
   showTyping();
 
+  const t = text.toLowerCase();
+  const isNewsQuery = t.includes('news') || t.includes('happening') || t.includes('latest info') || t.includes('current affairs') || t.includes('tamil nadu') || t.includes('india');
+
   // If local mode is active or client is offline, intercept immediately
   if (!userApiKey || !navigator.onLine) {
     await sleep(400); // Simulate bot reading time
-    const localReply = getLocalResponse(text);
+    let localReply = "";
+    if (isNewsQuery && navigator.onLine) {
+      localReply = await getLocalNewsResponse();
+    } else {
+      localReply = getLocalResponse(text);
+    }
     hideTyping();
     addBotMsg(localReply);
     
@@ -1163,8 +1278,17 @@ async function sendMessage(text) {
     return;
   }
 
+  // Fetch live news headlines if requested
+  let newsContext = "";
+  if (isNewsQuery) {
+    newsContext = await fetchLatestNewsContext();
+  }
+
   // System Prompt for API RAG
-  const system = `You are HARI BOT — a witty, warm, and personalized AI assistant that knows everything about Hariharan. Answer ONLY from the knowledge base below. Be enthusiastic, conversational, and use emojis naturally. Keep responses to 2-5 sentences max unless detail is truly needed. If something is not in the knowledge base, say you don't know and suggest reaching Hariharan at hariharanmct06@gmail.com.
+  const system = `You are HARI BOT — a witty, warm, and highly personalized AI assistant that knows everything about Hariharan. Keep all responses crisp, concise (1-3 sentences max), and engaging. Use emojis naturally.
+
+Answer queries about Hariharan using the Knowledge Base below.
+If the user asks something new, general, or unrelated to Hariharan, use your own intelligence (Gemini) to answer their question directly, clearly, and crisply! Do not refuse general questions or say "I don't know" if it's a general query (like math, science, programming, general facts, etc.) — help them out while keeping it short and conversational.
 
 KNOWLEDGE BASE:
 ${HARI_KB}
@@ -1173,7 +1297,7 @@ PERSONALITY RULES:
 - Biriyani question → get SUPER excited 🍛
 - Healing questions (Reiki, Ama Deus, Lama Fera, Kwan Yin, Acupuncture, Sujok) → explain with care and pride — this is Hariharan's special gift!
 - Chess → celebrate his STATE-LEVEL achievement with pride ♟️
-- RCB cricket → show passion and love for ABD
+- Favorite Cricket Team / RCB → MUST say "**EE SALA CUP NAMDU**! 🔴🏆"
 - Tea vs Coffee → he loves BOTH, refuses to pick
 - Vijay → big fan energy!
 - ASUS ROG → proud of his machine
@@ -1182,7 +1306,7 @@ PERSONALITY RULES:
 
   try {
     const messages = [
-      { role: 'system', content: system },
+      { role: 'system', content: system + (newsContext ? `\n\nUse the following live news context to answer queries about latest happenings in Tamil Nadu or India:\n${newsContext}` : "") },
       ...chatHistory,
       { role: 'user', content: text }
     ];
@@ -1201,7 +1325,7 @@ PERSONALITY RULES:
         'X-Title': 'HARI BOT'
       },
       body: JSON.stringify({
-        model: 'meta-llama/llama-3.3-70b-instruct:free',
+        model: 'google/gemini-2.5-flash',
         max_tokens: 800,
         messages
       })
@@ -1286,7 +1410,7 @@ function updateBannerStatus() {
     banner.style.borderBottom = '1px solid rgba(255, 80, 80, 0.3)';
   } else if (!userApiKey) {
     banner.style.display = 'block';
-    banner.textContent = '⚡ Local Mode — Powered by offline Knowledge Base. Click ⚙️ to add API Key for full AI.';
+    banner.textContent = '⚡ Local Mode — Powered by offline Knowledge Base. Click ⚙️ to add API Key for Gemini.';
     banner.style.background = 'rgba(0, 229, 204, 0.1)';
     banner.style.color = 'var(--teal)';
     banner.style.borderBottom = '1px solid rgba(0, 229, 204, 0.18)';
@@ -1388,7 +1512,10 @@ function init() {
     btn.className = 'sugg';
     btn.textContent = q;
     btn.type = 'button';
-    btn.onclick = () => { sendMessage(q); };
+    btn.onclick = () => { 
+      checkAndOpenLink(q);
+      sendMessage(q); 
+    };
     sugBox.appendChild(btn);
   });
 
@@ -1403,6 +1530,7 @@ function init() {
     e.preventDefault();
     const val = inp.value.trim();
     if (val) {
+      checkAndOpenLink(val);
       sendMessage(val);
       inp.value = '';
     }
