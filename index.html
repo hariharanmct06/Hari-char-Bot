@@ -783,12 +783,12 @@ const HARI_KB = `
 // ============================================================
 function checkAndOpenLink(text) {
   const t = text.toLowerCase();
-  const hasContact = t.includes('whatsapp') || t.includes('linkedin') || t.includes('gmail') || t.includes('email') || t.includes('contact') || t.includes('reach');
+  const hasContact = t.includes('whatsapp') || t.includes('linkedin') || t.includes('linkdin') || t.includes('gmail') || t.includes('email') || t.includes('contact') || t.includes('reach');
   
   if (hasContact) {
     if (t.includes('whatsapp') || t.includes('number') || t.includes('phone') || t.includes('8667808803')) {
       window.open('https://wa.me/918667808803', '_blank');
-    } else if (t.includes('linkedin') || t.includes('profile')) {
+    } else if (t.includes('linkedin') || t.includes('linkdin') || t.includes('profile')) {
       window.open('https://www.linkedin.com/in/hariharan-m-4a8533407', '_blank');
     } else if (t.includes('gmail') || t.includes('email') || t.includes('mail') || t.includes('hariharanmct06@gmail.com')) {
       window.open('mailto:hariharanmct06@gmail.com', '_blank');
@@ -814,7 +814,7 @@ function getLocalResponse(text) {
     return `The current time is **${time}** ⏰.`;
   }
   
-  if (t.includes('email') || t.includes('contact') || t.includes('mail') || t.includes('whatsapp') || t.includes('phone') || t.includes('linkedin') || t.includes('reach') || t.includes('number') || t.includes('8667808803')) {
+  if (t.includes('email') || t.includes('contact') || t.includes('mail') || t.includes('whatsapp') || t.includes('phone') || t.includes('linkedin') || t.includes('linkdin') || t.includes('reach') || t.includes('number') || t.includes('8667808803')) {
     return "You can reach **Hariharan** through the following channels:\n\n" +
            "• **Email**: hariharanmct06@gmail.com 📧\n" +
            "• **WhatsApp**: [Click to chat on WhatsApp (+91 86678 08803)](https://wa.me/918667808803) 💬\n" +
