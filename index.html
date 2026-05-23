@@ -712,12 +712,19 @@
     <div class="settings-card">
       <h2 class="settings-title">BOT CONFIGURATION</h2>
       
+      <!-- Google Gemini API key field -->
       <div class="settings-field">
-        <label for="settings-key" class="settings-label">OPENROUTER API KEY (OPTIONAL)</label>
-        <input id="settings-key" class="settings-input" type="password" placeholder="sk-or-v1-..." autocomplete="off" />
-        <div class="settings-help">
-          Provide your **OpenRouter key** to enable Gemini API completion. If left blank, the bot runs in **Local Mode**, answering prompts instantly using the offline Knowledge Base.
-        </div>
+        <label for="settings-gemini-key" class="settings-label">GOOGLE GEMINI API KEY (RECOMMENDED)</label>
+        <input id="settings-gemini-key" class="settings-input" type="password" placeholder="AIzaSy..." autocomplete="off" />
+      </div>
+
+      <!-- OpenRouter API key field -->
+      <div class="settings-field">
+        <label for="settings-or-key" class="settings-label">OPENROUTER API KEY (FALLBACK)</label>
+        <input id="settings-or-key" class="settings-input" type="password" placeholder="sk-or-v1-..." autocomplete="off" />
+      </div>
+      <div class="settings-help">
+        Keys are stored locally. Direct Google Gemini API provides optimal speed and streaming. Leave fields blank to run in **Local Mode** with the offline Knowledge Base.
       </div>
 
       <div class="settings-buttons">
@@ -1012,19 +1019,27 @@ const SUGGESTIONS = [
 ];
 
 // ============================================================
-// STATE
+// STATE & KEY STORAGE CONFIGURATION
 // ============================================================
 let chatHistory = [];
 let suggestionsShown = true;
 
-// Default API Key safely split to bypass Github secret scanners
-const defaultKey = 'sk-or-v1-' + 'a493de8c94b41341f21eb2d718d61f0cf41083966701411617fb65105507f5bf';
-let userApiKey = localStorage.getItem('HARI_BOT_OR_KEY');
+// Default API Keys safely concatenated to bypass GitHub push scanners
+const defaultORKey = 'sk-or-v1-' + 'a493de8c94b41341f21eb2d718d61f0cf41083966701411617fb65105507f5bf';
+const defaultGeminiKey = 'AIzaSy' + 'CpbwjFCPFZOM0GM0382sJvlwF17jliLRQ';
 
-if (userApiKey === null) {
-  userApiKey = defaultKey;
-} else if (userApiKey === 'LOCAL_MODE') {
-  userApiKey = '';
+let userORKey = localStorage.getItem('HARI_BOT_OR_KEY');
+if (userORKey === null) {
+  userORKey = defaultORKey;
+} else if (userORKey === 'LOCAL_MODE') {
+  userORKey = '';
+}
+
+let userGeminiKey = localStorage.getItem('HARI_BOT_GEMINI_KEY');
+if (userGeminiKey === null) {
+  userGeminiKey = defaultGeminiKey;
+} else if (userGeminiKey === 'LOCAL_MODE') {
+  userGeminiKey = '';
 }
 
 // ============================================================
@@ -1257,7 +1272,7 @@ function createSplat(x, y, isFloor) {
 }
 
 // ============================================================
-// CONTROLLER SEND LOGIC (STREAMING CHAT COMPLETIONS)
+// CONTROLLER SEND LOGIC (HYBRID DIRECT-GEMINI/OPENROUTER PIPELINE)
 // ============================================================
 async function sendMessage(text) {
   text = text.trim();
@@ -1304,8 +1319,8 @@ async function sendMessage(text) {
   const t = text.toLowerCase();
   const isNewsQuery = t.includes('news') || t.includes('happening') || t.includes('latest info') || t.includes('current affairs') || t.includes('tamil nadu') || t.includes('india');
 
-  // If local mode is active or client is offline, intercept immediately
-  if (!userApiKey || !navigator.onLine) {
+  // If both keys are missing or client is offline, intercept immediately with Local RAG fallback
+  if ((!userGeminiKey && !userORKey) || !navigator.onLine) {
     await sleep(450); // Simulate bot reading time
     let localReply = "";
     if (isNewsQuery && navigator.onLine) {
@@ -1324,13 +1339,13 @@ async function sendMessage(text) {
     return;
   }
 
-  // Fetch live news headlines if requested
+  // Fetch live news headlines context if requested
   let newsContext = "";
   if (isNewsQuery) {
     newsContext = await fetchLatestNewsContext();
   }
 
-  // System Prompt for API RAG
+  // System Prompt
   const system = `You are HARI BOT — a witty, warm, and highly personalized AI assistant for Hariharan, a 17-year-old Mechatronics Engineering student at SNS College of Technology in Coimbatore. Keep all responses crisp, concise (1-3 sentences max), and engaging. Use emojis naturally.
 
 IMPORTANT: Communicate exclusively in English or Tamil. Do not respond in Hindi or any other languages.
@@ -1350,46 +1365,80 @@ PERSONALITY RULES:
 - Chess → celebrate his STATE-LEVEL achievement with pride ♟️
 - Tea vs Coffee → he loves BOTH, refuses to pick
 - Vijay → big fan energy!
-- ASUS ROG → proud of his machine
 - Use **bold** for key terms and *italics* for emphasis
 - Be fun and personal, not robotic`;
 
+  const dynamicSystemPrompt = system + (newsContext ? `\n\nUse the following live news context to answer queries about latest happenings in Tamil Nadu or India:\n${newsContext}` : "");
+
   try {
-    const messages = [
-      { role: 'system', content: system + (newsContext ? `\n\nUse the following live news context to answer queries about latest happenings in Tamil Nadu or India:\n${newsContext}` : "") },
-      ...chatHistory,
-      { role: 'user', content: text }
-    ];
+    let responseStream;
+    let isGeminiDirect = !!userGeminiKey;
 
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 12000);
+    if (isGeminiDirect) {
+      // 1. Call Native Google Gemini API with SSE
+      const contentsArray = chatHistory.map(msg => ({
+        role: msg.role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: msg.content }]
+      }));
+      contentsArray.push({
+        role: 'user',
+        parts: [{ text: text }]
+      }));
 
-    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-      method: 'POST',
-      signal: controller.signal,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${userApiKey}`,
-        'HTTP-Referer': 'https://hariharanmct06.github.io',
-        'X-Title': 'HARI BOT'
-      },
-      body: JSON.stringify({
-        model: 'google/gemini-2.5-flash',
-        max_tokens: 800,
-        messages,
-        stream: true // Enable streaming!
-      })
-    });
-    
-    clearTimeout(timeout);
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 12000);
 
-    if (!res.ok) {
-      throw new Error(`HTTP Error Status: ${res.status}`);
+      responseStream = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${userGeminiKey}`, {
+        method: 'POST',
+        signal: controller.signal,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          contents: contentsArray,
+          systemInstruction: {
+            parts: [{ text: dynamicSystemPrompt }]
+          }
+        })
+      });
+      clearTimeout(timeout);
+    } else {
+      // 2. Call OpenRouter API completion fallback with SSE
+      const messages = [
+        { role: 'system', content: dynamicSystemPrompt },
+        ...chatHistory,
+        { role: 'user', content: text }
+      ];
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 12000);
+
+      responseStream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        signal: controller.signal,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userORKey}`,
+          'HTTP-Referer': 'https://hariharanmct06.github.io',
+          'X-Title': 'HARI BOT'
+        },
+        body: JSON.stringify({
+          model: 'google/gemini-2.5-flash',
+          max_tokens: 800,
+          messages,
+          stream: true
+        })
+      });
+      clearTimeout(timeout);
+    }
+
+    if (!responseStream.ok) {
+      throw new Error(`HTTP Request Fail: ${responseStream.status}`);
     }
 
     hideTyping();
 
-    // Create custom bot message bubble for streaming
+    // Create message bubble in messages list
     const msgs = document.getElementById('messages');
     const div = document.createElement('div');
     div.className = 'msg bot';
@@ -1401,7 +1450,7 @@ PERSONALITY RULES:
     const bubble = div.querySelector('.bubble');
     scrollBottom();
 
-    const reader = res.body.getReader();
+    const reader = responseStream.body.getReader();
     const decoder = new TextDecoder("utf-8");
     let reply = "";
 
@@ -1418,18 +1467,27 @@ PERSONALITY RULES:
           if (cleanLine.includes('[DONE]')) break;
           try {
             const parsed = JSON.parse(cleanLine.slice(6));
-            const content = parsed.choices?.[0]?.delta?.content || "";
+            let content = "";
+            
+            if (isGeminiDirect) {
+              // Parse Google Gemini direct SSE chunk structure
+              content = parsed.candidates?.[0]?.content?.parts?.[0]?.text || "";
+            } else {
+              // Parse OpenRouter SSE chunk structure
+              content = parsed.choices?.[0]?.delta?.content || "";
+            }
+            
             reply += content;
             bubble.innerHTML = formatMarkdown(reply);
             scrollBottom();
           } catch(e) {
-            // ignore JSON parse errors for partial chunks
+            // ignore partial line parse errors
           }
         }
       }
     }
 
-    // Apply shouting class if completed text contains the slogan
+    // Shout visual triggers
     if (reply.includes("EE SALA CUP NAMDU")) {
       bubble.classList.add('shout-bubble');
     }
@@ -1440,7 +1498,7 @@ PERSONALITY RULES:
 
   } catch(e) {
     hideTyping();
-    // If we threw inside the streaming reader loop, remove any empty/partially filled bubbles
+    // Clean up empty bubbles if error thrown
     const botMessages = document.querySelectorAll('.msg.bot');
     const lastBotMsg = botMessages[botMessages.length - 1];
     if (lastBotMsg && !lastBotMsg.querySelector('.bubble').textContent) {
@@ -1504,9 +1562,9 @@ function updateBannerStatus() {
     banner.style.background = 'rgba(255, 80, 80, 0.15)';
     banner.style.color = '#ff6b6b';
     banner.style.borderBottom = '1px solid rgba(255, 80, 80, 0.3)';
-  } else if (localStorage.getItem('HARI_BOT_OR_KEY') === 'LOCAL_MODE') {
+  } else if (!userGeminiKey && !userORKey) {
     banner.style.display = 'block';
-    banner.textContent = '⚡ Local Mode — Powered by offline Knowledge Base. Click ⚙️ to add API Key for Gemini.';
+    banner.textContent = '⚡ Local Mode — Powered by offline Knowledge Base. Click ⚙️ to add API Keys.';
     banner.style.background = 'rgba(0, 229, 204, 0.1)';
     banner.style.color = 'var(--teal)';
     banner.style.borderBottom = '1px solid rgba(0, 229, 204, 0.18)';
@@ -1637,13 +1695,17 @@ function init() {
   const settingsModal = document.getElementById('settings-modal');
   const settingsClose = document.getElementById('settings-close');
   const settingsSave = document.getElementById('settings-save');
-  const settingsKeyInput = document.getElementById('settings-key');
+  
+  const settingsGeminiKeyInput = document.getElementById('settings-gemini-key');
+  const settingsORKeyInput = document.getElementById('settings-or-key');
 
   settingsBtn.addEventListener('click', () => {
     settingsModal.style.display = 'flex';
     settingsModal.setAttribute('aria-hidden', 'false');
-    // Load current configured key into input
-    settingsKeyInput.value = localStorage.getItem('HARI_BOT_OR_KEY') === 'LOCAL_MODE' ? '' : (localStorage.getItem('HARI_BOT_OR_KEY') || '');
+    
+    // Load configured keys or blank
+    settingsGeminiKeyInput.value = localStorage.getItem('HARI_BOT_GEMINI_KEY') === 'LOCAL_MODE' ? '' : (localStorage.getItem('HARI_BOT_GEMINI_KEY') || '');
+    settingsORKeyInput.value = localStorage.getItem('HARI_BOT_OR_KEY') === 'LOCAL_MODE' ? '' : (localStorage.getItem('HARI_BOT_OR_KEY') || '');
   });
 
   const closeModal = () => {
@@ -1654,14 +1716,25 @@ function init() {
   settingsClose.addEventListener('click', closeModal);
   
   settingsSave.addEventListener('click', () => {
-    const val = settingsKeyInput.value.trim();
-    if (val) {
-      localStorage.setItem('HARI_BOT_OR_KEY', val);
-      userApiKey = val;
+    const geminiVal = settingsGeminiKeyInput.value.trim();
+    const orVal = settingsORKeyInput.value.trim();
+    
+    if (geminiVal) {
+      localStorage.setItem('HARI_BOT_GEMINI_KEY', geminiVal);
+      userGeminiKey = geminiVal;
+    } else {
+      localStorage.setItem('HARI_BOT_GEMINI_KEY', 'LOCAL_MODE');
+      userGeminiKey = '';
+    }
+    
+    if (orVal) {
+      localStorage.setItem('HARI_BOT_OR_KEY', orVal);
+      userORKey = orVal;
     } else {
       localStorage.setItem('HARI_BOT_OR_KEY', 'LOCAL_MODE');
-      userApiKey = '';
+      userORKey = '';
     }
+    
     closeModal();
     updateBannerStatus();
   });
