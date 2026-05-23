@@ -1383,7 +1383,7 @@ PERSONALITY RULES:
       contentsArray.push({
         role: 'user',
         parts: [{ text: text }]
-      }));
+      });
 
       const controller = new AbortController();
       const timeout = setTimeout(() => controller.abort(), 12000);
@@ -1453,13 +1453,15 @@ PERSONALITY RULES:
     const reader = responseStream.body.getReader();
     const decoder = new TextDecoder("utf-8");
     let reply = "";
+    let buffer = "";
 
     while (true) {
       const { done, value } = await reader.read();
       if (done) break;
       
-      const chunk = decoder.decode(value, { stream: true });
-      const lines = chunk.split('\n');
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
       
       for (const line of lines) {
         const cleanLine = line.trim();
