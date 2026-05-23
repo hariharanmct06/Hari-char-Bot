@@ -1416,23 +1416,48 @@ PERSONALITY RULES:
         parts: [{ text: text }]
       });
 
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 12000);
+      const modelsToTry = [
+        'gemini-3.5-flash',
+        'gemini-2.5-flash-lite',
+        'gemini-2.5-flash',
+        'gemini-2.0-flash-lite',
+        'gemini-2.0-flash'
+      ];
+      
+      let lastError = null;
+      for (const model of modelsToTry) {
+        try {
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 12000);
 
-      responseStream = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${userGeminiKey}`, {
-        method: 'POST',
-        signal: controller.signal,
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          contents: contentsArray,
-          systemInstruction: {
-            parts: [{ text: dynamicSystemPrompt }]
+          responseStream = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${userGeminiKey}`, {
+            method: 'POST',
+            signal: controller.signal,
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              contents: contentsArray,
+              systemInstruction: {
+                parts: [{ text: dynamicSystemPrompt }]
+              }
+            })
+          });
+          clearTimeout(timeout);
+          if (responseStream.ok) {
+            lastError = null;
+            break; // Success!
+          } else {
+            const errText = await responseStream.text();
+            lastError = new Error(`Model ${model} failed with status ${responseStream.status}: ${errText}`);
           }
-        })
-      });
-      clearTimeout(timeout);
+        } catch (err) {
+          lastError = err;
+        }
+      }
+      if (lastError) {
+        throw lastError;
+      }
     } else {
       // 2. Call OpenRouter API completion fallback with SSE
       const messages = [
@@ -1441,30 +1466,50 @@ PERSONALITY RULES:
         { role: 'user', content: text }
       ];
 
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 12000);
+      const openRouterModels = [
+        'google/gemini-2.5-flash',
+        'google/gemini-2.5-flash-lite',
+        'google/gemini-2.0-flash-lite',
+        'google/gemini-2.0-flash'
+      ];
 
-      responseStream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-        method: 'POST',
-        signal: controller.signal,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${userORKey}`,
-          'HTTP-Referer': 'https://hariharanmct06.github.io',
-          'X-Title': 'HARI BOT'
-        },
-        body: JSON.stringify({
-          model: 'google/gemini-2.5-flash',
-          max_tokens: 800,
-          messages,
-          stream: true
-        })
-      });
-      clearTimeout(timeout);
-    }
+      let lastError = null;
+      for (const model of openRouterModels) {
+        try {
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 12000);
 
-    if (!responseStream.ok) {
-      throw new Error(`HTTP Request Fail: ${responseStream.status}`);
+          responseStream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+            method: 'POST',
+            signal: controller.signal,
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${userORKey}`,
+              'HTTP-Referer': 'https://hariharanmct06.github.io',
+              'X-Title': 'HARI BOT'
+            },
+            body: JSON.stringify({
+              model: model,
+              max_tokens: 800,
+              messages,
+              stream: true
+            })
+          });
+          clearTimeout(timeout);
+          if (responseStream.ok) {
+            lastError = null;
+            break;
+          } else {
+            const errText = await responseStream.text();
+            lastError = new Error(`OpenRouter Model ${model} failed with status ${responseStream.status}: ${errText}`);
+          }
+        } catch (err) {
+          lastError = err;
+        }
+      }
+      if (lastError) {
+        throw lastError;
+      }
     }
 
     hideTyping();
