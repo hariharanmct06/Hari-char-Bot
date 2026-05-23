@@ -9,7 +9,7 @@
   <meta name="theme-color" content="#07090f">
   
   <title>HARI BOT — Your Personal AI Portfolio Companion</title>
-  <meta name="description" content="Meet HARI BOT, the interactive AI companion for Hariharan. Learn about his mechatronics projects, energy healing gifts, chess achievements, and more.">  <!-- External Fonts -->
+  <meta name="description" content="Meet HARI BOT, the interactive AI companion for Hariharan. Learn about his mechatronics engineering studies, technical projects, programming skills, and more.">  <!-- External Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
@@ -665,9 +665,9 @@
         </div>
       </div>
       <div class="header-tags">
+        <span class="htag">MECHATRONICS</span>
+        <span class="htag">ROBOTICS</span>
         <span class="htag">REIKI</span>
-        <span class="htag">CHESS</span>
-        <span class="htag">RCB 🔴</span>
       </div>
       <!-- Settings Panel Trigger Button -->
       <button id="settings-btn" title="Bot Configuration" aria-label="Settings">
@@ -768,17 +768,14 @@ const HARI_KB = `
 - Applications: distance healing techniques, specialized healing tools, energetic therapy
 
 ## Personal Preferences & Aesthetics
-- Cricket Team: RCB (Royal Challengers Bangalore) 🔴 fan. Slogan/Meme: EE SALA CUP NAMDU! 🏆 (Loves RCB and AB de Villiers)
 - Visual Style & Design: High-fidelity image generation, preferring:
   * Ultra-realistic and cinematic portraits.
   * Retro and vintage design aesthetics.
   * Studio Ghibli art style (whimsical, stylized cartoons).
-  * Sports media layouts with custom names and jersey numbers 17 and 18.
-- Favourite Food: Biriyani 🍛 — absolute favourite!
+  * Technical diagram mockups with customized layout structures.
 - Favourite Beverages: Both Tea ☕ AND Coffee ☕ — loves both equally!
 - Laptop: ASUS ROG — beast of a machine!
 - Favourite Actor: Vijay (Thalapathy Vijay) — Tamil superstar
-- Chess: State-level Chess player ♟️ — a true strategic mastermind!
 `;
 
 // ============================================================
@@ -832,21 +829,9 @@ function getLocalResponse(text) {
            "• **Applications**: Distance healing techniques, specialized healing tools, and energetic therapy.";
   }
   
-  if (t.includes('chess') || t.includes('board game') || t.includes('play')) {
-    return "Yes, Hariharan is a **State-level Chess player** ♟️! He loves strategic masterminds and applies his tactical chess thinking to coding and systems design.";
-  }
-  
-  if (t.includes('food') || t.includes('eat') || t.includes('biriyani') || t.includes('biryani') || t.includes('dish') || t.includes('hungry')) {
-    return "Oh, did someone say **Biriyani**?! 🍛 That is Hariharan's absolute favorite food! He loves it so much he could happily eat it every single day without getting tired of it!";
-  }
-  
   // Bugfix: exact word boundary checks to avoid "team" triggers
   if (/\btea\b/.test(t) || /\bcoffee\b/.test(t) || /\bchai\b/.test(t) || t.includes('beverage') || t.includes('drink')) {
     return "A true dilemma! Hariharan loves both **Tea** ☕ and **Coffee** ☕ equally! He refuses to pick between them — it just depends on the mood!";
-  }
-  
-  if (t.includes('cricket') || t.includes('rcb') || t.includes('ipl') || t.includes('team') || t.includes('royal chargers') || t.includes('favorite sport') || t.includes('slogan')) {
-    return "**EE SALA CUP NAMDU!!!** 🔴🏆🔴🏆\n\nHariharan is a die-hard **RCB (Royal Challengers Bangalore) fan**! His favorite player is the legendary AB de Villiers (ABD) — Mr. 360°!";
   }
 
   if (t.includes('actor') || t.includes('vijay') || t.includes('thalapathy') || t.includes('movie')) {
@@ -908,10 +893,10 @@ function getLocalResponse(text) {
   }
 
   if (t.includes('who') || t.includes('about') || t.includes('hari') || t.includes('profile') || t.includes('summary')) {
-    return "Hariharan is a passionate **Mechatronics student** at SNS College of Technology, an **Energy Healer** associated with Agasthiya Healing Centre, a **State-level Chess player** ♟️, and a hardcore **RCB fan**! 🤖✨";
+    return "Hariharan is a passionate **Mechatronics student** at SNS College of Technology and an **Energy Healer** associated with Agasthiya Healing Centre! 🤖✨";
   }
 
-  return "I could not find a specific match in my offline database, but **Hariharan** is a Mechatronics student, State-level Chess player, and Energy Healer. " +
+  return "I could not find a specific match in my offline database, but **Hariharan** is a Mechatronics student and an Energy Healer. " +
          "For detailed queries, you can reach him at **hariharanmct06@gmail.com**! 📧";
 }
 
@@ -1017,11 +1002,11 @@ function detectTrigger(text) {
 // SUGGESTED QUESTIONS
 // ============================================================
 const SUGGESTIONS = [
+  "Tell me about your mechatronics studies 🎓",
+  "What programming languages do you know? 💻",
+  "What mechatronics projects have you built? 🤖",
+  "What are your core tech skills? 🚀",
   "What healing modalities do you know? 🌿",
-  "What's your favourite food? 🍛",
-  "Are you a chess player? ♟️",
-  "RCB fan? 🔴",
-  "What are your tech skills? 💻",
   "Who is your best friend? 🤖",
 ];
 
@@ -1366,10 +1351,7 @@ ${HARI_KB}
 
 PERSONALITY RULES:
 - Age question → explicitly answer that Hariharan is **17 years old**. Do not only reply with his DOB; state his age is 17!
-- Favorite Cricket Team / RCB / IPL question → you must SHOUT: "**EE SALA CUP NAMDU!!!** 🔴🏆🔴🏆" and explain his love for RCB and AB de Villiers.
-- Biriyani question → get SUPER excited 🍛
 - Healing questions (Reiki, Ama-Deus, Sujok) → explain with care and pride — this is Hariharan's special gift and his association with the Agasthiya Healing Centre!
-- Chess → celebrate his STATE-LEVEL achievement with pride ♟️
 - Tea vs Coffee → he loves BOTH, refuses to pick
 - Vijay → big fan energy!
 - Use **bold** for key terms and *italics* for emphasis
@@ -1684,7 +1666,7 @@ function init() {
   });
 
   // Welcome Intro Message
-  addBotMsg("Hey! I'm **HARI BOT** 🤖✨ — Hariharan's personal AI!\n\nI know everything about him — from his **energy healing** powers 🌿 to his **state-level chess** game ♟️, his love for **Biriyani** 🍛, and his undying loyalty to **RCB** 🔴!\n\nAsk me anything! 👇");
+  addBotMsg("Hey! I'm **HARI BOT** 🤖✨ — Hariharan's personal AI!\n\nHariharan is currently studying **Mechatronics Engineering** at **SNS College of Technology** in Coimbatore 🎓.\n\nHe is a passionate tech enthusiast who loves coding in **Python** and **C++** 💻, designing sleek **UI/UX interfaces** in Figma, and automating workflows!\n\nAsk me anything about his studies, programming skills, or technical projects! 👇");
 
   // Chat Form Handling (Prevents default page refresh on submit)
   const form = document.getElementById('chat-form');
