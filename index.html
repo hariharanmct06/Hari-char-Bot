@@ -743,6 +743,7 @@ const HARI_KB = `
 - Ethnicity: Malayali (born and brought up in Coimbatore, Tamil Nadu)
 - Email: hariharanmct06@gmail.com
 - LinkedIn: linkedin.com/in/hariharan-m-4a8533407
+- Portfolio Website: https://portfolio-new-psi-ten-33.vercel.app/ (If anyone asks for more details, a link, a website, or more about you, provide this URL and guide them there.)
 - WhatsApp: +91 86678 08803
 - Status: Open to Opportunities
 - Languages: English and Tamil (Fluent/Preferred). Malayalam (Proficient/Ethnicity). Communicates exclusively in English or Tamil. Does not speak or respond in Hindi.
@@ -784,15 +785,23 @@ const HARI_KB = `
 function checkAndOpenLink(text) {
   const t = text.toLowerCase();
   const hasContact = t.includes('whatsapp') || t.includes('linkedin') || t.includes('linkdin') || t.includes('gmail') || t.includes('email') || t.includes('contact') || t.includes('reach');
-  
+  const hasPortfolio = t.includes('portfolio') || t.includes('website') || t.includes('more detail') || t.includes('more about') || t.includes('personal link') || t.includes('detail about');
+
   if (hasContact) {
     if (t.includes('whatsapp') || t.includes('number') || t.includes('phone') || t.includes('8667808803')) {
       window.open('https://wa.me/918667808803', '_blank');
+      return;
     } else if (t.includes('linkedin') || t.includes('linkdin') || t.includes('profile')) {
       window.open('https://www.linkedin.com/in/hariharan-m-4a8533407', '_blank');
+      return;
     } else if (t.includes('gmail') || t.includes('email') || t.includes('mail') || t.includes('hariharanmct06@gmail.com')) {
       window.open('mailto:hariharanmct06@gmail.com', '_blank');
+      return;
     }
+  }
+
+  if (hasPortfolio) {
+    window.open('https://portfolio-new-psi-ten-33.vercel.app/', '_blank');
   }
 }
 
@@ -814,6 +823,11 @@ function getLocalResponse(text) {
     return `The current time is **${time}** ⏰.`;
   }
   
+  if (t.includes('portfolio') || t.includes('website') || t.includes('more detail') || t.includes('more about') || t.includes('link') || t.includes('detail about')) {
+    return "You can find more details and a full overview of **Hariharan's** mechatronics and programming work on his live portfolio website:\n\n" +
+           "🔗 **Portfolio**: [portfolio-new-psi-ten-33.vercel.app](https://portfolio-new-psi-ten-33.vercel.app/)\n\nI have also opened a direct link for you!";
+  }
+
   if (t.includes('email') || t.includes('contact') || t.includes('mail') || t.includes('whatsapp') || t.includes('phone') || t.includes('linkedin') || t.includes('linkdin') || t.includes('reach') || t.includes('number') || t.includes('8667808803')) {
     return "You can reach **Hariharan** through the following channels:\n\n" +
            "• **Email**: hariharanmct06@gmail.com 📧\n" +
