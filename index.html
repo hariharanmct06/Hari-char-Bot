@@ -157,13 +157,13 @@
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       flex-shrink: 0;
       position: relative;
       overflow: hidden;
     }
     @media (min-width: 600px) {
-      header { padding: 18px 24px; gap: 12px; }
+      header { padding: 18px 24px; }
     }
     header::after {
       content: '';
@@ -177,8 +177,8 @@
     }
 
     .bot-avatar {
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--teal), var(--gold));
       display: flex;
@@ -191,7 +191,7 @@
       position: relative;
     }
     @media (min-width: 600px) {
-      .bot-avatar { width: 46px; height: 46px; font-size: 20px; }
+      .bot-avatar { width: 48px; height: 48px; font-size: 22px; }
     }
     .bot-avatar::after {
       content: '';
@@ -209,46 +209,12 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* User Photo Avatar */
-    .user-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold), var(--teal));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: var(--glow-g);
-      animation: avatarPulse2 3s ease-in-out infinite;
-      position: relative;
-      overflow: visible;
-    }
-    @media (min-width: 600px) {
-      .user-avatar { width: 46px; height: 46px; }
-    }
-    .user-avatar::after {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: 50%;
-      border: 2px solid transparent;
-      background: linear-gradient(var(--bg2), var(--bg2)) padding-box,
-                  linear-gradient(135deg, var(--gold), var(--teal)) border-box;
-      animation: spin 6s linear infinite;
-      animation-delay: -3s;
-    }
-    @keyframes avatarPulse2 {
-      0%, 100% { box-shadow: var(--glow-g); }
-      50% { box-shadow: 0 0 30px rgba(0, 229, 204, 0.5), 0 0 80px rgba(0, 229, 204, 0.15); }
-    }
-
     .header-info { flex: 1; min-width: 0; }
     h1.bot-name {
       font-family: 'Orbitron', monospace;
-      font-size: clamp(12px, 4vw, 16px);
+      font-size: clamp(14px, 4.5vw, 18px);
       font-weight: 900;
-      letter-spacing: 1.5px;
+      letter-spacing: 2px;
       background: linear-gradient(135deg, var(--teal), var(--gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -259,18 +225,18 @@
     }
     .bot-subtitle {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 8.5px;
+      font-size: 9px;
       color: var(--muted);
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
       margin-top: 2px;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
       white-space: nowrap;
     }
     .status-dot {
-      width: 5px;
-      height: 5px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--teal);
       box-shadow: 0 0 6px var(--teal);
@@ -299,7 +265,7 @@
       background: transparent;
       border: none;
       color: var(--muted);
-      font-size: 16px;
+      font-size: 17px;
       cursor: pointer;
       transition: all 0.2s ease;
       padding: 6px;
@@ -703,10 +669,6 @@
     <!-- Header -->
     <header>
       <div class="bot-avatar" aria-hidden="true">🤖</div>
-      <!-- User Photo next to Bot Avatar -->
-      <div class="user-avatar" title="Hariharan" aria-hidden="true">
-        <img src="hariharan.jpg" alt="Hariharan" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;" />
-      </div>
       <div class="header-info">
         <h1 class="bot-name">HARI BOT</h1>
         <div class="bot-subtitle">
@@ -881,7 +843,8 @@ function getLocalResponse(text) {
     return "Oh, did someone say **Biriyani**?! 🍛 That is Hariharan's absolute favorite food! He loves it so much he could happily eat it every single day without getting tired of it!";
   }
   
-  if (t.includes('tea') || t.includes('coffee') || t.includes('beverage') || t.includes('drink') || t.includes('chai')) {
+  // Bugfix: exact word boundary checks to avoid "team" triggers
+  if (/\btea\b/.test(t) || /\bcoffee\b/.test(t) || /\bchai\b/.test(t) || t.includes('beverage') || t.includes('drink')) {
     return "A true dilemma! Hariharan loves both **Tea** ☕ and **Coffee** ☕ equally! He refuses to pick between them — it just depends on the mood!";
   }
   
@@ -893,7 +856,7 @@ function getLocalResponse(text) {
     return "Hariharan has major fan energy for Tamil superstar **Thalapathy Vijay**! 🎬 He loves watching his action-packed movies and styling.";
   }
 
-  if (t.includes('laptop') || t.includes('pc') || t.includes('asus') || t.includes('rog') || t.includes('computer')) {
+  if (/\bpc\b/.test(t) || t.includes('laptop') || t.includes('asus') || t.includes('rog') || t.includes('computer')) {
     return "Hariharan codes and builds on a beastly **ASUS ROG** laptop! 💻 He's very proud of his gaming and development machine.";
   }
 
@@ -912,8 +875,13 @@ function getLocalResponse(text) {
            "• **10th Standard (SSLC)** — Completed in 2024 at Suguna RIP V School, Coimbatore.";
   }
 
-  if (t.includes('birthday') || t.includes('born') || t.includes('birth') || t.includes('age') || t.includes('july') || t.includes('how old') || t.includes('year old')) {
+  // Bugfix: exact word boundary checks to avoid page/message/image triggers
+  if (/\bage\b/.test(t) || t.includes('how old') || t.includes('year old')) {
     return "Hariharan is **17 years old**! 🎂 (He was born on July 06, 2008)";
+  }
+
+  if (t.includes('birthday') || t.includes('born') || t.includes('birth') || t.includes('july')) {
+    return "Hariharan was born on **July 06, 2008**! 🎂";
   }
 
   if (t.includes('mechatronics') || t.includes('robotics') || t.includes('engineering') || t.includes('sensor') || t.includes('automation')) {
@@ -1034,8 +1002,11 @@ async function getLocalNewsResponse() {
 // ============================================================
 function detectTrigger(text) {
   const t = text.toLowerCase();
-  const crushWords = ['crush','girlfriend','wife','partner','future partner','actress','favourite actress','favorite actress','love interest','romantic','lover','dating','date','relationship','gf'];
-  if (crushWords.some(k => t.includes(k))) return 'CRUSH';
+  const crushWords = ['crush','girlfriend','wife','partner','future partner','actress','favourite actress','favorite actress','love interest','romantic','lover','dating','relationship'];
+  // Bugfix: exact word boundary checks to avoid "update" triggers
+  const hasCrushWord = crushWords.some(k => t.includes(k)) || /\bdate\b/.test(t) || /\bgf\b/.test(t);
+  if (hasCrushWord) return 'CRUSH';
+  
   const bfWords = ['best friend','bestfriend','bff','best buddy','closest friend','bestie'];
   if (bfWords.some(k => t.includes(k))) return 'BESTFRIEND';
   return null;
@@ -1071,6 +1042,7 @@ function formatMarkdown(text) {
     .replace(/\n/g, '<br>');
 }
 
+// Clean HTML to bypass inject issues
 function escapeHtml(t) {
   return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
