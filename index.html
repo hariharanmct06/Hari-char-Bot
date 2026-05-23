@@ -813,6 +813,18 @@ function checkAndOpenLink(text) {
 function getLocalResponse(text) {
   const t = text.toLowerCase();
   
+  // Dynamic calendar date query fallback
+  if (t.includes('date') && (t.includes('today') || t.includes('now') || t.includes('current') || t.includes('what') || t.includes('which')) && !t.includes('birth') && !t.includes('born')) {
+    const today = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+    return `Today's date is **${today}** 📅.`;
+  }
+
+  // Dynamic calendar time query fallback
+  if (t.includes('time') && (t.includes('what') || t.includes('now') || t.includes('current'))) {
+    const time = new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    return `The current time is **${time}** ⏰.`;
+  }
+  
   if (t.includes('email') || t.includes('contact') || t.includes('mail') || t.includes('whatsapp') || t.includes('phone') || t.includes('linkedin') || t.includes('reach') || t.includes('number') || t.includes('8667808803')) {
     return "You can reach **Hariharan** through the following channels:\n\n" +
            "• **Email**: hariharanmct06@gmail.com 📧\n" +
@@ -997,8 +1009,11 @@ async function getLocalNewsResponse() {
 function detectTrigger(text) {
   const t = text.toLowerCase();
   const crushWords = ['crush','girlfriend','wife','partner','future partner','actress','favourite actress','favorite actress','love interest','romantic','lover','dating','relationship'];
-  // Bugfix: exact word boundary checks to avoid "update" triggers
-  const hasCrushWord = crushWords.some(k => t.includes(k)) || /\bdate\b/i.test(t) || /\bgf\b/i.test(t);
+  
+  // Exclude calendar date/time questions from triggering the romantic crush shield
+  const isCalendarQuery = t.includes('date') && (t.includes('today') || t.includes('now') || t.includes('current') || t.includes('what') || t.includes('which') || t.includes('time') || t.includes('day') || t.includes('month') || t.includes('year'));
+  
+  const hasCrushWord = crushWords.some(k => t.includes(k)) || (/\bdate\b/i.test(t) && !isCalendarQuery) || /\bgf\b/i.test(t);
   if (hasCrushWord) return 'CRUSH';
   
   const bfWords = ['best friend','bestfriend','bff','best buddy','closest friend','bestie'];
@@ -1368,7 +1383,8 @@ PERSONALITY RULES:
 - Use **bold** for key terms and *italics* for emphasis
 - Be fun and personal, not robotic`;
 
-  const dynamicSystemPrompt = system + (newsContext ? `\n\nUse the following live news context to answer queries about latest happenings in Tamil Nadu or India:\n${newsContext}` : "");
+  const calendarContext = `\n\nCURRENT DATE & TIME:\nToday is ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}. The current time is ${new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}.`;
+  const dynamicSystemPrompt = system + calendarContext + (newsContext ? `\n\nUse the following live news context to answer queries about latest happenings in Tamil Nadu or India:\n${newsContext}` : "");
 
   try {
     let responseStream;
