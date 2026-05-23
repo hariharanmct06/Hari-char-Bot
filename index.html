@@ -157,13 +157,13 @@
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       flex-shrink: 0;
       position: relative;
       overflow: hidden;
     }
     @media (min-width: 600px) {
-      header { padding: 18px 24px; }
+      header { padding: 18px 24px; gap: 12px; }
     }
     header::after {
       content: '';
@@ -177,8 +177,8 @@
     }
 
     .bot-avatar {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--teal), var(--gold));
       display: flex;
@@ -191,7 +191,7 @@
       position: relative;
     }
     @media (min-width: 600px) {
-      .bot-avatar { width: 48px; height: 48px; font-size: 22px; }
+      .bot-avatar { width: 46px; height: 46px; font-size: 20px; }
     }
     .bot-avatar::after {
       content: '';
@@ -209,30 +209,68 @@
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .header-info { flex: 1; }
+    /* User Photo Avatar */
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--teal));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: var(--glow-g);
+      animation: avatarPulse2 3s ease-in-out infinite;
+      position: relative;
+      overflow: visible;
+    }
+    @media (min-width: 600px) {
+      .user-avatar { width: 46px; height: 46px; }
+    }
+    .user-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: linear-gradient(var(--bg2), var(--bg2)) padding-box,
+                  linear-gradient(135deg, var(--gold), var(--teal)) border-box;
+      animation: spin 6s linear infinite;
+      animation-delay: -3s;
+    }
+    @keyframes avatarPulse2 {
+      0%, 100% { box-shadow: var(--glow-g); }
+      50% { box-shadow: 0 0 30px rgba(0, 229, 204, 0.5), 0 0 80px rgba(0, 229, 204, 0.15); }
+    }
+
+    .header-info { flex: 1; min-width: 0; }
     h1.bot-name {
       font-family: 'Orbitron', monospace;
-      font-size: clamp(14px, 4.5vw, 18px);
+      font-size: clamp(12px, 4vw, 16px);
       font-weight: 900;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       background: linear-gradient(135deg, var(--teal), var(--gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .bot-subtitle {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 9px;
+      font-size: 8.5px;
       color: var(--muted);
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       margin-top: 2px;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 4px;
+      white-space: nowrap;
     }
     .status-dot {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
       border-radius: 50%;
       background: var(--teal);
       box-shadow: 0 0 6px var(--teal);
@@ -257,13 +295,13 @@
       background: rgba(245, 166, 35, 0.05);
     }
 
-    #settings-btn {
+    #voice-btn, #settings-btn {
       background: transparent;
       border: none;
       color: var(--muted);
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
-      transition: color 0.2s ease;
+      transition: all 0.2s ease;
       padding: 6px;
       display: flex;
       align-items: center;
@@ -272,7 +310,7 @@
       outline: none;
       user-select: none;
     }
-    #settings-btn:hover {
+    #voice-btn:hover, #settings-btn:hover {
       color: var(--teal);
     }
 
@@ -345,6 +383,26 @@
       border: 1px solid rgba(245, 166, 35, 0.25);
       color: var(--text);
       border-bottom-right-radius: 5px;
+    }
+
+    /* Shouting bubble visual shake & red glow */
+    @keyframes shoutGlow {
+      0%, 100% { box-shadow: 0 0 10px rgba(255, 68, 68, 0.45); border-color: rgba(255, 68, 68, 0.45); }
+      50% { box-shadow: 0 0 25px rgba(255, 68, 68, 0.85); border-color: rgba(255, 68, 68, 0.85); }
+    }
+    @keyframes shoutShake {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      15%, 45%, 75% { transform: scale(1.03) rotate(-2deg); }
+      30%, 60%, 90% { transform: scale(1.03) rotate(2deg); }
+    }
+    .msg.bot .bubble.shout-bubble {
+      animation: shoutShake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both, shoutGlow 1.5s infinite alternate;
+      border: 1px solid rgba(255, 68, 68, 0.5) !important;
+      background: rgba(255, 68, 68, 0.09) !important;
+      color: #ff5555 !important;
+      font-weight: 900 !important;
+      font-size: clamp(14.5px, 4.2vw, 17px) !important;
+      letter-spacing: 0.5px;
     }
 
     /* Typing indicator */
@@ -645,6 +703,10 @@
     <!-- Header -->
     <header>
       <div class="bot-avatar" aria-hidden="true">🤖</div>
+      <!-- User Photo next to Bot Avatar -->
+      <div class="user-avatar" title="Hariharan" aria-hidden="true">
+        <img src="hariharan.jpg" alt="Hariharan" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block;" />
+      </div>
       <div class="header-info">
         <h1 class="bot-name">HARI BOT</h1>
         <div class="bot-subtitle">
@@ -657,7 +719,8 @@
         <span class="htag">CHESS</span>
         <span class="htag">RCB 🔴</span>
       </div>
-      <!-- Settings Panel Trigger Button -->
+      <!-- Voice Toggle and Settings Panel Trigger Buttons -->
+      <button id="voice-btn" title="Toggle Voice Response" aria-label="Toggle Voice Response">🔇</button>
       <button id="settings-btn" title="Bot Configuration" aria-label="Settings">⚙️</button>
     </header>
 
@@ -715,7 +778,7 @@ const HARI_KB = `
 
 ## Personal Info
 - Full Name: Hariharan
-- Birth Date: July 06, 2008 (Age: 17 as of 2026)
+- Age: 17 years old (born July 06, 2008). If someone asks for your age, tell them explicitly that you are 17 years old. Do not only tell them the DOB, prioritize stating the age 17.
 - Location: Coimbatore, Tamil Nadu, India
 - Email: hariharanmct06@gmail.com
 - LinkedIn: linkedin.com/in/hariharan-m-4a8533407
@@ -822,8 +885,8 @@ function getLocalResponse(text) {
     return "A true dilemma! Hariharan loves both **Tea** ☕ and **Coffee** ☕ equally! He refuses to pick between them — it just depends on the mood!";
   }
   
-  if (t.includes('cricket') || t.includes('rcb') || t.includes('ipl') || t.includes('team') || t.includes('royal chargers')) {
-    return "**EE SALA CUP NAMDU**! 🔴🏆\n\nHariharan is a die-hard **RCB (Royal Challengers Bangalore) fan**! His favorite player is the legendary AB de Villiers (ABD) — Mr. 360°!";
+  if (t.includes('cricket') || t.includes('rcb') || t.includes('ipl') || t.includes('team') || t.includes('royal chargers') || t.includes('favorite sport') || t.includes('slogan')) {
+    return "**EE SALA CUP NAMDU!!!** 🔴🏆🔴🏆\n\nHariharan is a die-hard **RCB (Royal Challengers Bangalore) fan**! His favorite player is the legendary AB de Villiers (ABD) — Mr. 360°!";
   }
 
   if (t.includes('actor') || t.includes('vijay') || t.includes('thalapathy') || t.includes('movie')) {
@@ -849,8 +912,20 @@ function getLocalResponse(text) {
            "• **10th Standard (SSLC)** — Completed in 2024 at Suguna RIP V School, Coimbatore.";
   }
 
-  if (t.includes('birthday') || t.includes('born') || t.includes('birth') || t.includes('age') || t.includes('july')) {
-    return "Hariharan was born on **July 06, 2008**! 🎂";
+  if (t.includes('birthday') || t.includes('born') || t.includes('birth') || t.includes('age') || t.includes('july') || t.includes('how old') || t.includes('year old')) {
+    return "Hariharan is **17 years old**! 🎂 (He was born on July 06, 2008)";
+  }
+
+  if (t.includes('mechatronics') || t.includes('robotics') || t.includes('engineering') || t.includes('sensor') || t.includes('automation')) {
+    return "Mechatronics is the synergy of mechanics, electronics, robotics, and control systems. " +
+           "It is **Hariharan's specialized field of study** at SNS Institutions. " +
+           "Connect an API key in the settings to let Gemini guide you through complex mechatronics concepts!";
+  }
+  
+  if (t.includes('math') || t.includes('calculus') || t.includes('equation') || t.includes('solve') || t.includes('formula') || t.includes('algebra')) {
+    return "Mathematics is the core structural tool for robotics design, kinematics, and controller loops. " +
+           "Hariharan utilizes advanced calculus and algebra in his mechatronics studies. " +
+           "Connect an API key in the settings to let Gemini solve and guide you through mathematical questions!";
   }
 
   if (t.includes('project') || t.includes('make') || t.includes('build') || t.includes('app') || t.includes('dashboard') || t.includes('robot')) {
@@ -984,6 +1059,7 @@ const SUGGESTIONS = [
 let chatHistory = [];
 let suggestionsShown = true;
 let userApiKey = localStorage.getItem('HARI_BOT_OR_KEY') || '';
+let voiceEnabled = false;
 
 // ============================================================
 // DOM HELPERS
@@ -1010,12 +1086,19 @@ function addBotMsg(text) {
   const msgs = document.getElementById('messages');
   const div = document.createElement('div');
   div.className = 'msg bot';
+  
+  // Shouting visual shake + glow trigger
+  const isShout = text.includes("EE SALA CUP NAMDU");
   div.innerHTML = `
     <div class="msg-icon">🤖</div>
-    <div class="bubble">${formatMarkdown(text)}</div>
+    <div class="bubble ${isShout ? 'shout-bubble' : ''}">${formatMarkdown(text)}</div>
   `;
   msgs.appendChild(div);
   setTimeout(scrollBottom, 30);
+
+  if (voiceEnabled) {
+    speakResponse(text);
+  }
 }
 
 function addUserMsg(text) {
@@ -1047,6 +1130,42 @@ function showTyping() {
 function hideTyping() {
   const t = document.getElementById('typing-row');
   if (t) t.remove();
+}
+
+// ============================================================
+// TEXT TO SPEECH (TTS) SYNTHESIS ENGINE
+// ============================================================
+function speakResponse(text) {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel(); // Terminate current speech
+
+  // Strip symbols, markdown formatting, and emojis
+  let speechText = text
+    .replace(/\*\*(.*?)\*\*/g, '$1')
+    .replace(/\*(.*?)\*/g, '$1')
+    .replace(/\[(.*?)\]\((.*?)\)/g, '$1')
+    .replace(/•/g, '')
+    .replace(/🤖|✨|🌿|♟️|🍛|🔴|🏆|☕|🍦|🎬|💻|🔇|🔊|⚙️/g, '');
+
+  const utterance = new SpeechSynthesisUtterance(speechText);
+  const voices = window.speechSynthesis.getVoices();
+  
+  // Try to use a clean English voice
+  const englishVoice = voices.find(v => v.lang.startsWith('en'));
+  if (englishVoice) {
+    utterance.voice = englishVoice;
+  }
+
+  // Auditory Shout effect
+  if (text.includes("EE SALA CUP NAMDU")) {
+    utterance.rate = 1.12;
+    utterance.pitch = 1.35; // Speak excited/screaming pitch
+  } else {
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+  }
+
+  window.speechSynthesis.speak(utterance);
 }
 
 // ============================================================
@@ -1290,14 +1409,17 @@ async function sendMessage(text) {
 Answer queries about Hariharan using the Knowledge Base below.
 If the user asks something new, general, or unrelated to Hariharan, use your own intelligence (Gemini) to answer their question directly, clearly, and crisply! Do not refuse general questions or say "I don't know" if it's a general query (like math, science, programming, general facts, etc.) — help them out while keeping it short and conversational.
 
+If the user asks mechatronics, engineering, mathematics, or physics questions, guide them patiently through the concept. Explain clearly and tutor them step-by-step. In your answer, proudly mention that Mechatronics and Robotics is Hariharan's specialized field of study at SNS Institutions!
+
 KNOWLEDGE BASE:
 ${HARI_KB}
 
 PERSONALITY RULES:
+- Age question → explicitly answer that Hariharan is **17 years old**. Do not only reply with his DOB; state his age is 17!
+- Favorite Cricket Team / RCB / IPL question → you must SHOUT: "**EE SALA CUP NAMDU!!!** 🔴🏆🔴🏆" and explain his love for RCB and AB de Villiers.
 - Biriyani question → get SUPER excited 🍛
 - Healing questions (Reiki, Ama Deus, Lama Fera, Kwan Yin, Acupuncture, Sujok) → explain with care and pride — this is Hariharan's special gift!
 - Chess → celebrate his STATE-LEVEL achievement with pride ♟️
-- Favorite Cricket Team / RCB → MUST say "**EE SALA CUP NAMDU**! 🔴🏆"
 - Tea vs Coffee → he loves BOTH, refuses to pick
 - Vijay → big fan energy!
 - ASUS ROG → proud of his machine
@@ -1312,7 +1434,6 @@ PERSONALITY RULES:
     ];
 
     const controller = new AbortController();
-    // 12 Second timeout for snappy mobile experience, falls back to local processing
     const timeout = setTimeout(() => controller.abort(), 12000);
 
     const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -1533,6 +1654,22 @@ function init() {
       checkAndOpenLink(val);
       sendMessage(val);
       inp.value = '';
+    }
+  });
+
+  // Voice Toggle Button Trigger
+  const voiceBtn = document.getElementById('voice-btn');
+  voiceBtn.addEventListener('click', () => {
+    voiceEnabled = !voiceEnabled;
+    if (voiceEnabled) {
+      voiceBtn.textContent = '🔊';
+      voiceBtn.style.color = 'var(--teal)';
+      // Voice feedback test to confirm synthesis activation
+      speakResponse("Voice synthesis active!");
+    } else {
+      voiceBtn.textContent = '🔇';
+      voiceBtn.style.color = '';
+      window.speechSynthesis.cancel();
     }
   });
 
