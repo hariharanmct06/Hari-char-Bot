@@ -1,0 +1,1455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#07090f">
+  
+  <title>HARI BOT — Your Personal AI Portfolio Companion</title>
+  <meta name="description" content="Meet HARI BOT, the interactive AI companion for Hariharan. Learn about his mechatronics projects, energy healing gifts, chess achievements, and more.">
+
+  <!-- External Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #07090f;
+      --bg2: #0d1117;
+      --bg3: #131820;
+      --surface: rgba(18, 24, 36, 0.95);
+      --teal: #00e5cc;
+      --teal2: #00b8a4;
+      --gold: #f5a623;
+      --gold2: #e8931a;
+      --glow-t: 0 0 20px rgba(0, 229, 204, 0.45), 0 0 60px rgba(0, 229, 204, 0.15);
+      --glow-g: 0 0 20px rgba(245, 166, 35, 0.5), 0 0 60px rgba(245, 166, 35, 0.2);
+      --text: #e8f0f5;
+      --muted: #5a7a8a;
+      --border: rgba(0, 229, 204, 0.12);
+      --border-g: rgba(245, 166, 35, 0.2);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      height: 100%;
+      height: -webkit-fill-available;
+      overflow: hidden;
+    }
+
+    body {
+      height: 100%;
+      height: -webkit-fill-available;
+      overflow: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      min-height: -webkit-fill-available;
+      position: fixed; /* Lock body position on mobile to prevent bounce scrolling */
+      width: 100%;
+      inset: 0;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: none; /* Let specific divs manage scroll */
+    }
+
+    /* Animated background */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Radial glow blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.07;
+      pointer-events: none;
+      z-index: 0;
+      animation: blobFloat 8s ease-in-out infinite;
+    }
+    .blob1 { width: 500px; height: 500px; background: var(--teal); top: -100px; left: -100px; animation-delay: 0s; }
+    .blob2 { width: 400px; height: 400px; background: var(--gold); bottom: -80px; right: -80px; animation-delay: 3s; }
+    .blob3 { width: 300px; height: 300px; background: var(--teal); bottom: 20%; left: 30%; animation-delay: 5s; }
+
+    @keyframes blobFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      50% { transform: translate(20px, -20px) scale(1.05); }
+    }
+
+    /* Grid overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(0, 229, 204, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 204, 0.025) 1px, transparent 1px);
+      background-size: 50px 50px;
+      pointer-events: none;
+    }
+
+    /* ===== MAIN CHAT CONTAINER ===== */
+    #app {
+      position: relative;
+      z-index: 10;
+      width: min(780px, 100vw);
+      height: 100vh;
+      max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(145deg, rgba(13, 17, 23, 0.97), rgba(7, 9, 15, 0.98));
+      overflow: hidden;
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7);
+    }
+
+    @media (min-width: 600px) {
+      #app {
+        width: min(780px, 95vw);
+        height: min(85vh, 800px);
+        border-radius: 24px;
+        border: 1px solid rgba(0, 229, 204, 0.18);
+        box-shadow:
+          0 0 0 1px rgba(0, 229, 204, 0.06),
+          0 40px 100px rgba(0, 0, 0, 0.7),
+          0 0 80px rgba(0, 229, 204, 0.07);
+      }
+    }
+
+    /* Mobile absolute viewport override via JS */
+    @media (max-width: 599px) {
+      #app {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      padding: 12px 16px;
+      padding-top: max(12px, env(safe-area-inset-top));
+      background: linear-gradient(135deg, rgba(13, 17, 23, 0.98), rgba(18, 24, 36, 0.95));
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    @media (min-width: 600px) {
+      header { padding: 18px 24px; }
+    }
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--teal), var(--gold), transparent);
+      opacity: 0.4;
+    }
+
+    .bot-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal), var(--gold));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      box-shadow: var(--glow-t);
+      animation: avatarPulse 3s ease-in-out infinite;
+      position: relative;
+    }
+    @media (min-width: 600px) {
+      .bot-avatar { width: 48px; height: 48px; font-size: 22px; }
+    }
+    .bot-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: linear-gradient(var(--bg2), var(--bg2)) padding-box,
+                  linear-gradient(135deg, var(--teal), var(--gold)) border-box;
+      animation: spin 6s linear infinite;
+    }
+    @keyframes avatarPulse {
+      0%, 100% { box-shadow: var(--glow-t); }
+      50% { box-shadow: 0 0 30px rgba(245, 166, 35, 0.5), 0 0 80px rgba(245, 166, 35, 0.15); }
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .header-info { flex: 1; }
+    h1.bot-name {
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(14px, 4.5vw, 18px);
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, var(--teal), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .bot-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: var(--muted);
+      letter-spacing: 1px;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--teal);
+      box-shadow: 0 0 6px var(--teal);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+    .header-tags {
+      display: none;
+      gap: 6px;
+      align-items: center;
+    }
+    @media (min-width: 480px) { .header-tags { display: flex; } }
+    .htag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 1px;
+      padding: 3px 9px;
+      border-radius: 100px;
+      border: 1px solid var(--border-g);
+      color: var(--gold);
+      background: rgba(245, 166, 35, 0.05);
+    }
+
+    #settings-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 18px;
+      cursor: pointer;
+      transition: color 0.2s ease;
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      touch-action: manipulation;
+      outline: none;
+      user-select: none;
+    }
+    #settings-btn:hover {
+      color: var(--teal);
+    }
+
+    /* ===== MESSAGES CONTAINER ===== */
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch; /* Momentum scrolling for iOS */
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0, 229, 204, 0.15) transparent;
+      overscroll-behavior: contain; /* Prevent body scrolling on boundary reach */
+      touch-action: pan-y;
+    }
+    @media (min-width: 600px) {
+      #messages { padding: 24px 28px; }
+    }
+    #messages::-webkit-scrollbar { width: 4px; }
+    #messages::-webkit-scrollbar-thumb { background: rgba(0, 229, 204, 0.15); border-radius: 4px; }
+
+    .msg {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+      animation: msgIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .msg.user { flex-direction: row-reverse; }
+
+    .msg-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      user-select: none;
+    }
+    .msg.bot .msg-icon { background: rgba(0, 229, 204, 0.1); border: 1px solid rgba(0, 229, 204, 0.2); }
+    .msg.user .msg-icon { background: rgba(245, 166, 35, 0.1); border: 1px solid rgba(245, 166, 35, 0.2); }
+
+    .bubble {
+      max-width: 82%;
+      padding: 11px 14px;
+      border-radius: 18px;
+      font-size: clamp(13px, 3.8vw, 14.5px);
+      line-height: 1.65;
+      position: relative;
+      word-break: break-word;
+    }
+    @media (min-width: 600px) {
+      .bubble { max-width: 75%; font-size: 14.5px; padding: 12px 16px; }
+    }
+    .msg.bot .bubble {
+      background: rgba(0, 229, 204, 0.07);
+      border: 1px solid rgba(0, 229, 204, 0.14);
+      color: var(--text);
+      border-bottom-left-radius: 5px;
+    }
+    .msg.user .bubble {
+      background: linear-gradient(135deg, rgba(245, 166, 35, 0.18), rgba(232, 147, 26, 0.12));
+      border: 1px solid rgba(245, 166, 35, 0.25);
+      color: var(--text);
+      border-bottom-right-radius: 5px;
+    }
+
+    /* Typing indicator */
+    .typing-bubble {
+      background: rgba(0, 229, 204, 0.07);
+      border: 1px solid rgba(0, 229, 204, 0.14);
+      border-radius: 18px;
+      border-bottom-left-radius: 5px;
+      padding: 12px 16px;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+    .tdot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--teal);
+      animation: tdot 1.3s ease-in-out infinite;
+    }
+    .tdot:nth-child(2) { animation-delay: .18s; }
+    .tdot:nth-child(3) { animation-delay: .36s; }
+    @keyframes tdot {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+      30% { transform: translateY(-7px); opacity: 1; }
+    }
+
+    /* ===== SUGGESTIONS CHIPS ===== */
+    #suggestions {
+      padding: 0 14px 10px;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      flex-shrink: 0;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      touch-action: pan-x;
+    }
+    #suggestions::-webkit-scrollbar { display: none; }
+    @media (min-width: 600px) {
+      #suggestions { padding: 0 28px 12px; flex-wrap: wrap; overflow-x: visible; }
+    }
+    
+    .sugg {
+      padding: 7px 13px;
+      border-radius: 100px;
+      cursor: pointer;
+      border: 1px solid rgba(0, 229, 204, 0.18);
+      color: var(--muted);
+      font-size: 11.5px;
+      font-family: 'JetBrains Mono', monospace;
+      background: rgba(0, 229, 204, 0.04);
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+      touch-action: manipulation;
+      min-height: 34px;
+      user-select: none;
+      outline: none;
+    }
+    .sugg:active, .sugg:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+      background: rgba(0, 229, 204, 0.08);
+    }
+
+    /* ===== INPUT CONTAINER ===== */
+    #input-area {
+      padding: 10px 12px;
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-shrink: 0;
+      background: rgba(7, 9, 15, 0.5);
+    }
+    @media (min-width: 600px) {
+      #input-area { padding: 16px 24px 20px; gap: 10px; }
+    }
+
+    #chat-form {
+      display: flex;
+      width: 100%;
+      gap: 8px;
+      align-items: center;
+    }
+
+    #chat-input {
+      flex: 1;
+      background: rgba(0, 229, 204, 0.04);
+      border: 1px solid rgba(0, 229, 204, 0.15);
+      border-radius: 14px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-size: 16px; /* 16px prevents iOS zoom-on-focus */
+      font-family: 'DM Sans', sans-serif;
+      outline: none;
+      resize: none;
+      height: 46px;
+      transition: border-color 0.2s ease;
+      -webkit-appearance: none;
+      touch-action: manipulation;
+    }
+    #chat-input:focus { border-color: rgba(0, 229, 204, 0.4); }
+    #chat-input::placeholder { color: var(--muted); }
+
+    #send-btn {
+      width: 46px;
+      height: 46px;
+      min-width: 46px;
+      border-radius: 13px;
+      flex-shrink: 0;
+      background: linear-gradient(135deg, var(--teal), var(--teal2));
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 17px;
+      color: #000;
+      font-weight: bold;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 14px rgba(0, 229, 204, 0.3);
+      touch-action: manipulation;
+      user-select: none;
+    }
+    #send-btn:active { transform: scale(0.95); }
+    #send-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; }
+
+    footer.powered {
+      text-align: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9px;
+      color: rgba(90, 122, 138, 0.4);
+      padding: 0 0 8px;
+      letter-spacing: 1px;
+      flex-shrink: 0;
+      user-select: none;
+      background: rgba(7, 9, 15, 0.5);
+    }
+
+    /* ===== EGG SPLATTER OVERLAY & ANIMATION ===== */
+    #egg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 99999;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .egg-el {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      font-size: 36px;
+      transform-origin: center center;
+      user-select: none;
+    }
+    #nope-msg {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 100000;
+      pointer-events: none;
+      font-family: 'Orbitron', monospace;
+      font-size: clamp(16px, 4.5vw, 26px);
+      font-weight: 900;
+      color: #ff4444;
+      text-align: center;
+      text-shadow: 0 0 30px rgba(255, 68, 68, 0.8);
+      white-space: nowrap;
+      animation: nopePop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      user-select: none;
+    }
+    @keyframes nopePop {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.4); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+    @keyframes splatAnim {
+      0% { transform: scale(0) rotate(0deg); opacity: 1; }
+      50% { transform: scale(1.3) rotate(15deg); opacity: 1; }
+      100% { transform: scale(1) rotate(10deg); opacity: 0; }
+    }
+
+    /* ===== SETTINGS MODAL ===== */
+    #settings-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 9, 15, 0.85);
+      z-index: 20000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .settings-card {
+      background: linear-gradient(135deg, rgba(13, 17, 23, 0.98), rgba(18, 24, 36, 0.98));
+      border: 1px solid var(--border);
+      padding: 24px;
+      border-radius: 20px;
+      width: min(420px, 92vw);
+      box-shadow: var(--glow-t);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      position: relative;
+    }
+    .settings-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 16px;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, var(--teal), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 900;
+    }
+    .settings-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .settings-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 1px;
+    }
+    .settings-input {
+      background: rgba(0, 229, 204, 0.04);
+      border: 1px solid rgba(0, 229, 204, 0.15);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      font-family: 'JetBrains Mono', monospace;
+      transition: border-color 0.2s ease;
+    }
+    .settings-input:focus {
+      border-color: rgba(0, 229, 204, 0.4);
+    }
+    .settings-help {
+      font-size: 10.5px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .settings-buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 8px;
+    }
+    .settings-btn-cancel {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      padding: 8px 16px;
+      color: var(--text);
+      cursor: pointer;
+      font-size: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+    }
+    .settings-btn-save {
+      background: linear-gradient(135deg, var(--teal), var(--teal2));
+      border: none;
+      border-radius: 8px;
+      padding: 8px 16px;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* Markdown helper stylings */
+    strong { color: var(--gold); font-weight: 600; }
+    em { color: var(--teal); font-style: normal; }
+  </style>
+</head>
+<body>
+
+  <!-- Background Canvas and Ambient Blobs -->
+  <div class="blob blob1"></div>
+  <div class="blob blob2"></div>
+  <div class="blob blob3"></div>
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Main Chat Application Shell -->
+  <div id="app">
+    <!-- Header -->
+    <header>
+      <div class="bot-avatar" aria-hidden="true">🤖</div>
+      <div class="header-info">
+        <h1 class="bot-name">HARI BOT</h1>
+        <div class="bot-subtitle">
+          <span class="status-dot"></span>
+          ONLINE · PERSONALIZED AI · RESILIENT-RAG
+        </div>
+      </div>
+      <div class="header-tags">
+        <span class="htag">REIKI</span>
+        <span class="htag">CHESS</span>
+        <span class="htag">RCB 🔴</span>
+      </div>
+      <!-- Settings Panel Trigger Button -->
+      <button id="settings-btn" title="Bot Configuration" aria-label="Settings">⚙️</button>
+    </header>
+
+    <!-- Connection / Status Banner -->
+    <div id="offline-banner" style="display: none; padding: 6px 16px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 11px; flex-shrink: 0; z-index: 15;"></div>
+
+    <!-- Messages Container -->
+    <main id="messages"></main>
+
+    <!-- Suggestions Container -->
+    <section id="suggestions" aria-label="Suggested Questions"></section>
+
+    <!-- Interactive Input Panel -->
+    <section id="input-area">
+      <form id="chat-form">
+        <input id="chat-input" type="text" placeholder="Ask me anything about Hariharan..." maxlength="300" autocomplete="off" autocapitalize="sentences" spellcheck="true" aria-label="Chat input" />
+        <button id="send-btn" type="submit" aria-label="Send message">➤</button>
+      </form>
+    </section>
+    
+    <footer class="powered">
+      HARI BOT · Offline-Safe Hybrid RAG
+    </footer>
+  </div>
+
+  <!-- Settings Dialog Modal -->
+  <div id="settings-modal" aria-hidden="true" role="dialog">
+    <div class="settings-card">
+      <h2 class="settings-title">BOT CONFIGURATION</h2>
+      
+      <div class="settings-field">
+        <label for="settings-key" class="settings-label">OPENROUTER API KEY (OPTIONAL)</label>
+        <input id="settings-key" class="settings-input" type="password" placeholder="sk-or-v1-..." autocomplete="off" />
+        <div class="settings-help">
+          Provide your **OpenRouter key** to enable Llama 3.3 API completion. If left blank, the bot runs in **Local Mode**, answering prompts instantly using the offline Knowledge Base.
+        </div>
+      </div>
+
+      <div class="settings-buttons">
+        <button id="settings-close" class="settings-btn-cancel" type="button">Cancel</button>
+        <button id="settings-save" class="settings-btn-save" type="button">Save Settings</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Egg spline layer -->
+  <div id="egg-overlay" style="display: none;"></div>
+
+<script>
+// ============================================================
+// EMBEDDED KNOWLEDGE BASE
+// ============================================================
+const HARI_KB = `
+# Hariharan — Complete Personal Knowledge Base
+
+## Personal Info
+- Full Name: Hariharan
+- Location: Coimbatore, Tamil Nadu, India
+- Email: hariharanmct06@gmail.com
+- LinkedIn: linkedin.com/in/hariharan-m-4a8533407
+- WhatsApp: +91 86678 08803
+- Status: Open to Opportunities
+- Languages: Tamil (Native), English (Fluent), Malayalam (Proficient), French (Basic)
+
+## Education
+- B.E. Mechatronics Engineering — SNS Institution, Coimbatore (Sept 2026 – Present)
+  Specializing in Automation, Robotics & Embedded Systems
+- 12th Standard (HSC) — Suguna RIP V School, Coimbatore (2024–2026)
+- 10th Standard (SSLC) — Suguna RIP V School, Coimbatore (2024)
+
+## Technical Skills
+- Python: 80%
+- C++: 65%
+- Cyber Security: 70%
+- UI/UX Design: 65%
+- Automation Systems: 60%
+- Problem Solving: 85%
+- Robotics Basics: 55%
+- Tools: Network Security, Embedded Systems, Figma, PLC Basics, CAD Modeling, Sensor Integration, IoT Protocols, Machine Learning Basics
+
+## Healing & Wellness Expertise (Energy Healer)
+- Hariharan is a certified/trained Energy Healer
+- Reiki: Knows Reiki healing — a Japanese energy healing technique that channels universal life force energy through the hands to promote physical, emotional, and spiritual well-being
+- Ama Deus: Knows Ama Deus healing — a shamanic energy healing system from the Guaraní people of Brazil, using sacred symbols to work with divine love energy
+- Lama Fera: Knows Lama Fera — a Buddhist healing technique from Tibetan monks in the Himalayas that uses 8 sacred symbols and cosmic energy for deep healing and spiritual growth
+- Kwan Yin Healing: Knows Kwan Yin Healing — a divine feminine healing modality channeling the compassionate energy of Goddess Kwan Yin for healing and mercy
+- Basic Acupuncture: Has knowledge of basic acupuncture principles — traditional Chinese medicine technique using fine needles at specific body points to balance energy flow (Qi)
+- Sujok Therapy: Knows Sujok — a Korean natural healing method where the hand and foot correspond to the entire body; stimulating specific points brings healing to corresponding organs and body parts
+
+## Projects
+1. Smart Home Automation System — IoT-based home control with voice commands, mobile app. Stack: Python, IoT, Raspberry Pi.
+2. AI-Based Security Monitoring — Facial recognition, anomaly detection, real-time alerts. Stack: Python, OpenCV, AI/ML.
+3. Industrial Robot Arm Prototype — 6-DOF robotic arm for pick-and-place. Stack: C++, Arduino.
+4. Cyber Security Dashboard UI — Real-time threat monitoring dashboard. Stack: JS, UI/UX.
+5. IoT Automation Controller — Multi-node industrial IoT controller. Stack: IoT, MQTT.
+
+## Personal Preferences & Fun Facts
+- Favourite Food: Biriyani 🍛 — absolute favourite, could eat it every day!
+- Favourite Beverages: Both Tea ☕ AND Coffee ☕ — loves both equally, can't choose!
+- Favourite Ice Cream: Vanilla 🍦
+- Laptop: ASUS ROG — beast of a machine!
+- Favourite Actor: Vijay (Thalapathy Vijay) — Tamil superstar
+- Chess: State-level Chess player ♟️ — a true strategic mastermind!
+- Cricket Team: RCB (Royal Challengers Bangalore) 🔴 fan + India supporter
+- Favourite Cricket Player: AB de Villiers (ABD) — the legendary Mr. 360°
+- Best Friend: AI! (Hari Bot itself) 🤖
+
+## Personality
+Hariharan is passionate, creative, and multi-talented — blending the worlds of technology, energy healing, and sports. He's a state-level chess player who brings strategy to everything he does, an RCB die-hard, a Vijay fan, and an energy healer with expertise across multiple ancient healing traditions. He's studying Mechatronics Engineering while also deeply rooted in holistic wellness.
+`;
+
+// ============================================================
+// LOCAL RESPONSE GENERATOR (OFFLINE FALLBACK ENGINE)
+// ============================================================
+function getLocalResponse(text) {
+  const t = text.toLowerCase();
+  
+  if (t.includes('email') || t.includes('contact') || t.includes('mail') || t.includes('whatsapp') || t.includes('phone') || t.includes('linkedin') || t.includes('reach')) {
+    return "You can reach **Hariharan** through the following channels:\n\n" +
+           "• **Email**: hariharanmct06@gmail.com 📧\n" +
+           "• **WhatsApp**: +91 86678 08803 💬\n" +
+           "• **LinkedIn**: [linkedin.com/in/hariharan-m-4a8533407](https://linkedin.com/in/hariharan-m-4a8533407) 🔗\n\nHe is currently *Open to Opportunities*!";
+  }
+  
+  if (t.includes('heal') || t.includes('reiki') || t.includes('ama deus') || t.includes('amadeus') || t.includes('lama') || t.includes('fera') || t.includes('kwan') || t.includes('yin') || t.includes('acupuncture') || t.includes('sujok') || t.includes('energy') || t.includes('wellness') || t.includes('meditation')) {
+    return "Hariharan is a certified and passionate **Energy Healer**! 🌿 Here is what he specializes in:\n\n" +
+           "• **Reiki**: Japanese energy healing channelling universal life force energy.\n" +
+           "• **Ama Deus**: Shamanic healing using sacred symbols from the Guaraní people of Brazil.\n" +
+           "• **Lama Fera**: Tibetan Buddhist healing technique using 8 cosmic symbols.\n" +
+           "• **Kwan Yin**: Channelling the compassionate, merciful energy of Goddess Kwan Yin.\n" +
+           "• **Acupuncture & Sujok Therapy**: Balancing body energy (Qi) through target pressure points and hand/foot reflexology.";
+  }
+  
+  if (t.includes('chess') || t.includes('board game') || t.includes('play')) {
+    return "Yes, Hariharan is a **State-level Chess player** ♟️! He loves strategic masterminds and applies his tactical chess thinking to coding and systems design.";
+  }
+  
+  if (t.includes('food') || t.includes('eat') || t.includes('biriyani') || t.includes('biryani') || t.includes('dish') || t.includes('hungry')) {
+    return "Oh, did someone say **Biriyani**?! 🍛 That is Hariharan's absolute favorite food! He loves it so much he could happily eat it every single day without getting tired of it!";
+  }
+  
+  if (t.includes('tea') || t.includes('coffee') || t.includes('beverage') || t.includes('drink') || t.includes('chai')) {
+    return "A true dilemma! Hariharan loves both **Tea** ☕ and **Coffee** ☕ equally! He refuses to pick between them — it just depends on the mood!";
+  }
+  
+  if (t.includes('cricket') || t.includes('rcb') || t.includes('ipl') || t.includes('player') || t.includes('abd') || t.includes('villiers') || t.includes('royal chargers')) {
+    return "Hariharan is a hardcore **RCB (Royal Challengers Bangalore) fan**! 🔴 He supports Team India and is a huge fan of the legendary Mr. 360°, **AB de Villiers (ABD)**!";
+  }
+
+  if (t.includes('actor') || t.includes('vijay') || t.includes('thalapathy') || t.includes('movie')) {
+    return "Hariharan has major fan energy for Tamil superstar **Thalapathy Vijay**! 🎬 He loves watching his action-packed movies and styling.";
+  }
+
+  if (t.includes('laptop') || t.includes('pc') || t.includes('asus') || t.includes('rog') || t.includes('computer')) {
+    return "Hariharan codes and builds on a beastly **ASUS ROG** laptop! 💻 He's very proud of his gaming and development machine.";
+  }
+
+  if (t.includes('skill') || t.includes('tech') || t.includes('code') || t.includes('program') || t.includes('python') || t.includes('c++') || t.includes('figma') || t.includes('design') || t.includes('language')) {
+    return "Hariharan has a robust engineering skillset:\n\n" +
+           "• **Python** (80%) — Automation, ML, scripting\n" +
+           "• **Cyber Security** (70%) — Threat monitoring & network security\n" +
+           "• **C++** (65%) — Embedded systems & microcontrollers\n" +
+           "• **UI/UX Design** (65%) — UI prototyping using Figma\n" +
+           "• **Automation & Robotics** (60%) — PLC programming, IoT, MQTT, and sensor integration.";
+  }
+
+  if (t.includes('education') || t.includes('study') || t.includes('college') || t.includes('school') || t.includes('degree') || t.includes('mechatronics') || t.includes('university') || t.includes('sns')) {
+    return "Hariharan is currently pursuing a **B.E. in Mechatronics Engineering** at SNS Institution, Coimbatore (started Sept 2026), focusing on automation and robotics. Prior to this, he completed his SSLC (10th) and HSC (12th) at Suguna RIP V School.";
+  }
+
+  if (t.includes('project') || t.includes('make') || t.includes('build') || t.includes('app') || t.includes('dashboard') || t.includes('robot')) {
+    return "Here are the key projects Hariharan has built:\n\n" +
+           "1. **Smart Home Automation System**: IoT-based control via Python & Raspberry Pi.\n" +
+           "2. **AI-Based Security Monitoring**: Facial recognition and threat alerts via OpenCV.\n" +
+           "3. **6-DOF Industrial Robot Arm**: Pick-and-place model built on C++ & Arduino.\n" +
+           "4. **Cyber Security Dashboard UI**: Threat dashboard designed with JS & Figma.\n" +
+           "5. **IoT Automation Controller**: Multi-node controller utilizing MQTT.";
+  }
+
+  if (t.includes('location') || t.includes('live') || t.includes('where') || t.includes('coimbatore') || t.includes('tamil') || t.includes('india')) {
+    return "Hariharan is based in **Coimbatore, Tamil Nadu, India** 🇮🇳. It's known as the 'Manchester of South India' and is a hub for technology and engineering!";
+  }
+
+  if (t.includes('who') || t.includes('about') || t.includes('hari') || t.includes('profile') || t.includes('summary')) {
+    return "Hariharan is a passionate, creative, and multi-talented Mechatronics student who bridges the gap between technology, sports, and wellness. He's a **State-level Chess player**, an avid **Energy Healer** (practicing Reiki, Lama Fera, Sujok, etc.), a developer in Python/C++, and a massive RCB fan! 🤖✨";
+  }
+
+  return "I could not find a specific match in my offline database, but **Hariharan** is a Mechatronics student, State-level Chess player, and Energy Healer. " +
+         "For detailed queries, you can reach him at **hariharanmct06@gmail.com**! 📧";
+}
+
+// ============================================================
+// SPECIAL TRIGGER DETECTION
+// ============================================================
+function detectTrigger(text) {
+  const t = text.toLowerCase();
+  const crushWords = ['crush','girlfriend','wife','partner','future partner','actress','favourite actress','favorite actress','love interest','romantic','lover','dating','date','relationship','gf'];
+  if (crushWords.some(k => t.includes(k))) return 'CRUSH';
+  const bfWords = ['best friend','bestfriend','bff','best buddy','closest friend','bestie'];
+  if (bfWords.some(k => t.includes(k))) return 'BESTFRIEND';
+  return null;
+}
+
+// ============================================================
+// SUGGESTED QUESTIONS
+// ============================================================
+const SUGGESTIONS = [
+  "What healing modalities do you know? 🌿",
+  "What's your favourite food? 🍛",
+  "Are you a chess player? ♟️",
+  "RCB fan? 🔴",
+  "What are your tech skills? 💻",
+  "Who is your best friend? 🤖",
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let chatHistory = [];
+let suggestionsShown = true;
+let userApiKey = localStorage.getItem('HARI_BOT_OR_KEY') || '';
+
+// ============================================================
+// DOM HELPERS
+// ============================================================
+function formatMarkdown(text) {
+  return text
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/\n/g, '<br>');
+}
+
+function escapeHtml(t) {
+  return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function scrollBottom() {
+  const m = document.getElementById('messages');
+  if (m) {
+    m.scrollTop = m.scrollHeight;
+  }
+}
+
+function addBotMsg(text) {
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+  div.innerHTML = `
+    <div class="msg-icon">🤖</div>
+    <div class="bubble">${formatMarkdown(text)}</div>
+  `;
+  msgs.appendChild(div);
+  setTimeout(scrollBottom, 30);
+}
+
+function addUserMsg(text) {
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'msg user';
+  div.innerHTML = `
+    <div class="bubble">${escapeHtml(text)}</div>
+    <div class="msg-icon">👤</div>
+  `;
+  msgs.appendChild(div);
+  setTimeout(scrollBottom, 30);
+}
+
+function showTyping() {
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className = 'msg bot';
+  div.id = 'typing-row';
+  div.innerHTML = `
+    <div class="msg-icon">🤖</div>
+    <div class="typing-bubble">
+      <div class="tdot"></div><div class="tdot"></div><div class="tdot"></div>
+    </div>`;
+  msgs.appendChild(div);
+  setTimeout(scrollBottom, 30);
+}
+
+function hideTyping() {
+  const t = document.getElementById('typing-row');
+  if (t) t.remove();
+}
+
+// ============================================================
+// EGG ANIMATION — BREAKING ON IMPACT
+// ============================================================
+function launchEggs() {
+  const overlay = document.getElementById('egg-overlay');
+  overlay.style.display = 'block';
+  overlay.innerHTML = '';
+
+  // Prevent multiple overlapping NOPE tags
+  const existingNope = document.getElementById('nope-msg');
+  if (existingNope) existingNope.remove();
+
+  // NOPE message banner
+  const nope = document.createElement('div');
+  nope.id = 'nope-msg';
+  nope.innerHTML = '🚫 NONE OF YOUR BUSINESS! 🚫';
+  document.body.appendChild(nope);
+
+  let eggCount = 0;
+  const MAX_EGGS = 18;
+  const activeFrames = [];
+
+  function spawnEgg() {
+    if (eggCount >= MAX_EGGS) return;
+    eggCount++;
+
+    // Random start position: top, left, or right
+    const side = Math.floor(Math.random() * 3);
+    let startX, startY, velX, velY;
+    const speed = 6 + Math.random() * 5;
+
+    if (side === 0) {
+      startX = Math.random() * window.innerWidth;
+      startY = -50;
+      velX = (Math.random() - 0.5) * 4;
+      velY = speed;
+    } else if (side === 1) {
+      startX = -50;
+      startY = Math.random() * window.innerHeight * 0.7;
+      velX = speed;
+      velY = 2 + Math.random() * 3;
+    } else {
+      startX = window.innerWidth + 50;
+      startY = Math.random() * window.innerHeight * 0.7;
+      velX = -speed;
+      velY = 2 + Math.random() * 3;
+    }
+
+    const egg = document.createElement('div');
+    egg.className = 'egg-el';
+    egg.textContent = '🥚';
+    egg.style.left = startX + 'px';
+    egg.style.top = startY + 'px';
+    egg.style.fontSize = (28 + Math.random() * 20) + 'px';
+    overlay.appendChild(egg);
+
+    let x = startX, y = startY;
+    let rotation = 0;
+    const rotSpeed = (Math.random() - 0.5) * 8;
+    let animId;
+
+    function animateEgg() {
+      x += velX;
+      y += velY;
+      velY += 0.3; // Gravity pull
+      rotation += rotSpeed;
+
+      if (egg.parentNode) {
+        egg.style.left = x + 'px';
+        egg.style.top = y + 'px';
+        egg.style.transform = `rotate(${rotation}deg)`;
+      }
+
+      // Splat triggers
+      const hitFloor = y > window.innerHeight - 60;
+      const hitLeft = x < 10;
+      const hitRight = x > window.innerWidth - 60;
+      const hitTop = y < 10 && side !== 0;
+
+      if (hitFloor || hitLeft || hitRight || hitTop) {
+        if (egg.parentNode) {
+          egg.remove();
+          createSplat(x, y, hitFloor);
+        }
+        return;
+      }
+      animId = requestAnimationFrame(animateEgg);
+      activeFrames.push(animId);
+    }
+    animId = requestAnimationFrame(animateEgg);
+    activeFrames.push(animId);
+
+    setTimeout(spawnEgg, 180 + Math.random() * 220);
+  }
+
+  spawnEgg();
+
+  // Garbage collect all frames and DOM overlays
+  setTimeout(() => {
+    activeFrames.forEach(id => cancelAnimationFrame(id));
+    overlay.style.display = 'none';
+    overlay.innerHTML = '';
+    const n = document.getElementById('nope-msg');
+    if (n) n.remove();
+  }, 5200);
+}
+
+function createSplat(x, y, isFloor) {
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', '80');
+  svg.setAttribute('height', '60');
+  svg.style.cssText = `
+    position: fixed;
+    left: ${Math.max(0, x - 35)}px;
+    top: ${Math.max(0, y - 25)}px;
+    z-index: 99999;
+    pointer-events: none;
+    animation: splatAnim 0.8s ease both;
+    transform-origin: center;
+  `;
+
+  // Egg shell vectors
+  const shell1 = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+  shell1.setAttribute('cx','20'); shell1.setAttribute('cy','20');
+  shell1.setAttribute('rx','12'); shell1.setAttribute('ry','8');
+  shell1.setAttribute('fill','#eee'); shell1.setAttribute('opacity','0.9');
+  shell1.setAttribute('transform','rotate(-20,20,20)');
+
+  const shell2 = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+  shell2.setAttribute('cx','55'); shell2.setAttribute('cy','18');
+  shell2.setAttribute('rx','10'); shell2.setAttribute('ry','7');
+  shell2.setAttribute('fill','#ddd'); shell2.setAttribute('opacity','0.9');
+  shell2.setAttribute('transform','rotate(15,55,18)');
+
+  // Albumen (egg white)
+  const white = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+  white.setAttribute('cx','38'); white.setAttribute('cy','35');
+  white.setAttribute('rx','32'); white.setAttribute('ry','16');
+  white.setAttribute('fill','rgba(255,255,240,0.92)');
+
+  // Yolk
+  const yolk = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  yolk.setAttribute('cx','38'); yolk.setAttribute('cy','33');
+  yolk.setAttribute('r','10'); yolk.setAttribute('fill','#f5a623');
+  yolk.setAttribute('opacity','0.95');
+
+  // Reflection
+  const highlight = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  highlight.setAttribute('cx','34'); highlight.setAttribute('cy','29');
+  highlight.setAttribute('r','3'); highlight.setAttribute('fill','rgba(255,255,255,0.5)');
+
+  svg.appendChild(white);
+  svg.appendChild(yolk);
+  svg.appendChild(highlight);
+  svg.appendChild(shell1);
+  svg.appendChild(shell2);
+
+  document.getElementById('egg-overlay').appendChild(svg);
+  svg.addEventListener('animationend', () => svg.remove());
+}
+
+// ============================================================
+// CONTROLLER SEND LOGIC (HYBRID LOCAL/API DISPATCHER)
+// ============================================================
+async function sendMessage(text) {
+  text = text.trim();
+  if (!text) return;
+
+  addUserMsg(text);
+  
+  if (suggestionsShown) {
+    document.getElementById('suggestions').style.display = 'none';
+    suggestionsShown = false;
+  }
+
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true;
+
+  // Intercept classified files request (Easter Egg)
+  const trigger = detectTrigger(text);
+
+  if (trigger === 'CRUSH') {
+    showTyping();
+    await sleep(700);
+    hideTyping();
+    addBotMsg("🚫 **ACCESSING CLASSIFIED FILES...**\n\n**ALERT! ALERT!** That information is **TOP SECRET** and strictly confidential! 🙅‍♂️\n\nHave some eggs instead! 🥚");
+    launchEggs();
+    btn.disabled = false;
+    return;
+  }
+
+  if (trigger === 'BESTFRIEND') {
+    showTyping();
+    await sleep(600);
+    hideTyping();
+    addBotMsg("🤖 Hariharan's **best friend is AI** — that's literally me, **HARI BOT**! 😄\n\nNow stop being nosy and **do your own work!** 😂 Hariharan's busy building the future!");
+    btn.disabled = false;
+    chatHistory.push({ role: 'user', content: text });
+    chatHistory.push({ role: 'assistant', content: "Hariharan's best friend is AI!" });
+    return;
+  }
+
+  showTyping();
+
+  // If local mode is active or client is offline, intercept immediately
+  if (!userApiKey || !navigator.onLine) {
+    await sleep(400); // Simulate bot reading time
+    const localReply = getLocalResponse(text);
+    hideTyping();
+    addBotMsg(localReply);
+    
+    chatHistory.push({ role: 'user', content: text });
+    chatHistory.push({ role: 'assistant', content: localReply });
+    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+    
+    btn.disabled = false;
+    return;
+  }
+
+  // System Prompt for API RAG
+  const system = `You are HARI BOT — a witty, warm, and personalized AI assistant that knows everything about Hariharan. Answer ONLY from the knowledge base below. Be enthusiastic, conversational, and use emojis naturally. Keep responses to 2-5 sentences max unless detail is truly needed. If something is not in the knowledge base, say you don't know and suggest reaching Hariharan at hariharanmct06@gmail.com.
+
+KNOWLEDGE BASE:
+${HARI_KB}
+
+PERSONALITY RULES:
+- Biriyani question → get SUPER excited 🍛
+- Healing questions (Reiki, Ama Deus, Lama Fera, Kwan Yin, Acupuncture, Sujok) → explain with care and pride — this is Hariharan's special gift!
+- Chess → celebrate his STATE-LEVEL achievement with pride ♟️
+- RCB cricket → show passion and love for ABD
+- Tea vs Coffee → he loves BOTH, refuses to pick
+- Vijay → big fan energy!
+- ASUS ROG → proud of his machine
+- Use **bold** for key terms and *italics* for emphasis
+- Be fun and personal, not robotic`;
+
+  try {
+    const messages = [
+      { role: 'system', content: system },
+      ...chatHistory,
+      { role: 'user', content: text }
+    ];
+
+    const controller = new AbortController();
+    // 12 Second timeout for snappy mobile experience, falls back to local processing
+    const timeout = setTimeout(() => controller.abort(), 12000);
+
+    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+      method: 'POST',
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${userApiKey}`,
+        'HTTP-Referer': 'https://hariharanmct06.github.io',
+        'X-Title': 'HARI BOT'
+      },
+      body: JSON.stringify({
+        model: 'meta-llama/llama-3.3-70b-instruct:free',
+        max_tokens: 800,
+        messages
+      })
+    });
+    
+    clearTimeout(timeout);
+
+    if (!res.ok) {
+      throw new Error(`HTTP Error Status: ${res.status}`);
+    }
+
+    const data = await res.json();
+    const reply = data.choices?.[0]?.message?.content || "Hmm, my circuits are slightly foggy! Try asking that again 🧠";
+
+    hideTyping();
+    addBotMsg(reply);
+    
+    chatHistory.push({ role: 'user', content: text });
+    chatHistory.push({ role: 'assistant', content: reply });
+    if (chatHistory.length > 20) chatHistory = chatHistory.slice(-20);
+
+  } catch(e) {
+    hideTyping();
+    
+    // Snappy Local Fallback Activation on Error/Abort
+    const localReply = getLocalResponse(text);
+    addBotMsg(localReply + "\n\n*(Sent via Offline Local Engine)*");
+    
+    chatHistory.push({ role: 'user', content: text });
+    chatHistory.push({ role: 'assistant', content: localReply });
+  }
+
+  btn.disabled = false;
+}
+
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ============================================================
+// MOBILE KEYBOARD AND VIEWPORT MANAGEMENT
+// ============================================================
+function adjustViewport() {
+  const vv = window.visualViewport;
+  if (!vv) return;
+
+  const app = document.getElementById('app');
+  if (!app) return;
+
+  if (window.innerWidth < 600) {
+    // Dynamically size app container height to match visual height minus keyboard
+    app.style.height = `${vv.height}px`;
+    // Place container at offset top to prevent iOS text input displacement
+    app.style.top = `${vv.offsetTop}px`;
+    
+    // Force browser window window viewport scroll position to origin
+    window.scrollTo(0, 0);
+  } else {
+    // Reset styling for standard desktop dimensions
+    app.style.height = '';
+    app.style.top = '';
+  }
+  
+  setTimeout(scrollBottom, 50);
+}
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener('resize', adjustViewport);
+  window.visualViewport.addEventListener('scroll', adjustViewport);
+}
+
+// ============================================================
+// BANNER STATUS SYNC
+// ============================================================
+function updateBannerStatus() {
+  const banner = document.getElementById('offline-banner');
+  if (!banner) return;
+
+  if (!navigator.onLine) {
+    banner.style.display = 'block';
+    banner.textContent = '📵 Offline Mode — Serving queries instantly from offline Knowledge Base';
+    banner.style.background = 'rgba(255, 80, 80, 0.15)';
+    banner.style.color = '#ff6b6b';
+    banner.style.borderBottom = '1px solid rgba(255, 80, 80, 0.3)';
+  } else if (!userApiKey) {
+    banner.style.display = 'block';
+    banner.textContent = '⚡ Local Mode — Powered by offline Knowledge Base. Click ⚙️ to add API Key for full AI.';
+    banner.style.background = 'rgba(0, 229, 204, 0.1)';
+    banner.style.color = 'var(--teal)';
+    banner.style.borderBottom = '1px solid rgba(0, 229, 204, 0.18)';
+  } else {
+    banner.style.display = 'none';
+  }
+}
+
+// ============================================================
+// EFFICIENT PARTICLES CANVAS BACKGROUND
+// ============================================================
+const canvas = document.getElementById('bg-canvas');
+const ctx = canvas.getContext('2d');
+let lastWidth = 0;
+let lastHeight = 0;
+let particles = [];
+
+function resizeCanvas() {
+  const currentWidth = window.innerWidth;
+  const currentHeight = window.innerHeight;
+
+  // Prevent redrawing/flickering for micro-height updates (keyboard toggling)
+  if (Math.abs(currentWidth - lastWidth) > 10 || Math.abs(currentHeight - lastHeight) > 120) {
+    canvas.width = currentWidth;
+    canvas.height = currentHeight;
+    lastWidth = currentWidth;
+    lastHeight = currentHeight;
+    initParticles();
+  }
+}
+
+function initParticles() {
+  // Mobile gets 22 particles to conserve CPU, desktop gets 55
+  const maxParticles = window.innerWidth < 600 ? 22 : 55;
+  particles = Array.from({ length: maxParticles }, () => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    r: Math.random() * 1.3 + 0.4,
+    c: Math.random() > 0.5 ? 'rgba(0, 229, 204,' : 'rgba(245, 166, 35,'
+  }));
+}
+
+function drawParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  particles.forEach(p => {
+    p.x += p.vx;
+    p.y += p.vy;
+
+    if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+    if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = p.c + '0.55)';
+    ctx.fill();
+
+    // Draw networking connection threads between particles
+    particles.forEach(p2 => {
+      const d = Math.hypot(p.x - p2.x, p.y - p2.y);
+      if (d < 85) {
+        ctx.beginPath();
+        ctx.moveTo(p.x, p.y);
+        ctx.lineTo(p2.x, p2.y);
+        ctx.strokeStyle = p.c + (0.06 * (1 - d / 85)) + ')';
+        ctx.lineWidth = 0.45;
+        ctx.stroke();
+      }
+    });
+  });
+  
+  requestAnimationFrame(drawParticles);
+}
+
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+drawParticles();
+
+// ============================================================
+// INITIALIZATION
+// ============================================================
+function init() {
+  // Sync online status and key status
+  window.addEventListener('online', updateBannerStatus);
+  window.addEventListener('offline', updateBannerStatus);
+  updateBannerStatus();
+
+  // Setup Visual Viewport triggers
+  if (window.visualViewport) {
+    adjustViewport();
+  }
+
+  // Populate interactive suggestion buttons
+  const sugBox = document.getElementById('suggestions');
+  SUGGESTIONS.forEach(q => {
+    const btn = document.createElement('button');
+    btn.className = 'sugg';
+    btn.textContent = q;
+    btn.type = 'button';
+    btn.onclick = () => { sendMessage(q); };
+    sugBox.appendChild(btn);
+  });
+
+  // Welcome Intro Message
+  addBotMsg("Hey! I'm **HARI BOT** 🤖✨ — Hariharan's personal AI!\n\nI know everything about him — from his **energy healing** powers 🌿 to his **state-level chess** game ♟️, his love for **Biriyani** 🍛, and his undying loyalty to **RCB** 🔴!\n\nAsk me anything! 👇");
+
+  // Chat Form Handling (Prevents default page refresh on submit)
+  const form = document.getElementById('chat-form');
+  const inp = document.getElementById('chat-input');
+  
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const val = inp.value.trim();
+    if (val) {
+      sendMessage(val);
+      inp.value = '';
+    }
+  });
+
+  // Settings Modal Triggers
+  const settingsBtn = document.getElementById('settings-btn');
+  const settingsModal = document.getElementById('settings-modal');
+  const settingsClose = document.getElementById('settings-close');
+  const settingsSave = document.getElementById('settings-save');
+  const settingsKeyInput = document.getElementById('settings-key');
+
+  settingsBtn.addEventListener('click', () => {
+    settingsModal.style.display = 'flex';
+    settingsModal.setAttribute('aria-hidden', 'false');
+    settingsKeyInput.value = userApiKey;
+  });
+
+  const closeModal = () => {
+    settingsModal.style.display = 'none';
+    settingsModal.setAttribute('aria-hidden', 'true');
+  };
+
+  settingsClose.addEventListener('click', closeModal);
+  
+  settingsSave.addEventListener('click', () => {
+    userApiKey = settingsKeyInput.value.trim();
+    if (userApiKey) {
+      localStorage.setItem('HARI_BOT_OR_KEY', userApiKey);
+    } else {
+      localStorage.removeItem('HARI_BOT_OR_KEY');
+    }
+    closeModal();
+    updateBannerStatus();
+  });
+
+  // iOS Safari touch bouncing fix
+  document.addEventListener('touchmove', e => {
+    if (e.target.closest('#messages') || e.target.closest('#suggestions') || e.target.closest('.settings-card')) {
+      // allow scrolling within these elements
+      return;
+    }
+    e.preventDefault();
+  }, { passive: false });
+}
+
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
