@@ -736,6 +736,12 @@
 const HARI_KB = `
 # Hariharan — Complete Personal Knowledge Base
 
+## Professional Profile & Ventures
+- Founder & Creative Director at **Hari Bot and Business Solutions** 💼
+  * Founded on: May 24, 2026 (24/05/2026).
+  * Website: https://hari-bot-business-solutions.vercel.app/ (If anyone asks about this company, creative director role, founder status, or business website, provide this link and guide them there).
+  * Main focus: Delivering innovative AI chatbots, custom automations, and technology-driven business solutions.
+
 ## Personal Info
 - Full Name: Hariharan
 - Age: 17 years old (born July 06, 2008). If someone asks for your age, tell them explicitly that you are 17 years old. Do not only tell them the DOB, prioritize stating the age 17.
@@ -792,6 +798,12 @@ function checkAndOpenLink(text) {
   const hasGithub = t.includes('github') || t.includes('git ');
   const hasLeetcode = t.includes('leetcode') || t.includes('leet code');
   const hasProfile = t.includes('profile') || t.includes('profiles');
+  const hasBusiness = t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('creative director') || t.includes('founder') || t.includes('hari-bot-business-solutions') || t.includes('hari bot and business');
+
+  if (hasBusiness) {
+    window.open('https://hari-bot-business-solutions.vercel.app/', '_blank');
+    return;
+  }
 
   if (hasContact) {
     if (t.includes('whatsapp') || t.includes('number') || t.includes('phone') || t.includes('8667808803')) {
@@ -843,6 +855,12 @@ function getLocalResponse(text) {
     return `The current time is **${time}** ⏰.`;
   }
   
+  if (t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('founder') || t.includes('creative director') || t.includes('hari-bot-business-solutions') || t.includes('hari bot and business')) {
+    return "Hariharan is the **Founder & Creative Director** of **Hari Bot and Business Solutions**! 💼✨\n\n" +
+           "• **Established**: May 24, 2026 (24/05/2026)\n" +
+           "• **Website**: [hari-bot-business-solutions.vercel.app](https://hari-bot-business-solutions.vercel.app/)\n\nI have opened the company website for you in a new tab!";
+  }
+
   if (t.includes('portfolio') || t.includes('website') || t.includes('more detail') || t.includes('more about') || t.includes('link') || t.includes('detail about')) {
     return "You can find more details and a full overview of **Hariharan's** mechatronics and programming work on his live portfolio website:\n\n" +
            "🔗 **Portfolio**: [portfolio-new-psi-ten-33.vercel.app](https://portfolio-new-psi-ten-33.vercel.app/)\n\nI have also opened a direct link for you!";
@@ -934,7 +952,7 @@ function getLocalResponse(text) {
   }
 
   if (t.includes('who') || t.includes('about') || t.includes('hari') || t.includes('profile') || t.includes('summary')) {
-    return "Hariharan is a passionate **Mechatronics student** at SNS College of Technology and an **Energy Healer** associated with Agasthiya Healing Centre! 🤖✨";
+    return "Hariharan is the **Founder & Creative Director** of **Hari Bot and Business Solutions** 💼, a passionate **Mechatronics student** at SNS College of Technology 🤖, and an **Energy Healer** associated with Agasthiya Healing Centre! 🌿✨";
   }
 
   return "I could not find a specific match in my offline database, but **Hariharan** is a Mechatronics student and an Energy Healer. " +
@@ -1751,7 +1769,7 @@ function init() {
   });
 
   // Welcome Intro Message
-  addBotMsg("Hey! I'm **HARI BOT** 🤖✨ — Hariharan's personal AI!\n\nHariharan is currently studying **Mechatronics Engineering** at **SNS College of Technology** in Coimbatore 🎓.\n\nHe is a passionate tech enthusiast who loves coding in **Python** and **C++** 💻, designing sleek **UI/UX interfaces** in Figma, and automating workflows!\n\nAsk me anything about his studies, programming skills, or technical projects! 👇");
+  addBotMsg("Hey! I'm **HARI BOT** 🤖✨ — Hariharan's personal AI!\n\nHariharan is the **Founder & Creative Director** of **Hari Bot and Business Solutions** 💼 (established May 24, 2026), and a first-year **Mechatronics Engineering** student at **SNS College of Technology** in Coimbatore 🎓.\n\nHe is a passionate tech enthusiast who loves coding in **Python** and **C++** 💻, designing sleek **UI/UX interfaces** in Figma, and automating workflows!\n\nAsk me anything about his business solutions, mechatronics studies, or programming projects! 👇");
 
   // Chat Form Handling (Prevents default page refresh on submit)
   const form = document.getElementById('chat-form');
