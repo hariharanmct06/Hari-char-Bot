@@ -16,19 +16,19 @@
 
   <style>
     :root {
-      --bg: #030712; /* Deep modern dark space */
-      --bg2: #0b0f19;
-      --bg3: #111827;
-      --surface: rgba(15, 23, 42, 0.65); /* Modern slate glass */
-      --accent: #6366f1; /* Indigo */
-      --accent-hover: #4f46e5;
-      --accent-glow: rgba(99, 102, 241, 0.2);
+      --bg: #050814; /* Deep premium navy black */
+      --bg2: #0a0f1d;
+      --bg3: #10172e;
+      --surface: rgba(15, 23, 42, 0.75); /* Modern slate glass */
+      --accent: #dfb15b; /* Premium Gold */
+      --accent-hover: #c59b49;
+      --accent-glow: rgba(223, 177, 91, 0.15);
       --teal: #10b981; /* Emerald status */
-      --gold: #f59e0b; /* Amber */
+      --gold: #dfb15b; /* Amber Gold */
       --text: #f8fafc; /* Crisp off-white */
-      --muted: #64748b; /* Slate grey */
-      --border: rgba(255, 255, 255, 0.08); /* Clean, ultra-thin border */
-      --border-hover: rgba(99, 102, 241, 0.25);
+      --muted: #8e9cb2; /* Soft greyish blue */
+      --border: rgba(223, 177, 91, 0.12); /* Thin gold-tint border */
+      --border-hover: rgba(223, 177, 91, 0.3);
     }
 
     *, *::before, *::after {
@@ -100,8 +100,8 @@
       height: 100%;
       z-index: 0;
       background-image:
-        linear-gradient(rgba(99, 102, 241, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(99, 102, 241, 0.015) 1px, transparent 1px);
+        linear-gradient(rgba(223, 177, 91, 0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(223, 177, 91, 0.015) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
     }
@@ -130,7 +130,7 @@
         box-shadow:
           0 0 0 1px rgba(255, 255, 255, 0.03),
           0 30px 70px rgba(0, 0, 0, 0.6),
-          0 0 50px rgba(99, 102, 241, 0.03);
+          0 0 50px rgba(223, 177, 91, 0.03);
       }
     }
 
@@ -169,13 +169,13 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      background: linear-gradient(135deg, var(--accent), #c59b49);
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
       flex-shrink: 0;
-      box-shadow: 0 0 16px rgba(99, 102, 241, 0.3);
+      box-shadow: 0 0 16px rgba(223, 177, 91, 0.3);
       position: relative;
     }
 
@@ -231,7 +231,7 @@
     .htag:hover {
       border-color: var(--accent);
       color: var(--text);
-      background: rgba(99, 102, 241, 0.06);
+      background: rgba(223, 177, 91, 0.06);
     }
 
     #settings-btn {
@@ -274,7 +274,7 @@
     }
     #messages::-webkit-scrollbar { width: 6px; }
     #messages::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 6px; }
-    #messages::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.2); }
+    #messages::-webkit-scrollbar-thumb:hover { background: rgba(223, 177, 91, 0.2); }
 
     .msg {
       display: flex;
@@ -302,8 +302,8 @@
       user-select: none;
     }
     .msg.bot .msg-icon {
-      background: rgba(99, 102, 241, 0.08);
-      border-color: rgba(99, 102, 241, 0.2);
+      background: rgba(223, 177, 91, 0.08);
+      border-color: rgba(223, 177, 91, 0.2);
       color: var(--accent);
     }
 
@@ -329,7 +329,7 @@
       background: var(--accent);
       color: #ffffff;
       border-bottom-right-radius: 4px;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+      box-shadow: 0 4px 12px rgba(223, 177, 91, 0.15);
     }
 
     @keyframes shoutGlow {
@@ -410,7 +410,7 @@
     .sugg:active, .sugg:hover {
       border-color: var(--accent);
       color: var(--text);
-      background: rgba(99, 102, 241, 0.06);
+      background: rgba(223, 177, 91, 0.06);
     }
 
     #input-area {
@@ -453,7 +453,7 @@
     #chat-input:focus {
       border-color: var(--accent);
       background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 0 15px rgba(99, 102, 241, 0.12);
+      box-shadow: 0 0 15px rgba(223, 177, 91, 0.12);
     }
     #chat-input::placeholder { color: var(--muted); }
 
@@ -471,14 +471,14 @@
       justify-content: center;
       color: #ffffff;
       transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+      box-shadow: 0 4px 12px rgba(223, 177, 91, 0.2);
       touch-action: manipulation;
       user-select: none;
     }
     #send-btn:hover {
       background: var(--accent-hover);
       transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(99, 102, 241, 0.3);
+      box-shadow: 0 6px 16px rgba(223, 177, 91, 0.3);
     }
     #send-btn:active { transform: translateY(1px); }
     #send-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
@@ -557,7 +557,7 @@
       padding: 28px;
       border-radius: 16px;
       width: min(440px, 92vw);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 45px rgba(99, 102, 241, 0.04);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 45px rgba(223, 177, 91, 0.04);
       display: flex;
       flex-direction: column;
       gap: 18px;
@@ -737,10 +737,19 @@ const HARI_KB = `
 # Hariharan — Complete Personal Knowledge Base
 
 ## Professional Profile & Ventures
-- Founder & Creative Director at **Hari Bot and Business Solutions** 💼
-  * Founded on: May 24, 2026 (24/05/2026).
+- Founder & Creative Director at **Hari Bot & Business Solutions** 💼
+  * Founded on: May 24, 2026 (24/05/2026) in Coimbatore, Tamil Nadu, India.
   * Website: https://hari-bot-business-solutions.vercel.app/ (If anyone asks about this company, creative director role, founder status, or business website, provide this link and guide them there).
-  * Main focus: Delivering innovative AI chatbots, custom automations, and technology-driven business solutions.
+  * Business Philosophy: "We will do the best for a company."
+  * Core Services:
+    1. **UI / UX Designing**: Wireframing, prototyping, interactive mockups, user journey maps, and user-centered research.
+    2. **Company Websites**: Fast, secure, SEO-optimized landing pages and corporate portals.
+    3. **Personalized AI Bots**: Custom chatbots trained on company knowledge bases for 24/7 customer support and lead generation.
+    4. **AI & Task Automation**: Workflow automation via n8n integration flows and Python scripts to automate repetitive processes (10x task speed, 40+ hours saved weekly).
+  * Business Contacts:
+    - Email: haribotbusinesssolutions@gmail.com
+    - WhatsApp / Call: +91 8838154932 (Business Support line)
+    - Instagram: @haribotandbusinesssolutions (https://www.instagram.com/haribotandbusinesssolutions?igsh=YWptdTVvaHRmaG5x)
 
 ## Personal Info
 - Full Name: Hariharan
@@ -806,14 +815,21 @@ function checkAndOpenLink(text) {
   }
 
   if (hasContact) {
-    if (t.includes('whatsapp') || t.includes('number') || t.includes('phone') || t.includes('8667808803')) {
+    if (t.includes('8838154932') || t.includes('business')) {
+      window.open('https://wa.me/918838154932', '_blank');
+      return;
+    } else if (t.includes('whatsapp') || t.includes('number') || t.includes('phone') || t.includes('8667808803')) {
       window.open('https://wa.me/918667808803', '_blank');
       return;
     } else if (t.includes('linkedin') || t.includes('linkdin')) {
       window.open('https://www.linkedin.com/in/hariharan-m-4a8533407', '_blank');
       return;
-    } else if (t.includes('gmail') || t.includes('email') || t.includes('mail') || t.includes('hariharanmct06@gmail.com')) {
-      window.open('mailto:hariharanmct06@gmail.com', '_blank');
+    } else if (t.includes('gmail') || t.includes('email') || t.includes('mail')) {
+      if (t.includes('business') || t.includes('company')) {
+        window.open('mailto:haribotbusinesssolutions@gmail.com', '_blank');
+      } else {
+        window.open('mailto:hariharanmct06@gmail.com', '_blank');
+      }
       return;
     }
   }
@@ -855,10 +871,15 @@ function getLocalResponse(text) {
     return `The current time is **${time}** ⏰.`;
   }
   
-  if (t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('founder') || t.includes('creative director') || t.includes('hari-bot-business-solutions') || t.includes('hari bot and business')) {
-    return "Hariharan is the **Founder & Creative Director** of **Hari Bot and Business Solutions**! 💼✨\n\n" +
-           "• **Established**: May 24, 2026 (24/05/2026)\n" +
-           "• **Website**: [hari-bot-business-solutions.vercel.app](https://hari-bot-business-solutions.vercel.app/)\n\nI have opened the company website for you in a new tab!";
+  if (t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('founder') || t.includes('creative director') || t.includes('hari-bot-business-solutions') || t.includes('hari bot and business') || t.includes('service') || t.includes('offer') || t.includes('automation') || t.includes('n8n')) {
+    return "💼 **Hari Bot & Business Solutions** is a premium technology-driven agency founded by **Hariharan M** on **May 24, 2026** in Coimbatore, India. \n\n" +
+           "✨ **Business Philosophy**: *\"We will do the best for a company.\"*\n\n" +
+           "**Services Offered:**\n" +
+           "• 🎨 **UI / UX Designing**: User-centered research, wireframes, prototypes, and visual design.\n" +
+           "• 💻 **Company Websites**: Responsive, SEO-optimized, fast, and premium landing pages and corporate portals.\n" +
+           "• 🤖 **Personalized AI Bots**: Intelligent assistants trained on company data for customer support and lead generation.\n" +
+           "• ⚙️ **AI & Task Automation**: Workflow automation via n8n & Python to boost task speed by 10x.\n\n" +
+           "🔗 **Website**: [hari-bot-business-solutions.vercel.app](https://hari-bot-business-solutions.vercel.app/)\n\nI have opened the company website for you in a new tab!";
   }
 
   if (t.includes('portfolio') || t.includes('website') || t.includes('more detail') || t.includes('more about') || t.includes('link') || t.includes('detail about')) {
@@ -873,11 +894,16 @@ function getLocalResponse(text) {
            "• **LinkedIn**: [linkedin.com/in/hariharan-m-4a8533407](https://www.linkedin.com/in/hariharan-m-4a8533407) 🔗\n\nI have opened his profiles for you in new tabs!";
   }
 
-  if (t.includes('email') || t.includes('contact') || t.includes('mail') || t.includes('whatsapp') || t.includes('phone') || t.includes('linkedin') || t.includes('linkdin') || t.includes('reach') || t.includes('number') || t.includes('8667808803')) {
-    return "You can reach **Hariharan** through the following channels:\n\n" +
-           "• **Email**: hariharanmct06@gmail.com 📧\n" +
-           "• **WhatsApp**: [Click to chat on WhatsApp (+91 86678 08803)](https://wa.me/918667808803) 💬\n" +
-           "• **LinkedIn**: [linkedin.com/in/hariharan-m-4a8533407](https://www.linkedin.com/in/hariharan-m-4a8533407) 🔗\n\nHe is currently *Open to Opportunities*! I have also opened a direct link for you.";
+  if (t.includes('email') || t.includes('contact') || t.includes('mail') || t.includes('whatsapp') || t.includes('phone') || t.includes('linkedin') || t.includes('linkdin') || t.includes('reach') || t.includes('number') || t.includes('8667808803') || t.includes('8838154932')) {
+    return "Here are the contact details to reach **Hariharan** and **Hari Bot & Business Solutions**:\n\n" +
+           "💼 **Hari Bot & Business Solutions:**\n" +
+           "• **Business Email**: haribotbusinesssolutions@gmail.com 📧\n" +
+           "• **WhatsApp (Business)**: [Click to chat (+91 88381 54932)](https://wa.me/918838154932) 💬\n" +
+           "• **Instagram**: [@haribotandbusinesssolutions](https://www.instagram.com/haribotandbusinesssolutions?igsh=YWptdTVvaHRmaG5x) 📸\n\n" +
+           "👤 **Personal/Founder Contacts:**\n" +
+           "• **Personal Email**: hariharanmct06@gmail.com 📧\n" +
+           "• **WhatsApp (Founder)**: [Click to chat (+91 86678 08803)](https://wa.me/918667808803) 💬\n" +
+           "• **LinkedIn**: [linkedin.com/in/hariharan-m-4a8533407](https://www.linkedin.com/in/hariharan-m-4a8533407) 🔗\n\nI have also opened a direct contact link for you.";
   }
   
   if (t.includes('heal') || t.includes('reiki') || t.includes('ama deus') || t.includes('amadeus') || t.includes('lama') || t.includes('fera') || t.includes('kwan') || t.includes('yin') || t.includes('acupuncture') || t.includes('sujok') || t.includes('energy') || t.includes('wellness') || t.includes('meditation') || t.includes('agasthiya') || t.includes('centre')) {
@@ -952,7 +978,7 @@ function getLocalResponse(text) {
   }
 
   if (t.includes('who') || t.includes('about') || t.includes('hari') || t.includes('profile') || t.includes('summary')) {
-    return "Hariharan is the **Founder & Creative Director** of **Hari Bot and Business Solutions** 💼, a passionate **Mechatronics student** at SNS College of Technology 🤖, and an **Energy Healer** associated with Agasthiya Healing Centre! 🌿✨";
+    return "Hariharan is the **Founder & Creative Director** of **Hari Bot & Business Solutions** 💼, a first-year **Mechatronics Engineering** student at SNS College of Technology 🤖, and an **Energy Healer** associated with Agasthiya Healing Centre! 🌿✨";
   }
 
   return "I could not find a specific match in my offline database, but **Hariharan** is a Mechatronics student and an Energy Healer. " +
@@ -1701,7 +1727,7 @@ function initParticles() {
     vx: (Math.random() - 0.5) * 0.3,
     vy: (Math.random() - 0.5) * 0.3,
     r: Math.random() * 1.3 + 0.4,
-    c: Math.random() > 0.5 ? 'rgba(99, 102, 241,' : 'rgba(16, 185, 129,'
+    c: Math.random() > 0.5 ? 'rgba(223, 177, 91,' : 'rgba(16, 185, 129,'
   }));
 }
 
