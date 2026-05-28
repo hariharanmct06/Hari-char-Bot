@@ -774,6 +774,7 @@ const HARI_KB = `
 - 10th Standard (SSLC) — Suguna RIP V School, Coimbatore (Graduated in 2024, TN State Board, English Medium, Score: 383/500)
 
 ## Technical Skills & Interests
+- Design & Marketing: UI/UX Designing (wireframing, prototyping, user-centered research, user journey mapping) and AI Digital Marketing
 - Programming Languages: Python and C++ (Active experience writing, debugging, and optimizing code)
 - Data & Databases: SQL (Strong understanding, including database design concepts like primary keys)
 - Logic & Problem Solving: LeetCode (practicing string manipulations, palindrome logic, clean code indentation)
@@ -784,6 +785,11 @@ const HARI_KB = `
 - Affiliation: Practitioner and organizer associated with the Agasthiya Healing Centre
 - Modalities: alternative holistic energy healing frameworks, including Reiki, Sujok, and Ama-Deus
 - Applications: distance healing techniques, specialized healing tools, energetic therapy
+
+## Sports & Chess Interests
+- IPL (Cricket): Massive fan of Royal Challengers Bangalore (RCB) 🏏
+- Football: Huge fan of Cristiano Ronaldo (CR7) ⚽
+- Chess: Likes and follows Praggnanandhaa, Magnus Carlsen, and Dommaraju Gukesh ♟️
 
 ## Personal Preferences & Aesthetics
 - Visual Style & Design: High-fidelity image generation, preferring:
@@ -923,17 +929,30 @@ function getLocalResponse(text) {
     return "Hariharan has major fan energy for Tamil superstar **Thalapathy Vijay**! 🎬 He loves watching his action-packed movies and styling.";
   }
 
+  if (t.includes('rcb') || t.includes('cricket') || t.includes('ipl') || t.includes('bangalore') || t.includes('royal challengers')) {
+    return "Hariharan is a massive **Royal Challengers Bangalore (RCB)** fan in the IPL! 🏏 Wins or losses, he proudly supports RCB! *Ee Sala Cup Namdu!* 🔴🔴";
+  }
+
+  if (t.includes('ronaldo') || t.includes('cristiano') || t.includes('football') || t.includes('soccer') || t.includes('cr7')) {
+    return "Hariharan is a huge fan of **Cristiano Ronaldo (CR7)** in football! ⚽ He admires Ronaldo's work ethic, dedication, and legendary status in the game. *SIUUU!* 🐐";
+  }
+
+  if (t.includes('chess') || t.includes('pragnandha') || t.includes('praggnanandhaa') || t.includes('magnus') || t.includes('carlsen') || t.includes('gukesh') || t.includes('carlesn')) {
+    return "Hariharan loves following chess! ♟️ His favorite players are **Praggnanandhaa**, **Magnus Carlsen**, and **Dommaraju Gukesh**. He loves analyzing their games and strategy!";
+  }
+
   if (/\bpc\b/.test(t) || t.includes('laptop') || t.includes('asus') || t.includes('rog') || t.includes('computer')) {
     return "Hariharan codes and builds on a beastly **ASUS ROG** laptop! 💻 He's very proud of his gaming and development machine.";
   }
 
-  if (t.includes('skill') || t.includes('tech') || t.includes('code') || t.includes('program') || t.includes('python') || t.includes('c++') || t.includes('figma') || t.includes('design') || t.includes('language') || t.includes('hacking') || t.includes('security') || t.includes('cyber') || t.includes('sql') || t.includes('leetcode') || t.includes('database') || t.includes('sheets')) {
-    return "Hariharan has a robust engineering skillset:\n\n" +
-           "• **Languages**: Python and C++ (Active coding, debugging, and optimizations).\n" +
-           "• **Databases**: SQL (foundational database design like structural advantages of primary keys).\n" +
-           "• **Logic & Math**: LeetCode (practicing string manipulations, palindrome logic, clean code indentation).\n" +
-           "• **Workflow Automation**: Google Sheets with automated Gmail scripts.\n" +
-           "• **Diagnostics**: Hardware electro-mechanical consumer appliances troubleshooting (fault codes & sensors on appliances like washing machines).";
+  if (t.includes('skill') || t.includes('tech') || t.includes('code') || t.includes('program') || t.includes('python') || t.includes('c++') || t.includes('figma') || t.includes('design') || t.includes('language') || t.includes('hacking') || t.includes('security') || t.includes('cyber') || t.includes('sql') || t.includes('leetcode') || t.includes('database') || t.includes('sheets') || t.includes('marketing') || t.includes('uiux') || t.includes('ui/ux')) {
+    return "Hariharan has a robust engineering and digital skillset:\n\n" +
+           "• **Design & Marketing**: UI/UX Designing (wireframing, prototyping, user journey maps) and AI Digital Marketing 🎨📈.\n" +
+           "• **Languages**: Python and C++ (Active coding, debugging, and optimizations) 💻.\n" +
+           "• **Databases**: SQL (foundational database design like structural advantages of primary keys) 🗄️.\n" +
+           "• **Logic & Math**: LeetCode (practicing string manipulations, palindrome logic, clean code indentation) ♟️.\n" +
+           "• **Workflow Automation**: Google Sheets with automated Gmail scripts and n8n workflows ⚙️.\n" +
+           "• **Diagnostics**: Hardware electro-mechanical consumer appliances troubleshooting (fault codes & sensors on appliances like washing machines) 🛠️.";
   }
 
   if (t.includes('education') || t.includes('study') || t.includes('college') || t.includes('school') || t.includes('degree') || t.includes('mechatronics') || t.includes('university') || t.includes('sns') || t.includes('suguna') || t.includes('12th') || t.includes('academic')) {
