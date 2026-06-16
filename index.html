@@ -16,19 +16,26 @@
 
   <style>
     :root {
-      --bg: #050814; /* Deep premium navy black */
-      --bg2: #0a0f1d;
-      --bg3: #10172e;
-      --surface: rgba(15, 23, 42, 0.75); /* Modern slate glass */
-      --accent: #dfb15b; /* Premium Gold */
-      --accent-hover: #c59b49;
-      --accent-glow: rgba(223, 177, 91, 0.15);
-      --teal: #10b981; /* Emerald status */
-      --gold: #dfb15b; /* Amber Gold */
-      --text: #f8fafc; /* Crisp off-white */
-      --muted: #8e9cb2; /* Soft greyish blue */
-      --border: rgba(223, 177, 91, 0.12); /* Thin gold-tint border */
-      --border-hover: rgba(223, 177, 91, 0.3);
+      --bg: #000000; /* Pure black space */
+      --bg2: #050508; /* Deep cosmic dark */
+      --bg3: #0c0c10; /* Charcoal black */
+      --surface: rgba(8, 8, 12, 0.7); /* Sleek translucent dark glass */
+      
+      --orange: #ff6b00; /* Electric Orange */
+      --orange-rgb: 255, 107, 0;
+      --green: #10b981; /* Neon Emerald Green */
+      --green-rgb: 16, 185, 129;
+      --blue: #00f0ff; /* Cyber Neon Blue */
+      --blue-rgb: 0, 240, 255;
+      
+      --accent: var(--orange);
+      --accent-hover: #ff8533;
+      --accent-glow: rgba(255, 107, 0, 0.2);
+      
+      --text: #ffffff; /* Pure white text */
+      --muted: #94a3b8; /* Soft slate grey */
+      --border: rgba(255, 255, 255, 0.08); /* Clean white-border overlay */
+      --border-hover: rgba(255, 255, 255, 0.18);
     }
 
     *, *::before, *::after {
@@ -77,14 +84,13 @@
       position: fixed;
       border-radius: 50%;
       filter: blur(140px);
-      opacity: 0.04;
       pointer-events: none;
       z-index: 0;
       animation: blobFloat 12s ease-in-out infinite;
     }
-    .blob1 { width: 600px; height: 600px; background: var(--accent); top: -150px; left: -150px; animation-delay: 0s; }
-    .blob2 { width: 500px; height: 500px; background: #8b5cf6; bottom: -120px; right: -120px; animation-delay: 4s; }
-    .blob3 { width: 400px; height: 400px; background: var(--teal); bottom: 25%; left: 20%; animation-delay: 8s; }
+    .blob1 { width: 600px; height: 600px; background: var(--orange); top: -150px; left: -150px; opacity: 0.05; animation-delay: 0s; }
+    .blob2 { width: 500px; height: 500px; background: var(--blue); bottom: -120px; right: -120px; opacity: 0.05; animation-delay: 4s; }
+    .blob3 { width: 400px; height: 400px; background: var(--green); bottom: 25%; left: 20%; opacity: 0.03; animation-delay: 8s; }
 
     @keyframes blobFloat {
       0%, 100% { transform: translate(0, 0) scale(1); }
@@ -100,8 +106,8 @@
       height: 100%;
       z-index: 0;
       background-image:
-        linear-gradient(rgba(223, 177, 91, 0.015) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(223, 177, 91, 0.015) 1px, transparent 1px);
+        linear-gradient(rgba(0, 240, 255, 0.012) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 240, 255, 0.012) 1px, transparent 1px);
       background-size: 60px 60px;
       pointer-events: none;
     }
@@ -114,11 +120,11 @@
       max-height: 100%;
       display: flex;
       flex-direction: column;
-      background: rgba(11, 17, 30, 0.75);
+      background: rgba(5, 5, 8, 0.85);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       overflow: hidden;
-      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.95);
     }
 
     @media (min-width: 600px) {
@@ -129,8 +135,17 @@
         border: 1px solid var(--border);
         box-shadow:
           0 0 0 1px rgba(255, 255, 255, 0.03),
-          0 30px 70px rgba(0, 0, 0, 0.6),
-          0 0 50px rgba(223, 177, 91, 0.03);
+          0 30px 70px rgba(0, 0, 0, 0.9),
+          0 0 50px rgba(0, 240, 255, 0.04);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      #app:hover {
+        border-color: rgba(0, 240, 255, 0.25);
+        box-shadow:
+          0 0 0 1px rgba(255, 255, 255, 0.05),
+          0 30px 70px rgba(0, 0, 0, 0.95),
+          0 0 60px rgba(0, 240, 255, 0.06),
+          0 0 30px rgba(255, 107, 0, 0.03);
       }
     }
 
@@ -146,7 +161,7 @@
     header {
       padding: 14px 20px;
       padding-top: max(14px, env(safe-area-inset-top));
-      background: rgba(11, 17, 30, 0.4);
+      background: rgba(0, 0, 0, 0.5);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
@@ -160,23 +175,30 @@
       bottom: 0;
       left: 0;
       right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--accent), var(--teal), transparent);
-      opacity: 0.25;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--orange), var(--blue), var(--green), transparent);
+      opacity: 0.65;
     }
 
     .bot-avatar {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--accent), #c59b49);
+      background: linear-gradient(135deg, var(--orange), var(--blue), var(--green));
+      background-size: 200% 200%;
+      animation: gradientFlow 6s linear infinite;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
       flex-shrink: 0;
-      box-shadow: 0 0 16px rgba(223, 177, 91, 0.3);
+      box-shadow: 0 0 16px rgba(0, 240, 255, 0.3);
       position: relative;
+    }
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
     .header-info { flex: 1; min-width: 0; }
@@ -205,8 +227,8 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--teal);
-      box-shadow: 0 0 6px var(--teal);
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
       animation: blink 2s ease-in-out infinite;
     }
     @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
@@ -225,13 +247,14 @@
       border-radius: 6px;
       border: 1px solid var(--border);
       color: var(--muted);
-      background: rgba(255, 255, 255, 0.03);
-      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.02);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .htag:hover {
-      border-color: var(--accent);
+      border-color: var(--blue);
       color: var(--text);
-      background: rgba(223, 177, 91, 0.06);
+      background: rgba(0, 240, 255, 0.06);
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
     }
 
     #settings-btn {
@@ -274,7 +297,7 @@
     }
     #messages::-webkit-scrollbar { width: 6px; }
     #messages::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 6px; }
-    #messages::-webkit-scrollbar-thumb:hover { background: rgba(223, 177, 91, 0.2); }
+    #messages::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, var(--orange), var(--blue), var(--green)); }
 
     .msg {
       display: flex;
@@ -302,9 +325,9 @@
       user-select: none;
     }
     .msg.bot .msg-icon {
-      background: rgba(223, 177, 91, 0.08);
-      border-color: rgba(223, 177, 91, 0.2);
-      color: var(--accent);
+      background: rgba(0, 240, 255, 0.06);
+      border-color: rgba(0, 240, 255, 0.2);
+      color: var(--blue);
     }
 
     .bubble {
@@ -320,16 +343,31 @@
       .bubble { max-width: 75%; padding: 13px 18px; }
     }
     .msg.bot .bubble {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-left: 3px solid var(--blue);
       color: var(--text);
       border-bottom-left-radius: 4px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
     .msg.user .bubble {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--orange) 0%, var(--blue) 100%);
       color: #ffffff;
       border-bottom-right-radius: 4px;
-      box-shadow: 0 4px 12px rgba(223, 177, 91, 0.15);
+      box-shadow: 0 4px 15px rgba(255, 107, 0, 0.2);
+      border: none;
+    }
+
+    .bubble a {
+      color: var(--blue);
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(0, 240, 255, 0.4);
+      transition: all 0.2s ease;
+      font-weight: 600;
+    }
+    .bubble a:hover {
+      color: var(--orange);
+      border-bottom-color: var(--orange);
     }
 
     @keyframes shoutGlow {
@@ -344,6 +382,7 @@
     .msg.bot .bubble.shout-bubble {
       animation: shoutShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both, shoutGlow 1.5s infinite alternate;
       border: 1px solid rgba(239, 68, 68, 0.4) !important;
+      border-left: 3px solid rgba(239, 68, 68, 0.9) !important;
       background: rgba(239, 68, 68, 0.08) !important;
       color: #f87171 !important;
       font-weight: 700 !important;
@@ -351,24 +390,26 @@
     }
 
     .typing-bubble {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-left: 3px solid var(--blue);
       border-radius: 16px;
       border-bottom-left-radius: 4px;
       padding: 12px 18px;
       display: flex;
       gap: 5px;
       align-items: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     }
     .tdot {
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--accent);
+      background: var(--blue);
       animation: tdot 1.3s ease-in-out infinite;
     }
-    .tdot:nth-child(2) { animation-delay: .18s; }
-    .tdot:nth-child(3) { animation-delay: .36s; }
+    .tdot:nth-child(2) { animation-delay: .18s; background: var(--green); }
+    .tdot:nth-child(3) { animation-delay: .36s; background: var(--orange); }
     @keyframes tdot {
       0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
       30% { transform: translateY(-5px); opacity: 1; }
@@ -394,12 +435,12 @@
       padding: 8px 14px;
       border-radius: 8px;
       cursor: pointer;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       color: var(--muted);
       font-size: 12px;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      background: rgba(255, 255, 255, 0.02);
-      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.01);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       white-space: nowrap;
       flex-shrink: 0;
       touch-action: manipulation;
@@ -407,21 +448,23 @@
       user-select: none;
       outline: none;
     }
-    .sugg:active, .sugg:hover {
-      border-color: var(--accent);
-      color: var(--text);
-      background: rgba(223, 177, 91, 0.06);
+    .sugg:hover, .sugg:active {
+      border-color: var(--green);
+      color: #ffffff;
+      background: rgba(16, 185, 129, 0.06);
+      box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+      transform: translateY(-1px);
     }
 
     #input-area {
       padding: 12px 16px;
       padding-bottom: max(12px, env(safe-area-inset-top));
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
       display: flex;
       gap: 10px;
       align-items: center;
       flex-shrink: 0;
-      background: rgba(11, 17, 30, 0.4);
+      background: rgba(0, 0, 0, 0.6);
     }
     @media (min-width: 600px) {
       #input-area { padding: 18px 32px 24px; gap: 12px; }
@@ -436,8 +479,8 @@
 
     #chat-input {
       flex: 1;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 12px;
       padding: 12px 18px;
       color: var(--text);
@@ -446,14 +489,14 @@
       outline: none;
       resize: none;
       height: 48px;
-      transition: all 0.2s ease;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       -webkit-appearance: none;
       touch-action: manipulation;
     }
     #chat-input:focus {
-      border-color: var(--accent);
-      background: rgba(255, 255, 255, 0.05);
-      box-shadow: 0 0 15px rgba(223, 177, 91, 0.12);
+      border-color: var(--blue);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 0 20px rgba(0, 240, 255, 0.18);
     }
     #chat-input::placeholder { color: var(--muted); }
 
@@ -463,22 +506,21 @@
       min-width: 48px;
       border-radius: 12px;
       flex-shrink: 0;
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--orange), var(--blue));
       border: none;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #ffffff;
-      transition: all 0.2s ease;
-      box-shadow: 0 4px 12px rgba(223, 177, 91, 0.2);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 15px rgba(0, 240, 255, 0.25);
       touch-action: manipulation;
       user-select: none;
     }
     #send-btn:hover {
-      background: var(--accent-hover);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(223, 177, 91, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 240, 255, 0.4), 0 0 15px rgba(255, 107, 0, 0.3);
     }
     #send-btn:active { transform: translateY(1px); }
     #send-btn:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
@@ -492,7 +534,7 @@
       letter-spacing: 0.5px;
       flex-shrink: 0;
       user-select: none;
-      background: rgba(11, 17, 30, 0.4);
+      background: rgba(0, 0, 0, 0.6);
     }
 
     #egg-overlay {
@@ -544,20 +586,20 @@
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(3, 7, 18, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       z-index: 20000;
       align-items: center;
       justify-content: center;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     .settings-card {
       background: var(--bg2);
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       padding: 28px;
       border-radius: 16px;
       width: min(440px, 92vw);
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 45px rgba(223, 177, 91, 0.04);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95), 0 0 45px rgba(0, 240, 255, 0.06);
       display: flex;
       flex-direction: column;
       gap: 18px;
@@ -583,7 +625,7 @@
     }
     .settings-input {
       background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--border);
+      border: 1px solid rgba(255, 255, 255, 0.06);
       border-radius: 8px;
       padding: 10px 14px;
       color: var(--text);
@@ -593,8 +635,9 @@
       transition: all 0.2s ease;
     }
     .settings-input:focus {
-      border-color: var(--accent);
+      border-color: var(--blue);
       background: rgba(255, 255, 255, 0.04);
+      box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
     }
     .settings-help {
       font-size: 11px;
@@ -623,7 +666,7 @@
       background: rgba(255, 255, 255, 0.08);
     }
     .settings-btn-save {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--orange), var(--blue));
       border: none;
       border-radius: 8px;
       padding: 8px 16px;
@@ -633,13 +676,15 @@
       font-size: 12px;
       font-family: 'Plus Jakarta Sans', sans-serif;
       transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 240, 255, 0.2);
     }
     .settings-btn-save:hover {
-      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0, 240, 255, 0.35);
     }
 
-    strong { color: var(--gold); font-weight: 600; }
-    em { color: var(--accent); font-style: normal; }
+    strong { color: #ffffff; font-weight: 700; }
+    em { color: var(--orange); font-style: normal; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -737,14 +782,14 @@ const HARI_KB = `
 # Hariharan — Complete Personal Knowledge Base
 
 ## Professional Profile & Ventures
-- Founder & Creative Director at **Hari Bot & Business Solutions** 💼
+- Founder & CEO at **Sujok AI Bots** 🤖💼
   * Founded on: May 24, 2026 (24/05/2026) in Coimbatore, Tamil Nadu, India.
-  * Website: https://hari-bot-business-solutions.vercel.app/ (If anyone asks about this company, creative director role, founder status, or business website, provide this link and guide them there).
+  * Website: https://hari-bot-business-solutions.vercel.app/ (If anyone asks about this company, CEO role, founder status, or business website, provide this link and guide them there).
   * Business Philosophy: "We will do the best for a company."
   * Core Services:
     1. **UI / UX Designing**: Wireframing, prototyping, interactive mockups, user journey maps, and user-centered research.
     2. **Company Websites**: Fast, secure, SEO-optimized landing pages and corporate portals.
-    3. **Personalized AI Bots**: Custom chatbots trained on company knowledge bases for 24/7 customer support and lead generation.
+    3. **Personalized AI Bots & Sujok Agent Solutions**: Custom chatbots trained on company knowledge bases for 24/7 customer support and lead generation.
     4. **AI & Task Automation**: Workflow automation via n8n integration flows and Python scripts to automate repetitive processes (10x task speed, 40+ hours saved weekly).
   * Business Contacts:
     - Email: haribotbusinesssolutions@gmail.com
@@ -813,7 +858,7 @@ function checkAndOpenLink(text) {
   const hasGithub = t.includes('github') || t.includes('git ');
   const hasLeetcode = t.includes('leetcode') || t.includes('leet code');
   const hasProfile = t.includes('profile') || t.includes('profiles');
-  const hasBusiness = t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('creative director') || t.includes('founder') || t.includes('hari-bot-business-solutions') || t.includes('hari bot and business');
+  const hasBusiness = t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('creative director') || t.includes('ceo') || t.includes('founder') || t.includes('hari-bot-business-solutions') || t.includes('sujok') || t.includes('sujok ai') || t.includes('sujok ai bots');
 
   if (hasBusiness) {
     window.open('https://hari-bot-business-solutions.vercel.app/', '_blank');
@@ -877,13 +922,13 @@ function getLocalResponse(text) {
     return `The current time is **${time}** ⏰.`;
   }
   
-  if (t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('founder') || t.includes('creative director') || t.includes('hari-bot-business-solutions') || t.includes('hari bot and business') || t.includes('service') || t.includes('offer') || t.includes('automation') || t.includes('n8n')) {
-    return "💼 **Hari Bot & Business Solutions** is a premium technology-driven agency founded by **Hariharan M** on **May 24, 2026** in Coimbatore, India. \n\n" +
+  if (t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('founder') || t.includes('ceo') || t.includes('creative director') || t.includes('hari-bot-business-solutions') || t.includes('sujok') || t.includes('sujok ai') || t.includes('sujok ai bots') || t.includes('service') || t.includes('offer') || t.includes('automation') || t.includes('n8n')) {
+    return "💼 **Sujok AI Bots** is a premium technology-driven agency founded by **Hariharan M** on **May 24, 2026** in Coimbatore, India. \n\n" +
            "✨ **Business Philosophy**: *\"We will do the best for a company.\"*\n\n" +
            "**Services Offered:**\n" +
            "• 🎨 **UI / UX Designing**: User-centered research, wireframes, prototypes, and visual design.\n" +
            "• 💻 **Company Websites**: Responsive, SEO-optimized, fast, and premium landing pages and corporate portals.\n" +
-           "• 🤖 **Personalized AI Bots**: Intelligent assistants trained on company data for customer support and lead generation.\n" +
+           "• 🤖 **Personalized AI Bots & Sujok Agents**: Intelligent assistants trained on company data for customer support and lead generation.\n" +
            "• ⚙️ **AI & Task Automation**: Workflow automation via n8n & Python to boost task speed by 10x.\n\n" +
            "🔗 **Website**: [hari-bot-business-solutions.vercel.app](https://hari-bot-business-solutions.vercel.app/)\n\nI have opened the company website for you in a new tab!";
   }
@@ -901,8 +946,8 @@ function getLocalResponse(text) {
   }
 
   if (t.includes('email') || t.includes('contact') || t.includes('mail') || t.includes('whatsapp') || t.includes('phone') || t.includes('linkedin') || t.includes('linkdin') || t.includes('reach') || t.includes('number') || t.includes('8667808803') || t.includes('8838154932')) {
-    return "Here are the contact details to reach **Hariharan** and **Hari Bot & Business Solutions**:\n\n" +
-           "💼 **Hari Bot & Business Solutions:**\n" +
+    return "Here are the contact details to reach **Hariharan** and **Sujok AI Bots**:\n\n" +
+           "💼 **Sujok AI Bots:**\n" +
            "• **Business Email**: haribotbusinesssolutions@gmail.com 📧\n" +
            "• **WhatsApp (Business)**: [Click to chat (+91 88381 54932)](https://wa.me/918838154932) 💬\n" +
            "• **Instagram**: [@haribotandbusinesssolutions](https://www.instagram.com/haribotandbusinesssolutions?igsh=YWptdTVvaHRmaG5x) 📸\n\n" +
@@ -997,7 +1042,7 @@ function getLocalResponse(text) {
   }
 
   if (t.includes('who') || t.includes('about') || t.includes('hari') || t.includes('profile') || t.includes('summary')) {
-    return "Hariharan is the **Founder & Creative Director** of **Hari Bot & Business Solutions** 💼, a first-year **Mechatronics Engineering** student at SNS College of Technology 🤖, and an **Energy Healer** associated with Agasthiya Healing Centre! 🌿✨";
+    return "Hariharan is the **Founder & CEO** of **Sujok AI Bots** 🤖💼, a first-year **Mechatronics Engineering** student at SNS College of Technology 🤖, and an **Energy Healer** associated with Agasthiya Healing Centre! 🌿✨";
   }
 
   return "I could not find a specific match in my offline database, but **Hariharan** is a Mechatronics student and an Energy Healer. " +
@@ -1740,13 +1785,18 @@ function resizeCanvas() {
 function initParticles() {
   // Mobile gets 22 particles to conserve CPU, desktop gets 55
   const maxParticles = window.innerWidth < 600 ? 22 : 55;
+  const colors = [
+    'rgba(255, 107, 0,',   // Orange
+    'rgba(16, 185, 129,',  // Green
+    'rgba(0, 240, 255,'    // Blue
+  ];
   particles = Array.from({ length: maxParticles }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
     vx: (Math.random() - 0.5) * 0.3,
     vy: (Math.random() - 0.5) * 0.3,
     r: Math.random() * 1.3 + 0.4,
-    c: Math.random() > 0.5 ? 'rgba(223, 177, 91,' : 'rgba(16, 185, 129,'
+    c: colors[Math.floor(Math.random() * colors.length)]
   }));
 }
 
@@ -1814,7 +1864,7 @@ function init() {
   });
 
   // Welcome Intro Message
-  addBotMsg("Hey! I'm **HARI BOT** 🤖✨ — Hariharan's personal AI!\n\nHariharan is the **Founder & Creative Director** of **Hari Bot and Business Solutions** 💼 (established May 24, 2026), and a first-year **Mechatronics Engineering** student at **SNS College of Technology** in Coimbatore 🎓.\n\nHe is a passionate tech enthusiast who loves coding in **Python** and **C++** 💻, designing sleek **UI/UX interfaces** in Figma, and automating workflows!\n\nAsk me anything about his business solutions, mechatronics studies, or programming projects! 👇");
+  addBotMsg("Hey! I'm **HARI BOT** 🤖✨ — Hariharan's personal AI!\n\nHariharan is the **Founder & CEO** of **Sujok AI Bots** 🤖💼 (established May 24, 2026), and a first-year **Mechatronics Engineering** student at **SNS College of Technology** in Coimbatore 🎓.\n\nHe is a passionate tech enthusiast who loves coding in **Python** and **C++** 💻, designing sleek **UI/UX interfaces** in Figma, and automating workflows!\n\nAsk me anything about his Sujok AI Bots business, mechatronics studies, or programming projects! 👇");
 
   // Chat Form Handling (Prevents default page refresh on submit)
   const form = document.getElementById('chat-form');

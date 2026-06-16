@@ -2,13 +2,13 @@
 (Use this markdown file to train other custom AI models, custom GPTs, or system instructions with your personal details.)
 
 ## 💼 Professional Profile & Ventures
-* **Founder & Creative Director** at **Hari Bot & Business Solutions** (established May 24, 2026, in Coimbatore, Tamil Nadu, India).
+* **Founder & CEO** at **Sujok AI Bots** (established May 24, 2026, in Coimbatore, Tamil Nadu, India).
   * **Website**: https://hari-bot-business-solutions.vercel.app/
   * **Business Philosophy**: "We will do the best for a company."
   * **Core Services**:
     1. **UI / UX Designing**: Wireframes, prototypes, interactive mockups, user journey maps, and user-centered research.
     2. **Company Websites**: Fast, secure, SEO-optimized landing pages and corporate portals.
-    3. **Personalized AI Bots**: Custom chatbots trained on company knowledge bases for 24/7 customer support and lead generation.
+    3. **Personalized AI Bots & Sujok Agent Solutions**: Custom chatbots trained on company knowledge bases for 24/7 customer support and lead generation.
     4. **AI & Task Automation**: Workflow automation via n8n integration flows and Python scripts to automate repetitive processes (10x task speed, 40+ hours saved weekly).
   * **Business Contacts**:
     - Email: haribotbusinesssolutions@gmail.com
