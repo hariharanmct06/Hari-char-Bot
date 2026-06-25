@@ -714,10 +714,6 @@
         <span class="htag">ROBOTICS</span>
         <span class="htag">REIKI</span>
       </div>
-      <!-- Settings Panel Trigger Button -->
-      <button id="settings-btn" title="Bot Configuration" aria-label="Settings">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      </button>
     </header>
 
     <!-- Connection / Status Banner -->
@@ -744,109 +740,10 @@
     </footer>
   </div>
 
-  <!-- Settings Dialog Modal -->
-  <div id="settings-modal" aria-hidden="true" role="dialog">
-    <div class="settings-card">
-      <h2 class="settings-title">BOT CONFIGURATION</h2>
-      
-      <!-- Google Gemini API key field -->
-      <div class="settings-field">
-        <label for="settings-gemini-key" class="settings-label">GOOGLE GEMINI API KEY (RECOMMENDED)</label>
-        <input id="settings-gemini-key" class="settings-input" type="password" placeholder="AIzaSy..." autocomplete="off" />
-      </div>
-
-      <!-- OpenRouter API key field -->
-      <div class="settings-field">
-        <label for="settings-or-key" class="settings-label">OPENROUTER API KEY (FALLBACK)</label>
-        <input id="settings-or-key" class="settings-input" type="password" placeholder="sk-or-v1-..." autocomplete="off" />
-      </div>
-      <div class="settings-help">
-        Keys are stored locally. Direct Google Gemini API provides optimal speed and streaming. Leave fields blank to run in **Local Mode** with the offline Knowledge Base.
-      </div>
-
-      <div class="settings-buttons">
-        <button id="settings-close" class="settings-btn-cancel" type="button">Cancel</button>
-        <button id="settings-save" class="settings-btn-save" type="button">Save Settings</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Egg spline layer -->
   <div id="egg-overlay" style="display: none;"></div>
 
 <script>
-// ============================================================
-// EMBEDDED KNOWLEDGE BASE
-// ============================================================
-const HARI_KB = `
-# Hariharan — Complete Personal Knowledge Base
-
-## Professional Profile & Ventures
-- Founder & CEO at **Sujok AI Bots** 🤖💼
-  * Founded on: May 24, 2026 (24/05/2026) in Coimbatore, Tamil Nadu, India.
-  * Website: https://hari-bot-business-solutions.vercel.app/ (If anyone asks about this company, CEO role, founder status, or business website, provide this link and guide them there).
-  * Business Philosophy: "We will do the best for a company."
-  * Core Services:
-    1. **UI / UX Designing**: Wireframing, prototyping, interactive mockups, user journey maps, and user-centered research.
-    2. **Company Websites**: Fast, secure, SEO-optimized landing pages and corporate portals.
-    3. **Personalized AI Bots & Sujok Agent Solutions**: Custom chatbots trained on company knowledge bases for 24/7 customer support and lead generation.
-    4. **AI & Task Automation**: Workflow automation via n8n integration flows and Python scripts to automate repetitive processes (10x task speed, 40+ hours saved weekly).
-  * Business Contacts:
-    - Email: haribotbusinesssolutions@gmail.com
-    - WhatsApp / Call: +91 8838154932 (Business Support line)
-    - Instagram: @haribotandbusinesssolutions (https://www.instagram.com/haribotandbusinesssolutions?igsh=YWptdTVvaHRmaG5x)
-
-## Personal Info
-- Full Name: Hariharan
-- Age: 17 years old (born July 06, 2008). If someone asks for your age, tell them explicitly that you are 17 years old. Do not only tell them the DOB, prioritize stating the age 17.
-- Location: Coimbatore, Tamil Nadu, India
-- Ethnicity: Malayali (born and brought up in Coimbatore, Tamil Nadu)
-- Email: hariharanmct06@gmail.com
-- LinkedIn: linkedin.com/in/hariharan-m-4a8533407
-- Portfolio Website: https://portfolio-new-psi-ten-33.vercel.app/ (If anyone asks for more details, a link, a website, or more about you, provide this URL and guide them there.)
-- GitHub Profile: https://github.com/hariharanmct06 (If anyone asks for your GitHub, code repository, or projects profile, provide this link.)
-- LeetCode Profile: https://leetcode.com/u/gwbXy6iSHY/ (If anyone asks for your LeetCode or competitive coding profile, provide this link.)
-- WhatsApp: +91 86678 08803
-- Status: Open to Opportunities
-- Languages: English and Tamil (Fluent/Preferred). Malayalam (Proficient/Ethnicity). Communicates exclusively in English or Tamil. Does not speak or respond in Hindi.
-
-## Education & Mechatronics Engineering
-- B.E. Mechatronics Engineering (MCT Department) — SNS College of Technology, Coimbatore (Sept 2026 – Present)
-  * Specialized first-year study focusing on Design Thinking, robotics, and industrial automation.
-  * Building a core foundation tailored toward engineering careers in high-tech sectors like the automotive or aerospace industries.
-  * Engineering Tools: CAD software for 3D modeling and engineering simulations, focus on hardware, electronics, and software integration.
-- 12th Standard (HSC) — Suguna RIP V School, Coimbatore (Graduated in 2026, TN State Board, English Medium, CS Maths Group, Score: 402/600)
-- 10th Standard (SSLC) — Suguna RIP V School, Coimbatore (Graduated in 2024, TN State Board, English Medium, Score: 383/500)
-
-## Technical Skills & Interests
-- Design & Marketing: UI/UX Designing (wireframing, prototyping, user-centered research, user journey mapping) and AI Digital Marketing
-- Programming Languages: Python and C++ (Active experience writing, debugging, and optimizing code)
-- Data & Databases: SQL (Strong understanding, including database design concepts like primary keys)
-- Logic & Problem Solving: LeetCode (practicing string manipulations, palindrome logic, clean code indentation)
-- Workflow Automation: Google Sheets integrated with custom triggers (automated Gmail scripts)
-- Hardware Diagnostics: Troubleshoots electro-mechanical consumer appliances (such as washing machines, diagnostic fault codes, and sensors)
-
-## Holistic Energy Healing & Practices
-- Affiliation: Practitioner and organizer associated with the Agasthiya Healing Centre
-- Modalities: alternative holistic energy healing frameworks, including Reiki, Sujok, and Ama-Deus
-- Applications: distance healing techniques, specialized healing tools, energetic therapy
-
-## Sports & Chess Interests
-- IPL (Cricket): Massive fan of Royal Challengers Bangalore (RCB) 🏏
-- Football: Huge fan of Cristiano Ronaldo (CR7) ⚽
-- Chess: Likes and follows Praggnanandhaa, Magnus Carlsen, and Dommaraju Gukesh ♟️
-
-## Personal Preferences & Aesthetics
-- Visual Style & Design: High-fidelity image generation, preferring:
-  * Ultra-realistic and cinematic portraits.
-  * Retro and vintage design aesthetics.
-  * Studio Ghibli art style (whimsical, stylized cartoons).
-  * Technical diagram mockups with customized layout structures.
-- Favourite Beverages: Both Tea ☕ AND Coffee ☕ — loves both equally!
-- Laptop: ASUS ROG — beast of a machine!
-- Favourite Actor: Vijay (Thalapathy Vijay) — Tamil superstar
-`;
-
 // ============================================================
 // POPUP BLOCKER BYPASS LINK OPENER (User initiated triggers)
 // ============================================================
@@ -1165,23 +1062,7 @@ const SUGGESTIONS = [
 let chatHistory = [];
 let suggestionsShown = true;
 
-// Default API Keys safely concatenated to bypass GitHub push scanners
-const defaultORKey = 'sk-or-v1-' + 'a493de8c94b41341f21eb2d718d61f0cf41083966701411617fb65105507f5bf';
-const defaultGeminiKey = 'AIzaSy' + 'CpbwjFCPFZOM0GM0382sJvlwF17jliLRQ';
-
-let userORKey = localStorage.getItem('HARI_BOT_OR_KEY');
-if (userORKey === null) {
-  userORKey = defaultORKey;
-} else if (userORKey === 'LOCAL_MODE') {
-  userORKey = '';
-}
-
-let userGeminiKey = localStorage.getItem('HARI_BOT_GEMINI_KEY');
-if (userGeminiKey === null) {
-  userGeminiKey = defaultGeminiKey;
-} else if (userGeminiKey === 'LOCAL_MODE') {
-  userGeminiKey = '';
-}
+// Server-side environment variables manage API keys. Client-side has no hardcoded keys.
 
 // ============================================================
 // DOM HELPERS
@@ -1460,15 +1341,10 @@ async function sendMessage(text) {
   const t = text.toLowerCase();
   const isNewsQuery = t.includes('news') || t.includes('happening') || t.includes('latest info') || t.includes('current affairs') || t.includes('tamil nadu') || t.includes('india');
 
-  // If both keys are missing or client is offline, intercept immediately with Local RAG fallback
-  if ((!userGeminiKey && !userORKey) || !navigator.onLine) {
+  // If client is offline, intercept immediately with Local RAG fallback
+  if (!navigator.onLine) {
     await sleep(450); // Simulate bot reading time
-    let localReply = "";
-    if (isNewsQuery && navigator.onLine) {
-      localReply = await getLocalNewsResponse();
-    } else {
-      localReply = getLocalResponse(text);
-    }
+    const localReply = getLocalResponse(text);
     hideTyping();
     addBotMsg(localReply);
     
@@ -1480,144 +1356,21 @@ async function sendMessage(text) {
     return;
   }
 
-  // Fetch live news headlines context if requested
-  let newsContext = "";
-  if (isNewsQuery) {
-    newsContext = await fetchLatestNewsContext();
-  }
-
-  // System Prompt
-  const system = `You are HARI BOT — a witty, warm, and highly personalized AI assistant for Hariharan, a 17-year-old Mechatronics Engineering student at SNS College of Technology in Coimbatore. Keep all responses crisp, concise (1-3 sentences max), and engaging. Use emojis naturally.
-
-IMPORTANT: Communicate exclusively in English or Tamil. Do not respond in Hindi or any other languages.
-
-Answer queries about Hariharan using the Knowledge Base below. If the user asks something new, general, or unrelated to Hariharan, use your own intelligence (Gemini) to answer their question directly, clearly, and crisply! Do not refuse general questions or say "I don't know" if it's a general query (like math, science, programming, general facts, etc.).
-
-If the user asks mechatronics, engineering, mathematics, or physics questions, guide them patiently through the concept. Explain clearly and tutor them step-by-step. In your answer, proudly mention that Mechatronics and Robotics is Hariharan's specialized field of study at SNS College of Technology!
-
-KNOWLEDGE BASE:
-${HARI_KB}
-
-PERSONALITY RULES:
-- Age question → explicitly answer that Hariharan is **17 years old**. Do not only reply with his DOB; state his age is 17!
-- Healing questions (Reiki, Ama-Deus, Sujok) → explain with care and pride — this is Hariharan's special gift and his association with the Agasthiya Healing Centre!
-- Tea vs Coffee → he loves BOTH, refuses to pick
-- Vijay → big fan energy!
-- Use **bold** for key terms and *italics* for emphasis
-- Be fun and personal, not robotic`;
-
-  const calendarContext = `\n\nCURRENT DATE & TIME:\nToday is ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}. The current time is ${new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}.`;
-  const dynamicSystemPrompt = system + calendarContext + (newsContext ? `\n\nUse the following live news context to answer queries about latest happenings in Tamil Nadu or India:\n${newsContext}` : "");
-
   try {
-    let responseStream;
-    let isGeminiDirect = !!userGeminiKey;
+    const responseStream = await fetch('/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        message: text,
+        chatHistory: chatHistory
+      })
+    });
 
-    if (isGeminiDirect) {
-      // 1. Call Native Google Gemini API with SSE
-      const contentsArray = chatHistory.map(msg => ({
-        role: msg.role === 'assistant' ? 'model' : 'user',
-        parts: [{ text: msg.content }]
-      }));
-      contentsArray.push({
-        role: 'user',
-        parts: [{ text: text }]
-      });
-
-      const modelsToTry = [
-        'gemini-3.5-flash',
-        'gemini-2.5-flash-lite',
-        'gemini-2.5-flash',
-        'gemini-2.0-flash-lite',
-        'gemini-2.0-flash'
-      ];
-      
-      let lastError = null;
-      for (const model of modelsToTry) {
-        try {
-          const controller = new AbortController();
-          const timeout = setTimeout(() => controller.abort(), 12000);
-
-          responseStream = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${userGeminiKey}`, {
-            method: 'POST',
-            signal: controller.signal,
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              contents: contentsArray,
-              systemInstruction: {
-                parts: [{ text: dynamicSystemPrompt }]
-              }
-            })
-          });
-          clearTimeout(timeout);
-          if (responseStream.ok) {
-            lastError = null;
-            break; // Success!
-          } else {
-            const errText = await responseStream.text();
-            lastError = new Error(`Model ${model} failed with status ${responseStream.status}: ${errText}`);
-          }
-        } catch (err) {
-          lastError = err;
-        }
-      }
-      if (lastError) {
-        throw lastError;
-      }
-    } else {
-      // 2. Call OpenRouter API completion fallback with SSE
-      const messages = [
-        { role: 'system', content: dynamicSystemPrompt },
-        ...chatHistory,
-        { role: 'user', content: text }
-      ];
-
-      const openRouterModels = [
-        'google/gemini-2.5-flash',
-        'google/gemini-2.5-flash-lite',
-        'google/gemini-2.0-flash-lite',
-        'google/gemini-2.0-flash'
-      ];
-
-      let lastError = null;
-      for (const model of openRouterModels) {
-        try {
-          const controller = new AbortController();
-          const timeout = setTimeout(() => controller.abort(), 12000);
-
-          responseStream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-            method: 'POST',
-            signal: controller.signal,
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${userORKey}`,
-              'HTTP-Referer': 'https://hariharanmct06.github.io',
-              'X-Title': 'HARI BOT'
-            },
-            body: JSON.stringify({
-              model: model,
-              max_tokens: 800,
-              messages,
-              stream: true
-            })
-          });
-          clearTimeout(timeout);
-          if (responseStream.ok) {
-            lastError = null;
-            break;
-          } else {
-            const errText = await responseStream.text();
-            lastError = new Error(`OpenRouter Model ${model} failed with status ${responseStream.status}: ${errText}`);
-          }
-        } catch (err) {
-          lastError = err;
-        }
-      }
-      if (lastError) {
-        throw lastError;
-      }
+    if (!responseStream.ok) {
+      const errText = await responseStream.text();
+      throw new Error(`Server returned status ${responseStream.status}: ${errText}`);
     }
 
     hideTyping();
@@ -1650,19 +1403,11 @@ PERSONALITY RULES:
       for (const line of lines) {
         const cleanLine = line.trim();
         if (cleanLine.startsWith('data: ')) {
-          if (cleanLine.includes('[DONE]')) break;
+          const dataStr = cleanLine.slice(6).trim();
+          if (dataStr === '[DONE]') break;
           try {
-            const parsed = JSON.parse(cleanLine.slice(6));
-            let content = "";
-            
-            if (isGeminiDirect) {
-              // Parse Google Gemini direct SSE chunk structure
-              content = parsed.candidates?.[0]?.content?.parts?.[0]?.text || "";
-            } else {
-              // Parse OpenRouter SSE chunk structure
-              content = parsed.choices?.[0]?.delta?.content || "";
-            }
-            
+            const parsed = JSON.parse(dataStr);
+            const content = parsed.content || "";
             reply += content;
             bubble.innerHTML = formatMarkdown(reply);
             scrollBottom();
@@ -1691,7 +1436,12 @@ PERSONALITY RULES:
       lastBotMsg.remove();
     }
 
-    const localReply = getLocalResponse(text);
+    let localReply = "";
+    if (isNewsQuery && navigator.onLine) {
+      localReply = await getLocalNewsResponse();
+    } else {
+      localReply = getLocalResponse(text);
+    }
     addBotMsg(localReply + "\n\n*(Sent via Offline Local Engine)*");
     
     chatHistory.push({ role: 'user', content: text });
@@ -1748,12 +1498,6 @@ function updateBannerStatus() {
     banner.style.background = 'rgba(255, 80, 80, 0.15)';
     banner.style.color = '#ff6b6b';
     banner.style.borderBottom = '1px solid rgba(255, 80, 80, 0.3)';
-  } else if (!userGeminiKey && !userORKey) {
-    banner.style.display = 'block';
-    banner.textContent = '⚡ Local Mode — Powered by offline Knowledge Base. Click ⚙️ to add API Keys.';
-    banner.style.background = 'rgba(0, 229, 204, 0.1)';
-    banner.style.color = 'var(--teal)';
-    banner.style.borderBottom = '1px solid rgba(0, 229, 204, 0.18)';
   } else {
     banner.style.display = 'none';
   }
@@ -1879,54 +1623,7 @@ function init() {
     }
   });
 
-  // Settings Modal Triggers
-  const settingsBtn = document.getElementById('settings-btn');
-  const settingsModal = document.getElementById('settings-modal');
-  const settingsClose = document.getElementById('settings-close');
-  const settingsSave = document.getElementById('settings-save');
-  
-  const settingsGeminiKeyInput = document.getElementById('settings-gemini-key');
-  const settingsORKeyInput = document.getElementById('settings-or-key');
 
-  settingsBtn.addEventListener('click', () => {
-    settingsModal.style.display = 'flex';
-    settingsModal.setAttribute('aria-hidden', 'false');
-    
-    // Load configured keys or blank
-    settingsGeminiKeyInput.value = localStorage.getItem('HARI_BOT_GEMINI_KEY') === 'LOCAL_MODE' ? '' : (localStorage.getItem('HARI_BOT_GEMINI_KEY') || '');
-    settingsORKeyInput.value = localStorage.getItem('HARI_BOT_OR_KEY') === 'LOCAL_MODE' ? '' : (localStorage.getItem('HARI_BOT_OR_KEY') || '');
-  });
-
-  const closeModal = () => {
-    settingsModal.style.display = 'none';
-    settingsModal.setAttribute('aria-hidden', 'true');
-  };
-
-  settingsClose.addEventListener('click', closeModal);
-  
-  settingsSave.addEventListener('click', () => {
-    const geminiVal = settingsGeminiKeyInput.value.trim();
-    const orVal = settingsORKeyInput.value.trim();
-    
-    if (geminiVal) {
-      localStorage.setItem('HARI_BOT_GEMINI_KEY', geminiVal);
-      userGeminiKey = geminiVal;
-    } else {
-      localStorage.setItem('HARI_BOT_GEMINI_KEY', 'LOCAL_MODE');
-      userGeminiKey = '';
-    }
-    
-    if (orVal) {
-      localStorage.setItem('HARI_BOT_OR_KEY', orVal);
-      userORKey = orVal;
-    } else {
-      localStorage.setItem('HARI_BOT_OR_KEY', 'LOCAL_MODE');
-      userORKey = '';
-    }
-    
-    closeModal();
-    updateBannerStatus();
-  });
 
   // iOS Safari touch bouncing fix
   document.addEventListener('touchmove', e => {
