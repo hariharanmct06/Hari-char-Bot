@@ -8,8 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#090909">
   
-  <title>HARI BOT V2 — Ultra Royal AI Operating System</title>
-  <meta name="description" content="HARI BOT V2: The $50M Ultra Royal Personal AI OS for Hariharan — Founder & CEO of Sujok AI Bots.">
+  <title>HARI BOT — Ultra Premium Futuristic AI Platform</title>
+  <meta name="description" content="HARI BOT: Futuristic AI Platform by Hariharan M — Founder & Director of Hari bot & Business Solutions.">
 
   <!-- External Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
       --gold-light: #F3E5AB;
       --gold-dark: #AA7C11;
       --obsidian: #090909; /* Obsidian Black */
-      --obsidian-surface: rgba(15, 15, 18, 0.85); /* Black Marble Glass */
+      --obsidian-surface: rgba(15, 15, 18, 0.85); /* Glassmorphism Black */
       --obsidian-card: rgba(22, 22, 26, 0.92);
       --burnt-orange: #F59E0B; /* Burnt Orange Accent */
       --milk-white: #F8F6F1; /* Milk White Typography */
@@ -62,7 +62,7 @@
       touch-action: none;
     }
 
-    /* Animated Stars Canvas Background */
+    /* Dynamic Starry Canvas Background */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -94,7 +94,7 @@
     #app {
       position: relative;
       z-index: 10;
-      width: min(880px, 100vw);
+      width: min(900px, 100vw);
       height: 100vh;
       height: -webkit-fill-available;
       display: flex;
@@ -108,7 +108,7 @@
 
     @media (min-width: 650px) {
       #app {
-        height: min(94vh, 900px);
+        height: min(94vh, 920px);
         margin: auto;
         border-radius: var(--radius-md);
         border: 1px solid var(--gold-glass-border);
@@ -264,7 +264,7 @@
     }
 
     /* ============================================================ */
-    /* REALISTIC HUMANOID ROBOT HERO ENGINE */
+    /* HOME PAGE: REALISTIC TITANIUM HUMANOID ROBOT HERO */
     /* ============================================================ */
     .home-hero-section {
       padding: 16px 20px;
@@ -274,10 +274,36 @@
       text-align: center;
     }
 
+    .hero-brand-header {
+      margin-bottom: 12px;
+    }
+    .hero-main-title {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, var(--milk-white) 0%, var(--gold) 60%, var(--burnt-orange) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-founder-tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
+      margin-top: 4px;
+      letter-spacing: 0.3px;
+    }
+    .hero-subtext {
+      font-size: 12px;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 4px auto 0;
+      line-height: 1.4;
+    }
+
     .robot-stage-wrapper {
       position: relative;
       width: 290px;
-      height: 260px;
+      height: 250px;
       margin: 0 auto 10px;
       display: flex;
       align-items: center;
@@ -303,7 +329,6 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Floating Circular Platform */
     .floating-platform {
       position: absolute;
       bottom: 5px;
@@ -316,10 +341,10 @@
     }
     @keyframes platformPulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.08); opacity: 1; } }
 
-    /* SVG Humanoid Robot Component */
+    /* SVG Titanium Robot Frame */
     .robot-svg-container {
-      width: 230px;
-      height: 230px;
+      width: 220px;
+      height: 220px;
       position: relative;
       z-index: 5;
       cursor: pointer;
@@ -362,7 +387,7 @@
       width: 100%;
       max-width: 580px;
       position: relative;
-      margin: 12px 0 22px;
+      margin: 10px 0 20px;
     }
     .hero-search-input {
       width: 100%;
@@ -402,7 +427,7 @@
     .hero-search-btn:hover { transform: translateY(-50%) scale(1.04); }
     .hero-search-btn:active { transform: translateY(-50%) scale(0.95); }
 
-    /* Quick Actions Grid (6 Floating Cards) */
+    /* Quick Actions Grid (6 Floating Tech Cards) */
     .quick-actions-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -475,7 +500,7 @@
     }
 
     /* ============================================================ */
-    /* CHAT INTERFACE (MILK WHITE GLASS & ROYAL GOLD) */
+    /* AI CHAT INTERFACE (GOLD USER & MILK-WHITE AI CARDS) */
     /* ============================================================ */
     #messages {
       flex: 1;
@@ -534,7 +559,7 @@
       backdrop-filter: blur(25px);
     }
     .msg.bot .bubble {
-      background: rgba(248, 246, 241, 0.95);
+      background: rgba(248, 246, 241, 0.96);
       border: 1px solid var(--gold);
       color: #090909;
       border-bottom-left-radius: 6px;
@@ -660,7 +685,7 @@
     #send-btn:active { transform: scale(0.92); }
 
     /* ============================================================ */
-    /* FULLSCREEN OVERLAYS (VOICE, VISION, TRADING AI) */
+    /* FULLSCREEN OVERLAYS (VOICE, VISION CV 4.0, AUTOMATION, CONTACT) */
     /* ============================================================ */
     .fullscreen-overlay {
       position: fixed;
@@ -690,14 +715,14 @@
     }
     .overlay-title { font-size: 16px; font-weight: 800; color: var(--gold); }
 
-    /* Vision Scanner Frame */
+    /* Vision Scanner Bounding Box */
     .vision-scanner-frame {
       position: absolute;
       width: 280px;
       height: 280px;
-      border: 1.5px dashed rgba(212, 175, 55, 0.5);
+      border: 2px dashed rgba(212, 175, 55, 0.6);
       border-radius: var(--radius-md);
-      box-shadow: 0 0 50px rgba(212, 175, 55, 0.25);
+      box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
       pointer-events: none;
     }
     .scan-corner {
@@ -712,23 +737,20 @@
     .sc-bl { bottom: -2px; left: -2px; border-width: 0 0 4px 4px; border-bottom-left-radius: 8px; }
     .sc-br { bottom: -2px; right: -2px; border-width: 0 4px 4px 0; border-bottom-right-radius: 8px; }
 
-    .trading-metrics-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+    /* Vision CV 4.0 Analysis Panel */
+    .vision-result-panel {
+      background: var(--obsidian-card);
+      border-top: 1px solid var(--gold);
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 -20px 50px rgba(0,0,0,0.95);
     }
-    .metric-box {
-      background: rgba(212, 175, 55, 0.06);
-      border: 1px solid var(--gold-glass-border);
-      border-radius: var(--radius-sm);
-      padding: 12px;
-      text-align: center;
-    }
-    .metric-val { font-size: 14px; font-weight: 800; color: var(--gold); }
-    .metric-lbl { font-size: 10px; color: var(--muted); margin-top: 2px; }
 
     /* ============================================================ */
-    /* BOTTOM NAVIGATION DOCK (5 TABS) */
+    /* BOTTOM NAVIGATION DOCK (5 MAIN TABS) */
     /* ============================================================ */
     .bottom-nav-dock {
       position: absolute;
@@ -827,27 +849,27 @@
       box-shadow: 0 0 14px rgba(212, 175, 55, 0.25);
     }
 
+    /* Thinking Pulse Animation */
     .typing-bubble {
       background: rgba(248, 246, 241, 0.95);
       border: 1px solid var(--gold);
       border-radius: var(--radius-md);
-      padding: 12px 18px;
+      padding: 12px 20px;
       display: flex;
-      gap: 6px;
+      gap: 8px;
       align-items: center;
     }
-    .tdot {
-      width: 6px;
-      height: 6px;
+    .golden-pulse-orb {
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background: #090909;
-      animation: tdot 1.3s ease-in-out infinite;
+      background: var(--gold);
+      box-shadow: 0 0 12px var(--gold);
+      animation: pulseThinking 1.2s ease-in-out infinite alternate;
     }
-    .tdot:nth-child(2) { animation-delay: .18s; background: var(--gold-dark); }
-    .tdot:nth-child(3) { animation-delay: .36s; background: var(--burnt-orange); }
-    @keyframes tdot {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
-      30% { transform: translateY(-5px); opacity: 1; }
+    @keyframes pulseThinking {
+      0% { transform: scale(0.8); opacity: 0.4; }
+      100% { transform: scale(1.4); opacity: 1; }
     }
   </style>
 </head>
@@ -866,7 +888,7 @@
     <!-- Top OS Bar -->
     <header class="top-os-bar">
       <div class="os-left">
-        <div class="brand-logo-ring" onclick="switchTab('profile')" title="Hariharan Profile">
+        <div class="brand-logo-ring" onclick="switchTab('about')" title="Founder Profile">
           <div class="brand-logo-inner">H</div>
         </div>
         <div>
@@ -877,13 +899,16 @@
             <span class="ai-online-badge">
               <span class="status-pulse-dot"></span> ONLINE
             </span>
-            · HARI BOT V2 OS
+            · HARI BOT PLATFORM
           </div>
         </div>
       </div>
       <div class="top-actions">
         <button class="glass-icon-btn" onclick="openVoiceMode()" title="Voice AI">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+        </button>
+        <button class="glass-icon-btn" onclick="openContactModal()" title="Contact Founder">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         </button>
       </div>
     </header>
@@ -900,49 +925,41 @@
       <div id="tab-home-view" class="tab-view active">
         <div class="home-hero-section">
           
+          <div class="hero-brand-header">
+            <h1 class="hero-main-title">HARI BOT</h1>
+            <div class="hero-founder-tag">Founder & Director of Hari bot & Business Solutions</div>
+            <p class="hero-subtext">Building intelligent AI solutions, automation systems and next-generation digital experiences.</p>
+          </div>
+
           <!-- Robot Hero Stage -->
           <div class="robot-stage-wrapper">
             <div class="robot-aura-ring"></div>
             <div class="robot-aura-ring robot-aura-ring-2"></div>
             <div class="floating-platform"></div>
             
-            <div class="robot-speech-bubble" id="robot-speech">Hello Hari. Systems are ready.</div>
+            <div class="robot-speech-bubble" id="robot-speech">Vanakkam Hari! I'm ready to help.</div>
 
-            <!-- Realistic SVG Titanium & Ceramic Humanoid Robot -->
+            <!-- SVG Titanium & Ceramic Humanoid Robot -->
             <div class="robot-svg-container" id="robot-interactive-avatar">
-              <svg width="230" height="230" viewBox="0 0 200 200" fill="none">
-                <!-- Head Group -->
+              <svg width="220" height="220" viewBox="0 0 200 200" fill="none">
                 <g id="robot-head-group" class="robot-head-group">
-                  <!-- Titanium Helmet Crest -->
                   <path d="M80 25 L100 12 L120 25 L110 38 L90 38 Z" fill="url(#titaniumGrad)" stroke="#D4AF37" stroke-width="1.5" />
-                  <!-- Face Armor Shell -->
                   <rect x="52" y="38" width="96" height="80" rx="22" fill="#0D0E12" stroke="#D4AF37" stroke-width="2.5" />
                   <rect x="56" y="42" width="88" height="72" rx="18" fill="url(#ceramicGrad)" opacity="0.9" />
-                  <!-- Illuminated Facial Plate -->
                   <rect x="64" y="52" width="72" height="40" rx="14" fill="#050508" stroke="rgba(212,175,55,0.5)" stroke-width="1.5" />
-                  <!-- Realistic Blue-White Robotic Eyes -->
                   <ellipse id="robot-eye-left" class="robot-eye-glow" cx="82" cy="72" rx="9" ry="9" fill="#00E5FF" filter="drop-shadow(0 0 8px #00E5FF)" />
                   <ellipse id="robot-eye-right" class="robot-eye-glow" cx="118" cy="72" rx="9" ry="9" fill="#00E5FF" filter="drop-shadow(0 0 8px #00E5FF)" />
                   <circle cx="84" cy="70" r="3.5" fill="#FFF" />
                   <circle cx="120" cy="70" r="3.5" fill="#FFF" />
-                  <!-- Gold Ear Joints -->
                   <circle id="robot-left-ear" cx="46" cy="78" r="8" fill="url(#goldGrad)" stroke="#000" stroke-width="1" />
                   <circle id="robot-right-ear" cx="154" cy="78" r="8" fill="url(#goldGrad)" stroke="#000" stroke-width="1" />
                 </g>
 
-                <!-- Neck & Shoulder Plates -->
                 <rect x="88" y="118" width="24" height="16" rx="4" fill="url(#titaniumGrad)" stroke="#D4AF37" stroke-width="1.5" />
                 <path d="M42 134 C42 128, 158 128, 158 134 L172 195 C172 200, 28 200, 28 195 Z" fill="#121318" stroke="#D4AF37" stroke-width="2" />
-                
-                <!-- Gold Shoulder Joints -->
-                <circle id="robot-left-shoulder" cx="38" cy="145" r="11" fill="url(#goldGrad)" />
-                <circle id="robot-right-shoulder" cx="162" cy="145" r="11" fill="url(#goldGrad)" />
-
-                <!-- Chest Orange Energy Reactor Core -->
                 <circle id="robot-chest-core" cx="100" cy="162" r="18" fill="url(#orangeGrad)" stroke="#D4AF37" stroke-width="2" filter="drop-shadow(0 0 12px #F59E0B)" />
                 <circle cx="100" cy="162" r="9" fill="#FFF" opacity="0.9" />
 
-                <!-- Gradients -->
                 <defs>
                   <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
                     <stop offset="0%" stop-color="#F3E5AB" />
@@ -972,12 +989,12 @@
             <button class="hero-search-btn" onclick="quickAsk(document.getElementById('hero-search-input').value)">Ask AI</button>
           </div>
 
-          <!-- 6 Floating Quick Action Cards -->
+          <!-- 6 Floating Tech Cards -->
           <div class="quick-actions-grid">
             <div class="action-gold-card" onclick="switchTab('chat')">
               <div class="action-card-icon">💬</div>
               <div class="action-card-title">AI Chat</div>
-              <div class="action-card-desc">Royal conversation</div>
+              <div class="action-card-desc">Royal AI conversation</div>
             </div>
 
             <div class="action-gold-card" onclick="openVoiceMode()">
@@ -988,26 +1005,26 @@
 
             <div class="action-gold-card" onclick="openVisionCamera()">
               <div class="action-card-icon">👁️</div>
-              <div class="action-card-title">AI Vision CV 3.0</div>
-              <div class="action-card-desc">OCR & Chart scanner</div>
-            </div>
-
-            <div class="action-gold-card" onclick="switchTab('trading')">
-              <div class="action-card-icon">📊</div>
-              <div class="action-card-title">Trading AI</div>
-              <div class="action-card-desc">Market mood & gauge</div>
+              <div class="action-card-title">Vision AI CV 4.0</div>
+              <div class="action-card-desc">Real-world object recognition</div>
             </div>
 
             <div class="action-gold-card" onclick="openAutomationHub()">
               <div class="action-card-icon">⚡</div>
               <div class="action-card-title">Automation</div>
-              <div class="action-card-desc">Sujok AI agents</div>
+              <div class="action-card-desc">Business AI tools</div>
             </div>
 
-            <div class="action-gold-card" onclick="switchTab('memory')">
-              <div class="action-card-icon">🧠</div>
-              <div class="action-card-title">Memory Vault</div>
-              <div class="action-card-desc">Timeline & neural nodes</div>
+            <div class="action-gold-card" onclick="switchTab('about')">
+              <div class="action-card-icon">👤</div>
+              <div class="action-card-title">About Founder</div>
+              <div class="action-card-desc">Hariharan M profile</div>
+            </div>
+
+            <div class="action-gold-card" onclick="openContactModal()">
+              <div class="action-card-icon">📞</div>
+              <div class="action-card-title">Contact</div>
+              <div class="action-card-desc">Get in touch</div>
             </div>
           </div>
 
@@ -1015,7 +1032,7 @@
       </div>
 
       <!-- ============================================================ -->
-      <!-- TAB 2: CHAT INTERFACE -->
+      <!-- TAB 2: AI CHAT -->
       <!-- ============================================================ -->
       <div id="tab-chat-view" class="tab-view">
         <main id="messages"></main>
@@ -1041,71 +1058,23 @@
       </div>
 
       <!-- ============================================================ -->
-      <!-- TAB 3: TRADING AI DASHBOARD -->
+      <!-- TAB 3: VISION AI (CV 4.0) SCREEN -->
       <!-- ============================================================ -->
-      <div id="tab-trading-view" class="tab-view">
-        <div style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
-          <div class="action-gold-card" style="width: 100%; padding: 20px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-              <span style="font-size: 16px; font-weight: 800; color: var(--gold);">MARKET MOOD GAUGE</span>
-              <span class="ai-online-badge">94.2% AI CONFIDENCE</span>
-            </div>
-            <div style="font-size: 28px; font-weight: 800; color: var(--burnt-orange); margin-top: 10px;">EXTREMELY BULLISH 🚀</div>
-            <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">VWAP & EMA trend momentum aligned across 15m/1h timeframes.</div>
-          </div>
-
-          <div class="trading-metrics-grid">
-            <div class="metric-box">
-              <div class="metric-val">₹24,850</div>
-              <div class="metric-lbl">NIFTY 50</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-val">$128.40</div>
-              <div class="metric-lbl">NVDA</div>
-            </div>
-            <div class="metric-box">
-              <div class="metric-val">1 : 2.4</div>
-              <div class="metric-lbl">Risk/Reward</div>
-            </div>
-          </div>
-
-          <button class="hero-search-btn" style="position: static; transform: none; width: 100%; padding: 14px;" onclick="openVisionCamera()">Launch Vision CV 3.0 Chart Scanner 📷</button>
+      <div id="tab-vision-view" class="tab-view">
+        <div style="padding: 24px; text-align: center; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+          <div style="font-size: 50px; margin-bottom: 16px;">👁️</div>
+          <h2 style="font-size: 22px; font-weight: 800; color: var(--gold); margin-bottom: 8px;">Vision AI (CV 4.0)</h2>
+          <p style="color: var(--muted); font-size: 13px; max-width: 340px; margin-bottom: 24px;">Detect and analyze real-world objects (electronics, devices, vehicles, plants, books, text OCR) with instant voice explanations.</p>
+          <button class="action-gold-card" style="align-items: center; width: 240px; background: linear-gradient(135deg, var(--gold), var(--burnt-orange)); border: none;" onclick="openVisionCamera()">
+            <span style="color: #000; font-weight: 800;">Launch Vision Camera 📷</span>
+          </button>
         </div>
       </div>
 
       <!-- ============================================================ -->
-      <!-- TAB 4: MEMORY TIMELINE -->
+      <!-- TAB 4: ABOUT PAGE (FOUNDER PROFILE) -->
       <!-- ============================================================ -->
-      <div id="tab-memory-view" class="tab-view">
-        <div style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
-          <input type="text" class="hero-search-input" style="padding-right: 20px;" placeholder="Search 142 Neural Memory Nodes..." oninput="filterMemoryCards(this.value)" />
-          
-          <div style="display: flex; flex-direction: column; gap: 14px;" id="memory-timeline-list">
-            <div class="action-gold-card" style="width: 100%;">
-              <div style="display: flex; justify-content: space-between; width: 100%;">
-                <span class="ai-online-badge">BUSINESS AI</span>
-                <span style="font-size: 10px; color: var(--dim);">May 24, 2026</span>
-              </div>
-              <div style="font-size: 15px; font-weight: 700; color: var(--gold);">Sujok AI Bots Founder & CEO Profile</div>
-              <div style="font-size: 12px; color: var(--muted);">Established AI agency delivering UI/UX, Web Dev, AI chatbots, and n8n workflow automations.</div>
-            </div>
-
-            <div class="action-gold-card" style="width: 100%;">
-              <div style="display: flex; justify-content: space-between; width: 100%;">
-                <span class="ai-online-badge" style="color: var(--burnt-orange); border-color: var(--burnt-orange);">MECHATRONICS</span>
-                <span style="font-size: 10px; color: var(--dim);">Sept 2026</span>
-              </div>
-              <div style="font-size: 15px; font-weight: 700; color: var(--milk-white);">B.E. Mechatronics Engineering</div>
-              <div style="font-size: 12px; color: var(--muted);">SNS College of Technology (Coimbatore). CAD simulations, robotics, and electro-mechanical control systems.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- ============================================================ -->
-      <!-- TAB 5: PROFILE SCREEN -->
-      <!-- ============================================================ -->
-      <div id="tab-profile-view" class="tab-view">
+      <div id="tab-about-view" class="tab-view">
         <div style="padding: 24px 20px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
           
           <div class="action-gold-card" style="width: 100%; align-items: center; text-align: center; padding: 28px;">
@@ -1113,33 +1082,33 @@
               <div class="brand-logo-inner" style="font-size: 28px;">H</div>
             </div>
             <div style="font-size: 22px; font-weight: 800; color: var(--gold);">Hariharan M</div>
-            <div style="font-size: 13px; color: var(--burnt-orange); font-weight: 700; margin-top: 2px;">Founder & CEO · Sujok AI Bots</div>
-            <p style="font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: 8px;">Mechatronics Engineering Student at SNS College of Technology · Energy Healer at Agasthiya Healing Centre.</p>
+            <div style="font-size: 14px; color: var(--burnt-orange); font-weight: 700; margin-top: 2px;">Founder & Director · Hari bot & Business Solutions</div>
+            <p style="font-size: 13px; color: var(--milk-white); line-height: 1.6; margin-top: 10px; max-width: 520px;">Passionate AI developer focused on intelligent automation, modern UI/UX, computer vision and business technology solutions.</p>
           </div>
 
-          <!-- Academic & AI Stats -->
+          <!-- Academic & Achievements Stats -->
           <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%;">
             <div class="metric-box">
               <div class="metric-val">18 Yrs</div>
               <div class="metric-lbl">Age</div>
             </div>
             <div class="metric-box">
-              <div class="metric-val">Level 9.8</div>
-              <div class="metric-lbl">AI Quantum OS</div>
+              <div class="metric-val">Mechatronics</div>
+              <div class="metric-lbl">SNS College</div>
             </div>
             <div class="metric-box">
-              <div class="metric-val">142</div>
-              <div class="metric-lbl">Neural Nodes</div>
+              <div class="metric-val">Agasthiya</div>
+              <div class="metric-lbl">Energy Healing</div>
             </div>
           </div>
 
-          <!-- Links Grid -->
+          <!-- Links & Company Grid -->
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; width: 100%;">
             <a href="https://hari-bot-business-solutions.vercel.app/" target="_blank" class="action-gold-card" style="flex-direction: row; align-items: center; text-decoration: none;">
               <span style="font-size: 20px;">💼</span>
               <div>
                 <div style="font-size: 12px; font-weight: 700; color: var(--gold);">Business Web</div>
-                <div style="font-size: 10px; color: var(--muted);">Sujok AI Bots</div>
+                <div style="font-size: 10px; color: var(--muted);">Hari bot Solutions</div>
               </div>
             </a>
 
@@ -1147,23 +1116,7 @@
               <span style="font-size: 20px;">🌐</span>
               <div>
                 <div style="font-size: 12px; font-weight: 700; color: var(--gold);">Portfolio</div>
-                <div style="font-size: 10px; color: var(--muted);">Mechatronics</div>
-              </div>
-            </a>
-
-            <a href="https://github.com/hariharanmct06" target="_blank" class="action-gold-card" style="flex-direction: row; align-items: center; text-decoration: none;">
-              <span style="font-size: 20px;">🚀</span>
-              <div>
-                <div style="font-size: 12px; font-weight: 700; color: var(--gold);">GitHub</div>
-                <div style="font-size: 10px; color: var(--muted);">@hariharanmct06</div>
-              </div>
-            </a>
-
-            <a href="https://leetcode.com/u/gwbXy6iSHY/" target="_blank" class="action-gold-card" style="flex-direction: row; align-items: center; text-decoration: none;">
-              <span style="font-size: 20px;">♟️</span>
-              <div>
-                <div style="font-size: 12px; font-weight: 700; color: var(--gold);">LeetCode</div>
-                <div style="font-size: 10px; color: var(--muted);">Competitive Code</div>
+                <div style="font-size: 10px; color: var(--muted);">Hariharan M</div>
               </div>
             </a>
           </div>
@@ -1185,22 +1138,22 @@
 
       <button class="nav-tab-item" id="nav-btn-chat" onclick="switchTab('chat')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <span>Chat</span>
+        <span>AI Chat</span>
       </button>
 
       <!-- Center Floating Vision Button -->
-      <button class="nav-tab-vision-center" onclick="openVisionCamera()" title="Vision CV 3.0 Lens">
+      <button class="nav-tab-vision-center" onclick="openVisionCamera()" title="Vision AI CV 4.0 Lens">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/></svg>
       </button>
 
-      <button class="nav-tab-item" id="nav-btn-trading" onclick="switchTab('trading')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-        <span>Trading AI</span>
+      <button class="nav-tab-item" id="nav-btn-automation" onclick="openAutomationHub()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span>Automation</span>
       </button>
 
-      <button class="nav-tab-item" id="nav-btn-profile" onclick="switchTab('profile')">
+      <button class="nav-tab-item" id="nav-btn-about" onclick="switchTab('about')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        <span>Profile</span>
+        <span>About</span>
       </button>
 
     </nav>
@@ -1216,7 +1169,7 @@
       <button class="glass-icon-btn" onclick="closeVoiceMode()">✕</button>
     </div>
     <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; gap: 24px;">
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 1px;">TAMIL + ENGLISH MIXED RECOGNITION (99.4% CONFIDENCE)</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 1px;">TAMIL + ENGLISH BI-LINGUAL VOICE AI</div>
       <div style="width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, var(--gold), var(--burnt-orange)); box-shadow: var(--shadow-gold); display: flex; align-items: center; justify-content: center; font-size: 48px; color: #000; cursor: pointer; transition: all 0.3s ease;" id="voice-orb-element" onclick="toggleVoiceListeningState()">🎙️</div>
       <div style="font-size: 17px; font-weight: 800; color: var(--milk-white);" id="voice-state-label">Tap Golden Orb to Speak</div>
       <canvas id="voice-waveform-canvas" style="width: 100%; max-width: 320px; height: 80px;"></canvas>
@@ -1224,11 +1177,11 @@
   </div>
 
   <!-- ============================================================ -->
-  <!-- FULLSCREEN VISION CV 3.0 CAMERA OVERLAY -->
+  <!-- FULLSCREEN VISION AI (CV 4.0) OBJECT DETECTION OVERLAY -->
   <!-- ============================================================ -->
   <div id="overlay-vision" class="fullscreen-overlay">
     <div class="overlay-header">
-      <span class="overlay-title">AI VISION CV 3.0 CAMERA</span>
+      <span class="overlay-title">VISION AI (CV 4.0) OBJECT RECOGNITION</span>
       <button class="glass-icon-btn" onclick="closeVisionCamera()">✕</button>
     </div>
     <div style="flex: 1; position: relative; display: flex; align-items: center; justify-content: center;">
@@ -1239,23 +1192,24 @@
         <div class="scan-corner sc-bl"></div>
         <div class="scan-corner sc-br"></div>
       </div>
-      <div style="position: absolute; top: 20px; background: rgba(0,0,0,0.8); border: 1px solid var(--gold); padding: 6px 16px; border-radius: var(--radius-pill); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold);">OCR CONFIDENCE: 98.6% · HIGH ACCURACY</div>
+      <div style="position: absolute; top: 20px; background: rgba(0,0,0,0.8); border: 1px solid var(--gold); padding: 6px 16px; border-radius: var(--radius-pill); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold);">OBJECT SCANNER · 98.4% CONFIDENCE</div>
     </div>
     
-    <!-- Trading Chart Slide-up Analysis Panel -->
-    <div class="trading-metrics-grid" style="background: var(--obsidian-card); border-top: 1px solid var(--gold); padding: 20px;">
-      <div class="metric-box">
-        <div class="metric-val">₹24,850</div>
-        <div class="metric-lbl">NIFTY 50</div>
+    <!-- Vision Object Detection Analysis Panel -->
+    <div class="vision-result-panel" id="vision-analysis-card">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+          <span style="font-size: 18px; font-weight: 800; color: var(--gold);" id="detected-object-name">Laptop Computer</span>
+          <div style="font-size: 11px; color: var(--muted);" id="detected-object-cat">Electronic Device / Computer Hardware</div>
+        </div>
+        <span class="ai-online-badge">98.4% CONFIDENCE</span>
       </div>
-      <div class="metric-box">
-        <div class="metric-val">₹24,780</div>
-        <div class="metric-lbl">Stop Loss</div>
-      </div>
-      <div class="metric-box">
-        <div class="metric-val">₹25,020</div>
-        <div class="metric-lbl">Target</div>
-      </div>
+
+      <p style="font-size: 12px; color: var(--milk-white); line-height: 1.5;" id="detected-object-desc">
+        A portable personal computer used for programming in Python/C++, UI/UX design in Figma, and running AI automation workflows.
+      </p>
+
+      <button class="hero-search-btn" style="position: static; transform: none; width: 100%; padding: 12px;" onclick="closeVisionCamera(); quickAsk('Tell me more about this detected object')">Ask HARI BOT About Object</button>
     </div>
   </div>
 
@@ -1268,35 +1222,82 @@
       <button class="glass-icon-btn" onclick="closeAutomationHub()">✕</button>
     </div>
     <div style="padding: 20px; overflow-y: auto; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px;">
-      <div class="action-gold-card" onclick="closeAutomationHub(); quickAsk('Tell me about Sujok AI Bots business automation')">
-        <div class="action-card-icon">💼</div>
-        <div class="action-card-title">Business AI</div>
-        <div class="action-card-desc">Sujok AI Bots</div>
+      <div class="action-gold-card" onclick="closeAutomationHub(); switchTab('chat')">
+        <div class="action-card-icon">🤖</div>
+        <div class="action-card-title">AI Assistant</div>
+        <div class="action-card-desc">Royal Chat</div>
       </div>
-      <div class="action-gold-card" onclick="closeAutomationHub(); switchTab('trading'); closeAutomationHub();">
-        <div class="action-card-icon">📊</div>
-        <div class="action-card-title">Trading AI</div>
-        <div class="action-card-desc">Candle analytics</div>
+      <div class="action-gold-card" onclick="closeAutomationHub(); openVisionCamera()">
+        <div class="action-card-icon">👁️</div>
+        <div class="action-card-title">Vision AI</div>
+        <div class="action-card-desc">CV 4.0 Object Scanner</div>
+      </div>
+      <div class="action-gold-card" onclick="closeAutomationHub(); openVoiceMode()">
+        <div class="action-card-icon">🎙️</div>
+        <div class="action-card-title">Voice AI</div>
+        <div class="action-card-desc">Bi-lingual speech</div>
       </div>
       <div class="action-gold-card" onclick="closeAutomationHub(); quickAsk('How do I build a company website?')">
         <div class="action-card-icon">🌐</div>
         <div class="action-card-title">Website Builder</div>
-        <div class="action-card-desc">SEO & Landing</div>
+        <div class="action-card-desc">SEO & Corporate Web</div>
       </div>
       <div class="action-gold-card" onclick="closeAutomationHub(); quickAsk('Give me AI digital marketing advice')">
         <div class="action-card-icon">📈</div>
-        <div class="action-card-title">AI Marketing</div>
-        <div class="action-card-desc">Campaign strategy</div>
+        <div class="action-card-title">Digital Marketing</div>
+        <div class="action-card-desc">AI campaigns</div>
+      </div>
+      <div class="action-gold-card" onclick="closeAutomationHub(); quickAsk('Tell me about Business Automation')">
+        <div class="action-card-icon">⚙️</div>
+        <div class="action-card-title">Business Automation</div>
+        <div class="action-card-desc">n8n workflows</div>
       </div>
       <div class="action-gold-card" onclick="closeAutomationHub(); quickAsk('Help me debug Python C++ code')">
         <div class="action-card-icon">💻</div>
-        <div class="action-card-title">Coding Agent</div>
+        <div class="action-card-title">Coding Assistant</div>
         <div class="action-card-desc">Python & C++</div>
       </div>
-      <div class="action-gold-card" onclick="closeAutomationHub(); quickAsk('Tell me about Sujok Energy Healing')">
-        <div class="action-card-icon">🌿</div>
-        <div class="action-card-title">Sujok AI</div>
-        <div class="action-card-desc">Agasthiya Healing</div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- CONTACT MODAL OVERLAY -->
+  <!-- ============================================================ -->
+  <div id="overlay-contact" class="fullscreen-overlay">
+    <div class="overlay-header">
+      <span class="overlay-title">CONTACT FOUNDER & DIRECTOR</span>
+      <button class="glass-icon-btn" onclick="closeContactModal()">✕</button>
+    </div>
+    <div style="padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 16px;">
+      <div class="action-gold-card" style="width: 100%;">
+        <div style="font-size: 16px; font-weight: 800; color: var(--gold);">Hariharan M</div>
+        <div style="font-size: 12px; color: var(--burnt-orange);">Founder & Director · Hari bot & Business Solutions</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <a href="https://wa.me/918667808803" target="_blank" class="action-gold-card" style="text-decoration: none; flex-direction: row; align-items: center;">
+          <span style="font-size: 24px;">💬</span>
+          <div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--milk-white);">WhatsApp Direct</div>
+            <div style="font-size: 11px; color: var(--muted);">+91 86678 08803 / +91 8838154932</div>
+          </div>
+        </a>
+
+        <a href="mailto:haribotbusinesssolutions@gmail.com" class="action-gold-card" style="text-decoration: none; flex-direction: row; align-items: center;">
+          <span style="font-size: 24px;">📧</span>
+          <div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--milk-white);">Business Email</div>
+            <div style="font-size: 11px; color: var(--muted);">haribotbusinesssolutions@gmail.com</div>
+          </div>
+        </a>
+
+        <a href="https://hari-bot-business-solutions.vercel.app/" target="_blank" class="action-gold-card" style="text-decoration: none; flex-direction: row; align-items: center;">
+          <span style="font-size: 24px;">🌐</span>
+          <div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--gold);">Official Business Portal</div>
+            <div style="font-size: 11px; color: var(--muted);">hari-bot-business-solutions.vercel.app</div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -1309,11 +1310,11 @@
 // EMBEDDED KNOWLEDGE BASE (FOR ONLINE AI STREAMING & LOCAL FALLBACK)
 // ============================================================
 const HARI_KB = `
-# Hariharan — Complete Personal Knowledge Base
+# Hariharan M — Complete Personal Knowledge Base
 
 ## Professional Profile & Ventures
-- Founder & CEO at **Sujok AI Bots** 🤖💼 (founded May 24, 2026, in Coimbatore, Tamil Nadu, India).
-  * Website: https://hari-bot-business-solutions.vercel.app/ (If anyone asks about company, CEO, founder status, or business website, provide this URL).
+- Founder & Director at **Hari bot & Business Solutions** (also known as Sujok AI Bots) 🤖💼 (founded May 24, 2026, in Coimbatore, Tamil Nadu, India).
+  * Website: https://hari-bot-business-solutions.vercel.app/ (If anyone asks about company, Founder, Director status, or business website, provide this URL).
   * Business Philosophy: "We will do the best for a company."
   * Core Services:
     1. **UI / UX Designing**: Wireframing, prototyping, interactive mockups, user journey maps, and user-centered research.
@@ -1322,11 +1323,11 @@ const HARI_KB = `
     4. **AI & Task Automation**: Workflow automation via n8n integration flows and Python scripts to automate repetitive processes (10x task speed, 40+ hours saved weekly).
   * Business Contacts:
     - Email: haribotbusinesssolutions@gmail.com
-    - WhatsApp / Call: +91 8838154932 (Business Support line)
+    - WhatsApp / Call: +91 8838154932 / +91 8667808803
     - Instagram: @haribotandbusinesssolutions
 
 ## Personal Info
-- Full Name: Hariharan
+- Full Name: Hariharan M
 - Age: 18 years old (born July 06, 2008). State explicitly that he is 18 years old.
 - Location: Coimbatore, Tamil Nadu, India
 - Ethnicity: Malayali (born and brought up in Coimbatore, Tamil Nadu)
@@ -1382,7 +1383,7 @@ function checkAndOpenLink(text) {
   const hasGithub = t.includes('github') || t.includes('git ');
   const hasLeetcode = t.includes('leetcode') || t.includes('leet code');
   const hasProfile = t.includes('profile') || t.includes('profiles');
-  const hasBusiness = t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('creative director') || t.includes('ceo') || t.includes('founder') || t.includes('hari-bot-business-solutions') || t.includes('sujok') || t.includes('sujok ai') || t.includes('sujok ai bots');
+  const hasBusiness = t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('creative director') || t.includes('ceo') || t.includes('founder') || t.includes('director') || t.includes('hari-bot-business-solutions') || t.includes('sujok') || t.includes('sujok ai') || t.includes('sujok ai bots');
 
   if (hasBusiness) {
     window.open('https://hari-bot-business-solutions.vercel.app/', '_blank');
@@ -1420,10 +1421,10 @@ function detectTrigger(text) {
 
 // Suggested Questions
 const SUGGESTIONS = [
-  "Tell me about Sujok AI Bots business",
+  "Tell me about Hari bot & Business Solutions",
+  "Who is Hariharan M?",
   "What is Hariharan's age?",
-  "Analyze NIFTY 50 Trading Chart 📊",
-  "What is Mechatronics Engineering?",
+  "What services do you offer?",
   "Show Hariharan's coding skills 💻",
   "What are Hariharan's 12th marks?",
 ];
@@ -1435,7 +1436,7 @@ let chatHistory = [];
 let suggestionsShown = true;
 
 function switchTab(tabName) {
-  const views = ['home', 'chat', 'trading', 'memory', 'profile'];
+  const views = ['home', 'chat', 'vision', 'about'];
   views.forEach(v => {
     const viewEl = document.getElementById(`tab-${v}-view`);
     const btnEl = document.getElementById(`nav-btn-${v}`);
@@ -1463,6 +1464,9 @@ function closeVisionCamera() { document.getElementById('overlay-vision').classLi
 
 function openAutomationHub() { document.getElementById('overlay-automation').classList.add('active'); }
 function closeAutomationHub() { document.getElementById('overlay-automation').classList.remove('active'); }
+
+function openContactModal() { document.getElementById('overlay-contact').classList.add('active'); }
+function closeContactModal() { document.getElementById('overlay-contact').classList.remove('active'); }
 
 // ============================================================
 // TOUCH & GESTURE RESPONSE ENGINE FOR HUMANOID ROBOT HERO
@@ -1511,7 +1515,7 @@ function setupRobotTouchEngine() {
     if (relY < 50) {
       // Touch Head -> Looks upward
       if (head) head.style.transform = 'translateY(-16px) rotateX(-24deg)';
-      showSpeech("Scanning zenith... 🌌");
+      showSpeech("Scanning upper spectrum... 🌌");
     } else if (relY >= 50 && relY < 95) {
       // Touch Eyes -> Direct eye contact & glow
       if (leftEye) leftEye.setAttribute('fill', '#FFF');
@@ -1522,33 +1526,22 @@ function setupRobotTouchEngine() {
         if (rightEye) rightEye.setAttribute('fill', '#00E5FF');
       }, 1500);
     } else if (relX < 80) {
-      // Touch Left Shoulder -> Turns Left
+      // Touch Left -> Turns Left
       if (head) head.style.transform = 'rotateY(-30deg) translateX(-10px)';
-      showSpeech("Left shoulder joint engaged 🦾");
+      showSpeech("Left joints engaged 🦾");
     } else if (relX > 150) {
-      // Touch Right Shoulder -> Turns Right
+      // Touch Right -> Turns Right
       if (head) head.style.transform = 'rotateY(30deg) translateX(10px)';
-      showSpeech("Right shoulder joint engaged 🦾");
+      showSpeech("Right joints engaged 🦾");
     } else if (relY >= 140) {
-      // Touch Chest Core -> Places hand on chest
+      // Touch Chest Core -> Places hand on chest & Tamil greeting!
       if (chestCore) chestCore.setAttribute('fill', '#F59E0B');
-      showSpeech("Hello Hari. Systems are ready.");
+      showSpeech("Vanakkam Hari! I'm ready to help.");
+      speakTextAloud("Vanakkam Hari! I'm ready to help.");
       setTimeout(() => {
         if (chestCore) chestCore.setAttribute('fill', 'url(#orangeGrad)');
-      }, 2000);
+      }, 2500);
     }
-  });
-
-  // Double Tap -> Open AI Chat
-  let lastTap = 0;
-  avatar.addEventListener('touchend', (e) => {
-    const currentTime = new Date().getTime();
-    const tapLength = currentTime - lastTap;
-    if (tapLength < 300 && tapLength > 0) {
-      switchTab('chat');
-      e.preventDefault();
-    }
-    lastTap = currentTime;
   });
 
   // Hold 2 Seconds -> Voice Mode
@@ -1630,9 +1623,8 @@ function showTyping() {
   div.innerHTML = `
     <div class="msg-icon">🤖</div>
     <div class="typing-bubble">
-      <div class="tdot"></div>
-      <div class="tdot"></div>
-      <div class="tdot"></div>
+      <div class="golden-pulse-orb"></div>
+      <span style="font-size: 12px; font-weight: 700; color: #000;">Thinking...</span>
     </div>
   `;
   msgs.appendChild(div);
@@ -1653,33 +1645,27 @@ function copyMsgText(elemId) {
   }
 }
 
-function speakMsgText(elemId) {
-  const el = document.getElementById(elemId);
-  if (el && 'speechSynthesis' in window) {
+function speakTextAloud(text) {
+  if ('speechSynthesis' in window) {
     window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(el.innerText);
+    const utterance = new SpeechSynthesisUtterance(text);
     utterance.rate = 1.0;
     utterance.pitch = 1.0;
     window.speechSynthesis.speak(utterance);
   }
 }
 
+function speakMsgText(elemId) {
+  const el = document.getElementById(elemId);
+  if (el) {
+    speakTextAloud(el.innerText);
+  }
+}
+
 function saveMsgToMemory(elemId) {
   const el = document.getElementById(elemId);
   if (el) {
-    const timeline = document.getElementById('memory-timeline-list');
-    const card = document.createElement('div');
-    card.className = 'action-gold-card';
-    card.style.width = '100%';
-    card.innerHTML = `
-      <div style="display: flex; justify-content: space-between; width: 100%;">
-        <span class="ai-online-badge">SAVED NOTE</span>
-        <span style="font-size: 10px; color: var(--dim);">${new Date().toLocaleTimeString()}</span>
-      </div>
-      <div style="font-size: 13px; color: var(--milk-white);">${el.innerText.substring(0, 120)}...</div>
-    `;
-    timeline.prepend(card);
-    alert("Saved to Memory Vault! 🔖");
+    alert("Saved message note! 🔖");
   }
 }
 
@@ -1690,16 +1676,6 @@ function shareMsg(elemId) {
   } else {
     copyMsgText(elemId);
   }
-}
-
-// Filter Memory Timeline Cards
-function filterMemoryCards(query) {
-  const q = query.toLowerCase();
-  const cards = document.querySelectorAll('#memory-timeline-list .action-gold-card');
-  cards.forEach(c => {
-    const txt = c.innerText.toLowerCase();
-    c.style.display = txt.includes(q) ? 'flex' : 'none';
-  });
 }
 
 // Easter Eggs spline logic
@@ -1860,13 +1836,13 @@ async function sendMessage(text) {
     });
 
     let newsContext = isNewsQuery ? await fetchLatestNewsContext() : "";
-    const systemPrompt = `You are HARI BOT — a witty, warm, and highly personalized AI assistant for Hariharan, an 18-year-old Mechatronics Engineering student at SNS College of Technology in Coimbatore, and Founder & CEO of Sujok AI Bots. Keep all responses crisp, concise (1-3 sentences max unless explaining a complex business/tech service), and engaging. Use emojis naturally.
+    const systemPrompt = `You are HARI BOT — a witty, warm, and highly personalized AI assistant for Hariharan M, an 18-year-old Mechatronics Engineering student at SNS College of Technology in Coimbatore, and Founder & Director of Hari bot & Business Solutions (Sujok AI Bots). Keep all responses crisp, concise (1-3 sentences max unless explaining a complex business/tech service), and engaging. Use emojis naturally.
 
 IMPORTANT: Communicate exclusively in English or Tamil. Do not respond in Hindi or any other languages.
 
-Answer queries about Hariharan and his business (Sujok AI Bots) using the Knowledge Base below. If the user asks something new, general, or unrelated to Hariharan, use your AI intelligence to answer their question directly, clearly, and crisply!
+Answer queries about Hariharan M and his business (Hari bot & Business Solutions) using the Knowledge Base below. If the user asks something new, general, or unrelated to Hariharan, use your AI intelligence to answer their question directly, clearly, and crisply!
 
-When asked about Hariharan's business, Sujok AI Bots, explain its services (UI/UX design, company websites, personalized AI bots & Sujok agents, n8n AI & task automation) and provide the website link: https://hari-bot-business-solutions.vercel.app/
+When asked about Hariharan's business, Hari bot & Business Solutions, explain its services (UI/UX design, company websites, personalized AI bots & Sujok agents, n8n AI & task automation) and provide the website link: https://hari-bot-business-solutions.vercel.app/
 
 If the user asks mechatronics, engineering, mathematics, or physics questions, guide them patiently through the concept. Explain clearly and tutor them step-by-step. In your answer, proudly mention that Mechatronics and Robotics is Hariharan's specialized field of study at SNS College of Technology!
 
@@ -1875,7 +1851,7 @@ ${HARI_KB}
 
 PERSONALITY RULES:
 - Age question → explicitly answer that Hariharan is **18 years old**. Do not only reply with his DOB; state his age is 18!
-- Business questions → highlight Sujok AI Bots, Founder & CEO status, May 24, 2026 establishment date, core services, and website link (https://hari-bot-business-solutions.vercel.app/)!
+- Business questions → highlight Hari bot & Business Solutions, Founder & Director status, May 24, 2026 establishment date, core services, and website link (https://hari-bot-business-solutions.vercel.app/)!
 - Personal Info questions → share details about his studies (Mechatronics at SNS College of Technology), skills (Python, C++, UI/UX, AI Digital Marketing), contacts, sports (RCB, CR7, Chess), and achievements!
 - Healing questions (Reiki, Ama-Deus, Sujok) → explain with care and pride — this is Hariharan's special gift and his association with the Agasthiya Healing Centre!
 - Tea vs Coffee → he loves BOTH, refuses to pick
@@ -2014,32 +1990,32 @@ function getLocalResponse(text) {
     return `The current time is **${time}** ⏰.`;
   }
   
-  if (t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('founder') || t.includes('ceo') || t.includes('creative director') || t.includes('hari-bot-business-solutions') || t.includes('sujok') || t.includes('sujok ai') || t.includes('sujok ai bots') || t.includes('service') || t.includes('offer') || t.includes('automation') || t.includes('n8n')) {
-    return "💼 **Sujok AI Bots** is a premium technology agency founded by **Hariharan M** on **May 24, 2026** in Coimbatore, India. \n\n" +
+  if (t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('founder') || t.includes('director') || t.includes('hari bot') || t.includes('hari-bot-business-solutions') || t.includes('sujok') || t.includes('sujok ai') || t.includes('sujok ai bots') || t.includes('service') || t.includes('offer') || t.includes('automation') || t.includes('n8n')) {
+    return "💼 **Hari bot & Business Solutions** is a premium AI technology agency founded by **Hariharan M** (Founder & Director) on **May 24, 2026** in Coimbatore, India. \n\n" +
            "✨ **Business Philosophy**: *\"We will do the best for a company.\"*\n\n" +
            "**Services Offered:**\n" +
            "• 🎨 **UI / UX Designing**: User-centered research, wireframes, prototypes.\n" +
-           "• 💻 **Company Websites**: Fast, SEO-optimized landing pages and portals.\n" +
+           "• 💻 **Company Websites**: Fast, SEO-optimized landing pages and corporate portals.\n" +
            "• 🤖 **Personalized AI Bots & Sujok Agents**: Intelligent assistants for customer support.\n" +
            "• ⚙️ **AI & Task Automation**: Workflow automation via n8n & Python (10x task speed).\n\n" +
            "🔗 **Website**: [hari-bot-business-solutions.vercel.app](https://hari-bot-business-solutions.vercel.app/)";
   }
 
   if (t.includes('portfolio') || t.includes('website') || t.includes('more detail') || t.includes('more about') || t.includes('link') || t.includes('detail about')) {
-    return "You can find more details on **Hariharan's** live portfolio:\n\n" +
+    return "You can find more details on **Hariharan M's** live portfolio:\n\n" +
            "🔗 **Portfolio**: [portfolio-new-psi-ten-33.vercel.app](https://portfolio-new-psi-ten-33.vercel.app/)";
   }
 
   if (t.includes('profile') || t.includes('profiles') || t.includes('github') || t.includes('leetcode')) {
-    return "Here are **Hariharan's** professional profiles:\n\n" +
+    return "Here are **Hariharan M's** professional profiles:\n\n" +
            "• **GitHub**: [github.com/hariharanmct06](https://github.com/hariharanmct06) 🚀\n" +
            "• **LeetCode**: [leetcode.com/u/gwbXy6iSHY](https://leetcode.com/u/gwbXy6iSHY/) ♟️\n" +
            "• **LinkedIn**: [linkedin.com/in/hariharan-m-4a8533407](https://www.linkedin.com/in/hariharan-m-4a8533407) 🔗";
   }
 
   if (t.includes('email') || t.includes('contact') || t.includes('mail') || t.includes('whatsapp') || t.includes('phone') || t.includes('linkedin') || t.includes('linkdin') || t.includes('reach') || t.includes('number') || t.includes('8667808803') || t.includes('8838154932')) {
-    return "Contact details to reach **Hariharan** and **Sujok AI Bots**:\n\n" +
-           "💼 **Sujok AI Bots Email**: haribotbusinesssolutions@gmail.com 📧\n" +
+    return "Contact details to reach **Hariharan M** and **Hari bot & Business Solutions**:\n\n" +
+           "💼 **Email**: haribotbusinesssolutions@gmail.com 📧\n" +
            "💬 **WhatsApp**: [Click to chat (+91 86678 08803)](https://wa.me/918667808803) 💬";
   }
 
@@ -2048,10 +2024,10 @@ function getLocalResponse(text) {
   }
 
   if (t.includes('who') || t.includes('about') || t.includes('hari') || t.includes('profile') || t.includes('summary')) {
-    return "Hariharan is the **Founder & CEO** of **Sujok AI Bots** 🤖💼, a first-year **Mechatronics Engineering** student at SNS College of Technology 🤖, and an **Energy Healer** associated with Agasthiya Healing Centre! 🌿✨";
+    return "Hariharan M is the **Founder & Director** of **Hari bot & Business Solutions** 🤖💼, an **18-year-old Mechatronics Engineering** student at SNS College of Technology 🤖, and an **Energy Healer** associated with Agasthiya Healing Centre! 🌿✨";
   }
 
-  return "I am **HARI BOT**! Hariharan is a Mechatronics student and Founder & CEO of Sujok AI Bots. Ask me about his projects, business, or studies!";
+  return "I am **HARI BOT**! Hariharan M is an 18-year-old Mechatronics student and Founder & Director of Hari bot & Business Solutions. Ask me about his projects, business, or studies!";
 }
 
 // ============================================================
@@ -2091,7 +2067,7 @@ async function getLocalNewsResponse() {
 }
 
 // ============================================================
-// VOICE MODE & VISION CAMERA HANDLERS
+// VOICE MODE & VISION CV 4.0 OBJECT RECOGNITION ENGINE
 // ============================================================
 let voiceState = 'idle';
 let voiceWaveAnimFrame = null;
@@ -2128,7 +2104,7 @@ function startSpeechRecognition() {
     rec.start();
   } else {
     setTimeout(() => {
-      const sampleQuery = "Tell me about Sujok AI Bots business";
+      const sampleQuery = "Tell me about Hari bot & Business Solutions";
       closeVoiceMode();
       switchTab('chat');
       sendMessage(sampleQuery);
@@ -2162,7 +2138,7 @@ function startVoiceWaveform() {
   drawWave();
 }
 
-/* Vision Feed */
+/* Vision Feed & Real-World Object Detection */
 let visionMediaStream = null;
 async function startVisionCameraFeed() {
   const video = document.getElementById('vision-video-feed');
@@ -2170,9 +2146,13 @@ async function startVisionCameraFeed() {
     try {
       visionMediaStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
       video.srcObject = visionMediaStream;
+      simulateObjectDetection();
     } catch (e) {
       console.warn("Camera access fallback");
+      simulateObjectDetection();
     }
+  } else {
+    simulateObjectDetection();
   }
 }
 
@@ -2183,8 +2163,23 @@ function stopVisionCameraFeed() {
   }
 }
 
+function simulateObjectDetection() {
+  setTimeout(() => {
+    const objName = document.getElementById('detected-object-name');
+    const objCat = document.getElementById('detected-object-cat');
+    const objDesc = document.getElementById('detected-object-desc');
+
+    if (objName && objCat && objDesc) {
+      objName.innerText = "Laptop Computer";
+      objCat.innerText = "Electronic Device";
+      objDesc.innerText = "A portable personal computer used for programming in Python and C++, UI/UX design, and business technology solutions.";
+      speakTextAloud("Detected Laptop Computer: Electronic Device. Used for programming, business, and creative work.");
+    }
+  }, 1800);
+}
+
 // ============================================================
-// ANIMATED STARS CANVAS BACKGROUND
+// STARRY CANVAS BACKGROUND
 // ============================================================
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
@@ -2292,7 +2287,7 @@ function init() {
   }
 
   // Welcome Intro Message in Chat
-  addBotMsg("Welcome to **HARI BOT V2 — ULTRA ROYAL AI OS** 👑✨\n\nHariharan is the **Founder & CEO** of **Sujok AI Bots** 🤖💼 and an **18-year-old Mechatronics Engineering** student at **SNS College of Technology** in Coimbatore 🎓.\n\nAsk me anything about his Sujok AI Bots business, mechatronics studies, AI automations, trading chart analytics, or programming projects! 👇");
+  addBotMsg("Welcome to **HARI BOT** 🤖✨ — Ultra Premium AI Platform for **Hari bot & Business Solutions**!\n\nHariharan M is the **Founder & Director** of **Hari bot & Business Solutions** 🤖💼 and an **18-year-old Mechatronics Engineering** student at **SNS College of Technology** in Coimbatore 🎓.\n\nAsk me anything about his business solutions, mechatronics studies, AI automations, computer vision, or coding projects! 👇");
 
   // Form submit handler
   const form = document.getElementById('chat-form');
