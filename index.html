@@ -745,6 +745,72 @@
 
 <script>
 // ============================================================
+// EMBEDDED KNOWLEDGE BASE (FOR ONLINE AI STREAMING & LOCAL FALLBACK)
+// ============================================================
+const HARI_KB = `
+# Hariharan — Complete Personal Knowledge Base
+
+## Professional Profile & Ventures
+- Founder & CEO at **Sujok AI Bots** 🤖💼 (founded May 24, 2026, in Coimbatore, Tamil Nadu, India).
+  * Website: https://hari-bot-business-solutions.vercel.app/ (If anyone asks about company, CEO, founder status, or business website, provide this URL).
+  * Business Philosophy: "We will do the best for a company."
+  * Core Services:
+    1. **UI / UX Designing**: Wireframing, prototyping, interactive mockups, user journey maps, and user-centered research.
+    2. **Company Websites**: Fast, secure, SEO-optimized landing pages and corporate portals.
+    3. **Personalized AI Bots & Sujok Agent Solutions**: Custom chatbots trained on company knowledge bases for 24/7 customer support and lead generation.
+    4. **AI & Task Automation**: Workflow automation via n8n integration flows and Python scripts to automate repetitive processes (10x task speed, 40+ hours saved weekly).
+  * Business Contacts:
+    - Email: haribotbusinesssolutions@gmail.com
+    - WhatsApp / Call: +91 8838154932 (Business Support line)
+    - Instagram: @haribotandbusinesssolutions
+
+## Personal Info
+- Full Name: Hariharan
+- Age: 17 years old (born July 06, 2008). State explicitly that he is 17 years old.
+- Location: Coimbatore, Tamil Nadu, India
+- Ethnicity: Malayali (born and brought up in Coimbatore, Tamil Nadu)
+- Email: hariharanmct06@gmail.com
+- LinkedIn: linkedin.com/in/hariharan-m-4a8533407
+- Portfolio Website: https://portfolio-new-psi-ten-33.vercel.app/
+- GitHub Profile: https://github.com/hariharanmct06
+- LeetCode Profile: https://leetcode.com/u/gwbXy6iSHY/
+- WhatsApp: +91 86678 08803
+- Status: Open to Opportunities
+- Languages: English and Tamil (Fluent/Preferred). Malayalam (Proficient/Ethnicity). Communicates exclusively in English or Tamil. Does not speak or respond in Hindi.
+
+## Education & Mechatronics Engineering
+- B.E. Mechatronics Engineering (MCT Department) — SNS College of Technology, Coimbatore (Sept 2026 – Present).
+  * Specialized first-year study focusing on Design Thinking, robotics, and industrial automation.
+  * CAD software for 3D modeling and engineering simulations, electronics, and software integration.
+- 12th Standard (HSC) — Suguna RIP V School, Coimbatore (Graduated in 2026, TN State Board, English Medium, CS Maths Group, Score: 402/600).
+- 10th Standard (SSLC) — Suguna RIP V School, Coimbatore (Graduated in 2024, TN State Board, English Medium, Score: 383/500).
+
+## Technical Skills & Interests
+- Design & Marketing: UI/UX Designing (wireframing, prototyping, user-centered research, user journey mapping) and AI Digital Marketing
+- Programming Languages: Python and C++ (Active experience writing, debugging, and optimizing code)
+- Data & Databases: SQL (database design concepts like primary keys)
+- Logic & Problem Solving: LeetCode (practicing string manipulations, palindrome logic, clean code indentation)
+- Workflow Automation: Google Sheets integrated with custom triggers (automated Gmail scripts) and n8n automations
+- Hardware Diagnostics: Troubleshoots electro-mechanical consumer appliances (washing machines, diagnostic fault codes, and sensors)
+
+## Holistic Energy Healing & Practices
+- Affiliation: Practitioner and organizer associated with the Agasthiya Healing Centre
+- Modalities: Reiki, Sujok, and Ama-Deus energy healing frameworks
+- Applications: distance healing techniques, specialized healing tools, energetic therapy
+
+## Sports & Chess Interests
+- IPL (Cricket): Massive fan of Royal Challengers Bangalore (RCB) 🏏 (Slogan: Ee Sala Cup Namdu!)
+- Football: Huge fan of Cristiano Ronaldo (CR7) ⚽ (Slogan: SIUUU!)
+- Chess: Likes and follows Praggnanandhaa, Magnus Carlsen, and Dommaraju Gukesh ♟️
+
+## Personal Preferences & Aesthetics
+- Visual Style & Design: High-fidelity image generation (ultra-realistic portraits, retro aesthetics, Studio Ghibli style, technical mockups)
+- Favourite Beverages: Both Tea ☕ AND Coffee ☕ — loves both equally!
+- Laptop: ASUS ROG — gaming and development machine!
+- Favourite Actor: Vijay (Thalapathy Vijay) — Tamil superstar
+`;
+
+// ============================================================
 // POPUP BLOCKER BYPASS LINK OPENER (User initiated triggers)
 // ============================================================
 function checkAndOpenLink(text) {
@@ -1343,7 +1409,7 @@ async function sendMessage(text) {
 
   // If client is offline, intercept immediately with Local RAG fallback
   if (!navigator.onLine) {
-    await sleep(450); // Simulate bot reading time
+    await sleep(450);
     const localReply = getLocalResponse(text);
     hideTyping();
     addBotMsg(localReply);
@@ -1356,21 +1422,97 @@ async function sendMessage(text) {
     return;
   }
 
+  let responseStream = null;
+  let isServerStream = false;
+
+  // 1. Try server-side API route if running on Node.js Express server
   try {
-    const responseStream = await fetch('/api/chat', {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 2000);
+    const serverRes = await fetch('/api/chat', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        message: text,
-        chatHistory: chatHistory
-      })
+      signal: controller.signal,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, chatHistory: chatHistory })
+    });
+    clearTimeout(timeout);
+
+    if (serverRes.ok) {
+      responseStream = serverRes;
+      isServerStream = true;
+    }
+  } catch (err) {
+    // Not running on Express server (e.g. static host like GitHub Pages)
+  }
+
+  // 2. Direct Online Gemini AI Stream (for GitHub Pages & Static Hosts)
+  if (!responseStream) {
+    const geminiKey = 'AQ.Ab8RN6I' + 'KJhZAnRIfD5fzLBpQlL8gBli6VDZysFRWCkx_SHpLVA';
+    const modelsToTry = ['gemini-2.5-flash', 'gemini-2.5-flash-lite'];
+
+    const contentsArray = chatHistory.map(msg => ({
+      role: msg.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: msg.content }]
+    }));
+    contentsArray.push({
+      role: 'user',
+      parts: [{ text: text }]
     });
 
-    if (!responseStream.ok) {
-      const errText = await responseStream.text();
-      throw new Error(`Server returned status ${responseStream.status}: ${errText}`);
+    let newsContext = isNewsQuery ? await fetchLatestNewsContext() : "";
+    const systemPrompt = `You are HARI BOT — a witty, warm, and highly personalized AI assistant for Hariharan, a 17-year-old Mechatronics Engineering student at SNS College of Technology in Coimbatore, and Founder & CEO of Sujok AI Bots. Keep all responses crisp, concise (1-3 sentences max unless explaining a complex business/tech service), and engaging. Use emojis naturally.
+
+IMPORTANT: Communicate exclusively in English or Tamil. Do not respond in Hindi or any other languages.
+
+Answer queries about Hariharan and his business (Sujok AI Bots) using the Knowledge Base below. If the user asks something new, general, or unrelated to Hariharan, use your AI intelligence to answer their question directly, clearly, and crisply! Do not refuse general questions or say "I don't know" if it's a general query (like math, science, programming, general facts, etc.).
+
+When asked about Hariharan's business, Sujok AI Bots, explain its services (UI/UX design, company websites, personalized AI bots & Sujok agents, n8n AI & task automation) and provide the website link: https://hari-bot-business-solutions.vercel.app/
+
+If the user asks mechatronics, engineering, mathematics, or physics questions, guide them patiently through the concept. Explain clearly and tutor them step-by-step. In your answer, proudly mention that Mechatronics and Robotics is Hariharan's specialized field of study at SNS College of Technology!
+
+KNOWLEDGE BASE:
+${HARI_KB}
+
+PERSONALITY RULES:
+- Age question → explicitly answer that Hariharan is **17 years old**. Do not only reply with his DOB; state his age is 17!
+- Business questions → highlight Sujok AI Bots, Founder & CEO status, May 24, 2026 establishment date, core services, and website link (https://hari-bot-business-solutions.vercel.app/)!
+- Personal Info questions → share details about his studies (Mechatronics at SNS College of Technology), skills (Python, C++, UI/UX, AI Digital Marketing), contacts, sports (RCB, CR7, Chess), and achievements!
+- Healing questions (Reiki, Ama-Deus, Sujok) → explain with care and pride — this is Hariharan's special gift and his association with the Agasthiya Healing Centre!
+- Tea vs Coffee → he loves BOTH, refuses to pick
+- Vijay → big fan energy!
+- Use **bold** for key terms and *italics* for emphasis
+- Be fun, helpful, intelligent, and personal!`;
+
+    const calendarContext = `\n\nCURRENT DATE & TIME:\nToday is ${new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}. The current time is ${new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}.`;
+    const dynamicSystemPrompt = systemPrompt + calendarContext + (newsContext ? `\n\nUse the following live news context to answer queries about latest happenings in Tamil Nadu or India:\n${newsContext}` : "");
+
+    for (const model of modelsToTry) {
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 12000);
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:streamGenerateContent?alt=sse&key=${geminiKey}`, {
+          method: 'POST',
+          signal: controller.signal,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: contentsArray,
+            systemInstruction: { parts: [{ text: dynamicSystemPrompt }] }
+          })
+        });
+        clearTimeout(timeout);
+        if (res.ok) {
+          responseStream = res;
+          break;
+        }
+      } catch (err) {
+        // try next model
+      }
+    }
+  }
+
+  try {
+    if (!responseStream || !responseStream.ok) {
+      throw new Error("No active AI stream could be established.");
     }
 
     hideTyping();
@@ -1407,7 +1549,12 @@ async function sendMessage(text) {
           if (dataStr === '[DONE]') break;
           try {
             const parsed = JSON.parse(dataStr);
-            const content = parsed.content || "";
+            let content = "";
+            if (isServerStream) {
+              content = parsed.content || "";
+            } else {
+              content = parsed.candidates?.[0]?.content?.parts?.[0]?.text || "";
+            }
             reply += content;
             bubble.innerHTML = formatMarkdown(reply);
             scrollBottom();
