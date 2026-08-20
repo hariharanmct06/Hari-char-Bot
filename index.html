@@ -8,8 +8,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="theme-color" content="#090909">
   
-  <title>HARI BOT — Royal Luxury AI Operating System</title>
-  <meta name="description" content="HARI BOT: The Royal Luxury AI OS for Hariharan — Mechatronics Engineer, Founder & CEO of Sujok AI Bots.">
+  <title>HARI BOT V2 — Ultra Royal AI Operating System</title>
+  <meta name="description" content="HARI BOT V2: The $50M Ultra Royal Personal AI OS for Hariharan — Founder & CEO of Sujok AI Bots.">
 
   <!-- External Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,25 +22,25 @@
       --gold-light: #F3E5AB;
       --gold-dark: #AA7C11;
       --obsidian: #090909; /* Obsidian Black */
-      --obsidian-surface: rgba(15, 15, 18, 0.78); /* Black Marble Glass */
-      --obsidian-card: rgba(22, 22, 26, 0.88);
+      --obsidian-surface: rgba(15, 15, 18, 0.85); /* Black Marble Glass */
+      --obsidian-card: rgba(22, 22, 26, 0.92);
       --burnt-orange: #F59E0B; /* Burnt Orange Accent */
       --milk-white: #F8F6F1; /* Milk White Typography */
       
       --muted: #94A3B8;
       --dim: #64748B;
       
-      --gold-glass-border: rgba(212, 175, 55, 0.25);
-      --gold-border-hover: rgba(212, 175, 55, 0.6);
+      --gold-glass-border: rgba(212, 175, 55, 0.3);
+      --gold-border-hover: rgba(212, 175, 55, 0.7);
       
       --radius-sm: 14px;
       --radius-md: 24px;
       --radius-lg: 32px;
       --radius-pill: 9999px;
       
-      --shadow-gold: 0 10px 35px rgba(212, 175, 55, 0.25);
-      --shadow-orange: 0 10px 35px rgba(245, 158, 11, 0.25);
-      --shadow-card: 0 25px 60px rgba(0, 0, 0, 0.9);
+      --shadow-gold: 0 10px 35px rgba(212, 175, 55, 0.3);
+      --shadow-orange: 0 10px 35px rgba(245, 158, 11, 0.3);
+      --shadow-card: 0 25px 60px rgba(0, 0, 0, 0.95);
     }
 
     *, *::before, *::after {
@@ -62,7 +62,7 @@
       touch-action: none;
     }
 
-    /* Background Canvas & Particles */
+    /* Animated Stars Canvas Background */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -75,10 +75,10 @@
     .ambient-blob {
       position: fixed;
       border-radius: 50%;
-      filter: blur(150px);
+      filter: blur(160px);
       pointer-events: none;
       z-index: 0;
-      opacity: 0.12;
+      opacity: 0.15;
       animation: floatBlob 16s ease-in-out infinite alternate;
     }
     .blob-gold { width: 550px; height: 550px; background: var(--gold); top: -180px; left: -150px; }
@@ -90,19 +90,6 @@
       100% { transform: translate(-30px, 30px) scale(0.95); }
     }
 
-    /* Black Marble Grid Pattern */
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      background-image:
-        linear-gradient(rgba(212, 175, 55, 0.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(212, 175, 55, 0.018) 1px, transparent 1px);
-      background-size: 55px 55px;
-      pointer-events: none;
-    }
-
     /* Main Container Shell */
     #app {
       position: relative;
@@ -112,7 +99,7 @@
       height: -webkit-fill-available;
       display: flex;
       flex-direction: column;
-      background: rgba(9, 9, 9, 0.82);
+      background: rgba(9, 9, 9, 0.85);
       backdrop-filter: blur(35px);
       -webkit-backdrop-filter: blur(35px);
       overflow: hidden;
@@ -125,7 +112,7 @@
         margin: auto;
         border-radius: var(--radius-md);
         border: 1px solid var(--gold-glass-border);
-        box-shadow: var(--shadow-card), 0 0 60px rgba(212, 175, 55, 0.08);
+        box-shadow: var(--shadow-card), 0 0 60px rgba(212, 175, 55, 0.1);
       }
     }
 
@@ -137,7 +124,7 @@
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid var(--gold-glass-border);
-      background: rgba(15, 15, 18, 0.65);
+      background: rgba(15, 15, 18, 0.7);
       backdrop-filter: blur(25px);
       z-index: 20;
       flex-shrink: 0;
@@ -242,7 +229,7 @@
       outline: none;
     }
     .glass-icon-btn:hover {
-      background: rgba(212, 175, 55, 0.12);
+      background: rgba(212, 175, 55, 0.15);
       border-color: var(--gold);
       color: var(--gold);
       transform: translateY(-1px);
@@ -277,10 +264,10 @@
     }
 
     /* ============================================================ */
-    /* HOME PAGE: REALISTIC INTERACTIVE ROBOT HERO */
+    /* REALISTIC HUMANOID ROBOT HERO ENGINE */
     /* ============================================================ */
     .home-hero-section {
-      padding: 20px 20px;
+      padding: 16px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -289,26 +276,25 @@
 
     .robot-stage-wrapper {
       position: relative;
-      width: 280px;
-      height: 250px;
+      width: 290px;
+      height: 260px;
       margin: 0 auto 10px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    /* Floating particles ring behind robot */
     .robot-aura-ring {
       position: absolute;
       inset: 10px;
       border-radius: 50%;
-      border: 1.5px dashed rgba(212, 175, 55, 0.3);
+      border: 1.5px dashed rgba(212, 175, 55, 0.35);
       animation: rotateRing 20s linear infinite;
       pointer-events: none;
     }
     .robot-aura-ring-2 {
       inset: -10px;
-      border: 1px solid rgba(245, 158, 11, 0.2);
+      border: 1px solid rgba(245, 158, 11, 0.25);
       animation: rotateRing 30s linear infinite reverse;
     }
 
@@ -317,10 +303,23 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Interactive Humanoid Robot SVG Frame */
+    /* Floating Circular Platform */
+    .floating-platform {
+      position: absolute;
+      bottom: 5px;
+      width: 200px;
+      height: 35px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.35) 0%, rgba(245, 158, 11, 0.1) 60%, transparent 80%);
+      box-shadow: 0 0 35px rgba(212, 175, 55, 0.5);
+      animation: platformPulse 3s ease-in-out infinite alternate;
+    }
+    @keyframes platformPulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.08); opacity: 1; } }
+
+    /* SVG Humanoid Robot Component */
     .robot-svg-container {
-      width: 220px;
-      height: 220px;
+      width: 230px;
+      height: 230px;
       position: relative;
       z-index: 5;
       cursor: pointer;
@@ -336,14 +335,13 @@
       transition: fill 0.3s ease, filter 0.3s ease;
     }
 
-    /* Touch Feedback Toast */
     .robot-speech-bubble {
       position: absolute;
       top: -15px;
-      background: var(--obsidian-surface);
+      background: var(--obsidian-card);
       border: 1px solid var(--gold);
       border-radius: var(--radius-pill);
-      padding: 6px 16px;
+      padding: 6px 18px;
       font-size: 12px;
       font-weight: 700;
       color: var(--gold);
@@ -364,11 +362,11 @@
       width: 100%;
       max-width: 580px;
       position: relative;
-      margin: 16px 0 24px;
+      margin: 12px 0 22px;
     }
     .hero-search-input {
       width: 100%;
-      background: rgba(22, 22, 26, 0.85);
+      background: rgba(22, 22, 26, 0.88);
       border: 1px solid var(--gold-glass-border);
       border-radius: var(--radius-md);
       padding: 16px 20px;
@@ -382,7 +380,7 @@
     }
     .hero-search-input:focus {
       border-color: var(--gold);
-      box-shadow: 0 0 30px rgba(212, 175, 55, 0.3), 0 0 15px rgba(245, 158, 11, 0.2);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
     }
     .hero-search-input::placeholder { color: var(--dim); }
 
@@ -396,7 +394,7 @@
       background: linear-gradient(135deg, var(--gold), var(--burnt-orange));
       border: none;
       color: #000;
-      font-weight: 700;
+      font-weight: 800;
       font-size: 12px;
       cursor: pointer;
       transition: all 0.25s ease;
@@ -404,7 +402,7 @@
     .hero-search-btn:hover { transform: translateY(-50%) scale(1.04); }
     .hero-search-btn:active { transform: translateY(-50%) scale(0.95); }
 
-    /* Quick Actions Grid (2x3 or 3x2) */
+    /* Quick Actions Grid (6 Floating Cards) */
     .quick-actions-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -477,7 +475,7 @@
     }
 
     /* ============================================================ */
-    /* CHAT INTERFACE (ROYAL GOLD & OBSIDIAN) */
+    /* CHAT INTERFACE (MILK WHITE GLASS & ROYAL GOLD) */
     /* ============================================================ */
     #messages {
       flex: 1;
@@ -488,7 +486,7 @@
       flex-direction: column;
       gap: 18px;
       scrollbar-width: thin;
-      scrollbar-color: rgba(212, 175, 55, 0.15) transparent;
+      scrollbar-color: rgba(212, 175, 55, 0.2) transparent;
       touch-action: pan-y;
     }
 
@@ -513,7 +511,7 @@
       align-items: center;
       justify-content: center;
       font-size: 15px;
-      background: rgba(212, 175, 55, 0.1);
+      background: rgba(212, 175, 55, 0.12);
       border: 1px solid var(--gold-glass-border);
       color: var(--gold);
       box-shadow: 0 0 14px rgba(212, 175, 55, 0.2);
@@ -536,12 +534,12 @@
       backdrop-filter: blur(25px);
     }
     .msg.bot .bubble {
-      background: var(--obsidian-surface);
-      border: 1px solid var(--gold-glass-border);
-      border-left: 3px solid var(--burnt-orange);
-      color: var(--milk-white);
+      background: rgba(248, 246, 241, 0.95);
+      border: 1px solid var(--gold);
+      color: #090909;
       border-bottom-left-radius: 6px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.05);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 20px rgba(212, 175, 55, 0.2);
+      font-weight: 500;
     }
     .msg.user .bubble {
       background: linear-gradient(135deg, var(--gold) 0%, var(--burnt-orange) 100%);
@@ -549,14 +547,13 @@
       border-bottom-right-radius: 6px;
       box-shadow: var(--shadow-gold);
       border: none;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .bubble a {
-      color: var(--gold);
-      text-decoration: none;
-      border-bottom: 1px dashed rgba(212, 175, 55, 0.6);
-      font-weight: 700;
+      color: #000;
+      text-decoration: underline;
+      font-weight: 800;
     }
 
     /* Action Icons below AI Messages */
@@ -572,7 +569,7 @@
       font-size: 10px;
       padding: 4px 10px;
       border-radius: var(--radius-pill);
-      background: rgba(255, 255, 255, 0.03);
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--gold-glass-border);
       color: var(--muted);
       cursor: pointer;
@@ -583,7 +580,7 @@
       outline: none;
     }
     .chip-btn:hover {
-      background: rgba(212, 175, 55, 0.12);
+      background: rgba(212, 175, 55, 0.15);
       border-color: var(--gold);
       color: var(--gold);
     }
@@ -594,7 +591,7 @@
       padding: 14px 18px;
       padding-bottom: max(14px, env(safe-area-inset-top));
       border-top: 1px solid var(--gold-glass-border);
-      background: rgba(12, 12, 15, 0.88);
+      background: rgba(12, 12, 15, 0.9);
       backdrop-filter: blur(25px);
       z-index: 15;
     }
@@ -616,7 +613,7 @@
     }
     .input-box-wrapper:focus-within {
       border-color: var(--gold);
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.25), 0 0 10px rgba(245, 158, 11, 0.2);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
       background: rgba(255, 255, 255, 0.05);
     }
 
@@ -663,13 +660,13 @@
     #send-btn:active { transform: scale(0.92); }
 
     /* ============================================================ */
-    /* VISION CV & TRADING CHART ANALYSIS MODAL */
+    /* FULLSCREEN OVERLAYS (VOICE, VISION, TRADING AI) */
     /* ============================================================ */
     .fullscreen-overlay {
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: rgba(9, 9, 9, 0.95);
+      background: rgba(9, 9, 9, 0.96);
       backdrop-filter: blur(35px);
       display: flex;
       flex-direction: column;
@@ -691,15 +688,16 @@
       justify-content: space-between;
       border-bottom: 1px solid var(--gold-glass-border);
     }
-    .overlay-title { font-size: 16px; font-weight: 700; color: var(--gold); }
+    .overlay-title { font-size: 16px; font-weight: 800; color: var(--gold); }
 
+    /* Vision Scanner Frame */
     .vision-scanner-frame {
       position: absolute;
       width: 280px;
       height: 280px;
       border: 1.5px dashed rgba(212, 175, 55, 0.5);
       border-radius: var(--radius-md);
-      box-shadow: 0 0 50px rgba(212, 175, 55, 0.2);
+      box-shadow: 0 0 50px rgba(212, 175, 55, 0.25);
       pointer-events: none;
     }
     .scan-corner {
@@ -714,30 +712,16 @@
     .sc-bl { bottom: -2px; left: -2px; border-width: 0 0 4px 4px; border-bottom-left-radius: 8px; }
     .sc-br { bottom: -2px; right: -2px; border-width: 0 4px 4px 0; border-bottom-right-radius: 8px; }
 
-    /* Trading Chart Analysis Output Panel */
-    .trading-analysis-drawer {
-      background: var(--obsidian-card);
-      border-top: 1px solid var(--gold);
-      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      box-shadow: 0 -20px 50px rgba(0,0,0,0.9);
-      animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-
     .trading-metrics-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
     }
     .metric-box {
-      background: rgba(212, 175, 55, 0.05);
+      background: rgba(212, 175, 55, 0.06);
       border: 1px solid var(--gold-glass-border);
       border-radius: var(--radius-sm);
-      padding: 10px;
+      padding: 12px;
       text-align: center;
     }
     .metric-val { font-size: 14px; font-weight: 800; color: var(--gold); }
@@ -839,33 +823,13 @@
     .sugg:hover, .sugg:active {
       border-color: var(--gold);
       color: var(--milk-white);
-      background: rgba(212, 175, 55, 0.1);
-      box-shadow: 0 0 14px rgba(212, 175, 55, 0.2);
-    }
-
-    /* Shouting animation bubble */
-    .msg.bot .bubble.shout-bubble {
-      animation: shoutShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both, shoutGlow 1.5s infinite alternate;
-      border: 1px solid rgba(239, 68, 68, 0.4) !important;
-      border-left: 3px solid rgba(239, 68, 68, 0.9) !important;
-      background: rgba(239, 68, 68, 0.08) !important;
-      color: #f87171 !important;
-      font-weight: 700 !important;
-    }
-    @keyframes shoutGlow {
-      0%, 100% { box-shadow: 0 0 15px rgba(239, 68, 68, 0.35); }
-      50% { box-shadow: 0 0 25px rgba(239, 68, 68, 0.65); }
-    }
-    @keyframes shoutShake {
-      0%, 100% { transform: rotate(0deg) scale(1); }
-      15%, 45%, 75% { transform: rotate(-1.5deg) scale(1.02); }
-      30%, 60%, 90% { transform: rotate(1.5deg) scale(1.02); }
+      background: rgba(212, 175, 55, 0.12);
+      box-shadow: 0 0 14px rgba(212, 175, 55, 0.25);
     }
 
     .typing-bubble {
-      background: var(--obsidian-surface);
-      border: 1px solid var(--gold-glass-border);
-      border-left: 3px solid var(--burnt-orange);
+      background: rgba(248, 246, 241, 0.95);
+      border: 1px solid var(--gold);
       border-radius: var(--radius-md);
       padding: 12px 18px;
       display: flex;
@@ -876,11 +840,11 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: var(--gold);
+      background: #090909;
       animation: tdot 1.3s ease-in-out infinite;
     }
-    .tdot:nth-child(2) { animation-delay: .18s; background: var(--burnt-orange); }
-    .tdot:nth-child(3) { animation-delay: .36s; background: var(--gold-light); }
+    .tdot:nth-child(2) { animation-delay: .18s; background: var(--gold-dark); }
+    .tdot:nth-child(3) { animation-delay: .36s; background: var(--burnt-orange); }
     @keyframes tdot {
       0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
       30% { transform: translateY(-5px); opacity: 1; }
@@ -913,16 +877,13 @@
             <span class="ai-online-badge">
               <span class="status-pulse-dot"></span> ONLINE
             </span>
-            · ROYAL AI OS
+            · HARI BOT V2 OS
           </div>
         </div>
       </div>
       <div class="top-actions">
-        <button class="glass-icon-btn" onclick="openVoiceMode()" title="Voice Assistant">
+        <button class="glass-icon-btn" onclick="openVoiceMode()" title="Voice AI">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
-        </button>
-        <button class="glass-icon-btn" onclick="openDocumentAI()" title="Document AI">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
         </button>
       </div>
     </header>
@@ -934,7 +895,7 @@
     <div class="tab-views-container">
       
       <!-- ============================================================ -->
-      <!-- TAB 1: HOME PAGE WITH INTERACTIVE HUMANOID ROBOT HERO -->
+      <!-- TAB 1: HOME PAGE WITH REALISTIC HUMANOID ROBOT HERO -->
       <!-- ============================================================ -->
       <div id="tab-home-view" class="tab-view active">
         <div class="home-hero-section">
@@ -943,38 +904,43 @@
           <div class="robot-stage-wrapper">
             <div class="robot-aura-ring"></div>
             <div class="robot-aura-ring robot-aura-ring-2"></div>
+            <div class="floating-platform"></div>
             
-            <div class="robot-speech-bubble" id="robot-speech">Hello Hari, I'm ready.</div>
+            <div class="robot-speech-bubble" id="robot-speech">Hello Hari. Systems are ready.</div>
 
-            <!-- SVG Humanoid Robot with Touch Response Engine -->
+            <!-- Realistic SVG Titanium & Ceramic Humanoid Robot -->
             <div class="robot-svg-container" id="robot-interactive-avatar">
-              <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+              <svg width="230" height="230" viewBox="0 0 200 200" fill="none">
                 <!-- Head Group -->
                 <g id="robot-head-group" class="robot-head-group">
-                  <!-- Crown / Crest -->
-                  <polygon points="100,20 115,40 85,40" fill="url(#goldGrad)" />
-                  <!-- Head Base -->
-                  <rect x="55" y="40" width="90" height="75" rx="20" fill="#121216" stroke="#D4AF37" stroke-width="2.5" />
-                  <!-- Visor Display -->
-                  <rect x="65" y="55" width="70" height="35" rx="12" fill="#090909" stroke="rgba(212,175,55,0.4)" stroke-width="1.5" />
-                  <!-- Robot Eyes -->
-                  <ellipse id="robot-eye-left" class="robot-eye-glow" cx="83" cy="72" rx="8" ry="8" fill="#D4AF37" />
-                  <ellipse id="robot-eye-right" class="robot-eye-glow" cx="117" cy="72" rx="8" ry="8" fill="#D4AF37" />
-                  <circle cx="85" cy="70" r="3" fill="#FFF" />
-                  <circle cx="119" cy="70" r="3" fill="#FFF" />
-                  <!-- Mouth / Speaker Grill -->
-                  <path id="robot-mouth" d="M85 96 Q100 96 115 96" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" />
-                  <!-- Ear Nodes -->
-                  <circle cx="50" cy="77.5" r="7" fill="#D4AF37" />
-                  <circle cx="150" cy="77.5" r="7" fill="#D4AF37" />
+                  <!-- Titanium Helmet Crest -->
+                  <path d="M80 25 L100 12 L120 25 L110 38 L90 38 Z" fill="url(#titaniumGrad)" stroke="#D4AF37" stroke-width="1.5" />
+                  <!-- Face Armor Shell -->
+                  <rect x="52" y="38" width="96" height="80" rx="22" fill="#0D0E12" stroke="#D4AF37" stroke-width="2.5" />
+                  <rect x="56" y="42" width="88" height="72" rx="18" fill="url(#ceramicGrad)" opacity="0.9" />
+                  <!-- Illuminated Facial Plate -->
+                  <rect x="64" y="52" width="72" height="40" rx="14" fill="#050508" stroke="rgba(212,175,55,0.5)" stroke-width="1.5" />
+                  <!-- Realistic Blue-White Robotic Eyes -->
+                  <ellipse id="robot-eye-left" class="robot-eye-glow" cx="82" cy="72" rx="9" ry="9" fill="#00E5FF" filter="drop-shadow(0 0 8px #00E5FF)" />
+                  <ellipse id="robot-eye-right" class="robot-eye-glow" cx="118" cy="72" rx="9" ry="9" fill="#00E5FF" filter="drop-shadow(0 0 8px #00E5FF)" />
+                  <circle cx="84" cy="70" r="3.5" fill="#FFF" />
+                  <circle cx="120" cy="70" r="3.5" fill="#FFF" />
+                  <!-- Gold Ear Joints -->
+                  <circle id="robot-left-ear" cx="46" cy="78" r="8" fill="url(#goldGrad)" stroke="#000" stroke-width="1" />
+                  <circle id="robot-right-ear" cx="154" cy="78" r="8" fill="url(#goldGrad)" stroke="#000" stroke-width="1" />
                 </g>
 
-                <!-- Neck & Core Body -->
-                <rect x="90" y="115" width="20" height="15" fill="#1E1E24" />
-                <path d="M50 130 C50 125, 150 125, 150 130 L165 190 C165 195, 35 195, 35 190 Z" fill="#141418" stroke="#D4AF37" stroke-width="2" />
-                <!-- Chest Golden Reactor Core -->
-                <circle id="robot-chest-core" cx="100" cy="155" r="16" fill="url(#orangeGrad)" stroke="#D4AF37" stroke-width="2" />
-                <circle cx="100" cy="155" r="8" fill="#FFF" opacity="0.8" />
+                <!-- Neck & Shoulder Plates -->
+                <rect x="88" y="118" width="24" height="16" rx="4" fill="url(#titaniumGrad)" stroke="#D4AF37" stroke-width="1.5" />
+                <path d="M42 134 C42 128, 158 128, 158 134 L172 195 C172 200, 28 200, 28 195 Z" fill="#121318" stroke="#D4AF37" stroke-width="2" />
+                
+                <!-- Gold Shoulder Joints -->
+                <circle id="robot-left-shoulder" cx="38" cy="145" r="11" fill="url(#goldGrad)" />
+                <circle id="robot-right-shoulder" cx="162" cy="145" r="11" fill="url(#goldGrad)" />
+
+                <!-- Chest Orange Energy Reactor Core -->
+                <circle id="robot-chest-core" cx="100" cy="162" r="18" fill="url(#orangeGrad)" stroke="#D4AF37" stroke-width="2" filter="drop-shadow(0 0 12px #F59E0B)" />
+                <circle cx="100" cy="162" r="9" fill="#FFF" opacity="0.9" />
 
                 <!-- Gradients -->
                 <defs>
@@ -987,6 +953,14 @@
                     <stop offset="0%" stop-color="#F59E0B" />
                     <stop offset="100%" stop-color="#D4AF37" />
                   </linearGradient>
+                  <linearGradient id="titaniumGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="#3A3D4A" />
+                    <stop offset="100%" stop-color="#1A1C23" />
+                  </linearGradient>
+                  <linearGradient id="ceramicGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#1C1D24" />
+                    <stop offset="100%" stop-color="#090A0D" />
+                  </linearGradient>
                 </defs>
               </svg>
             </div>
@@ -998,42 +972,42 @@
             <button class="hero-search-btn" onclick="quickAsk(document.getElementById('hero-search-input').value)">Ask AI</button>
           </div>
 
-          <!-- Quick Action Cards Grid -->
+          <!-- 6 Floating Quick Action Cards -->
           <div class="quick-actions-grid">
             <div class="action-gold-card" onclick="switchTab('chat')">
               <div class="action-card-icon">💬</div>
-              <div class="action-card-title">Chat Assistant</div>
-              <div class="action-card-desc">Royal AI conversation</div>
+              <div class="action-card-title">AI Chat</div>
+              <div class="action-card-desc">Royal conversation</div>
             </div>
 
             <div class="action-gold-card" onclick="openVoiceMode()">
               <div class="action-card-icon">🎙️</div>
-              <div class="action-card-title">Voice Mode</div>
-              <div class="action-card-desc">Real-time voice AI</div>
+              <div class="action-card-title">Voice AI</div>
+              <div class="action-card-desc">Tamil + English voice</div>
             </div>
 
             <div class="action-gold-card" onclick="openVisionCamera()">
               <div class="action-card-icon">👁️</div>
-              <div class="action-card-title">Vision CV</div>
-              <div class="action-card-desc">Trading & OCR scanner</div>
+              <div class="action-card-title">AI Vision CV 3.0</div>
+              <div class="action-card-desc">OCR & Chart scanner</div>
             </div>
 
-            <div class="action-gold-card" onclick="openDocumentAI()">
-              <div class="action-card-icon">📄</div>
-              <div class="action-card-title">Documents AI</div>
-              <div class="action-card-desc">PDF & RAG intelligence</div>
-            </div>
-
-            <div class="action-gold-card" onclick="openTradingPanel()">
+            <div class="action-gold-card" onclick="switchTab('trading')">
               <div class="action-card-icon">📊</div>
               <div class="action-card-title">Trading AI</div>
-              <div class="action-card-desc">Chart & candle analytics</div>
+              <div class="action-card-desc">Market mood & gauge</div>
             </div>
 
             <div class="action-gold-card" onclick="openAutomationHub()">
               <div class="action-card-icon">⚡</div>
               <div class="action-card-title">Automation</div>
               <div class="action-card-desc">Sujok AI agents</div>
+            </div>
+
+            <div class="action-gold-card" onclick="switchTab('memory')">
+              <div class="action-card-icon">🧠</div>
+              <div class="action-card-title">Memory Vault</div>
+              <div class="action-card-desc">Timeline & neural nodes</div>
             </div>
           </div>
 
@@ -1067,16 +1041,35 @@
       </div>
 
       <!-- ============================================================ -->
-      <!-- TAB 3: VISION TECHNOLOGY SCREEN -->
+      <!-- TAB 3: TRADING AI DASHBOARD -->
       <!-- ============================================================ -->
-      <div id="tab-vision-view" class="tab-view">
-        <div style="padding: 24px; text-align: center; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-          <div style="font-size: 50px; margin-bottom: 16px;">👁️</div>
-          <h2 style="font-size: 22px; font-weight: 800; color: var(--gold); margin-bottom: 8px;">Vision CV & Trading Engine</h2>
-          <p style="color: var(--muted); font-size: 13px; max-width: 320px; margin-bottom: 24px;">Scan trading charts (VWAP, EMA, RSI), documents, blueprints, or physical objects with real-time OCR confidence.</p>
-          <button class="action-gold-card" style="align-items: center; width: 240px; background: linear-gradient(135deg, var(--gold), var(--burnt-orange)); border: none;" onclick="openVisionCamera()">
-            <span style="color: #000; font-weight: 800;">Launch Vision Scanner 📷</span>
-          </button>
+      <div id="tab-trading-view" class="tab-view">
+        <div style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
+          <div class="action-gold-card" style="width: 100%; padding: 20px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+              <span style="font-size: 16px; font-weight: 800; color: var(--gold);">MARKET MOOD GAUGE</span>
+              <span class="ai-online-badge">94.2% AI CONFIDENCE</span>
+            </div>
+            <div style="font-size: 28px; font-weight: 800; color: var(--burnt-orange); margin-top: 10px;">EXTREMELY BULLISH 🚀</div>
+            <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">VWAP & EMA trend momentum aligned across 15m/1h timeframes.</div>
+          </div>
+
+          <div class="trading-metrics-grid">
+            <div class="metric-box">
+              <div class="metric-val">₹24,850</div>
+              <div class="metric-lbl">NIFTY 50</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">$128.40</div>
+              <div class="metric-lbl">NVDA</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-val">1 : 2.4</div>
+              <div class="metric-lbl">Risk/Reward</div>
+            </div>
+          </div>
+
+          <button class="hero-search-btn" style="position: static; transform: none; width: 100%; padding: 14px;" onclick="openVisionCamera()">Launch Vision CV 3.0 Chart Scanner 📷</button>
         </div>
       </div>
 
@@ -1085,7 +1078,7 @@
       <!-- ============================================================ -->
       <div id="tab-memory-view" class="tab-view">
         <div style="padding: 20px; display: flex; flex-direction: column; gap: 16px;">
-          <input type="text" class="hero-search-input" style="padding-right: 20px;" placeholder="Search Memory Timeline & Vault..." oninput="filterMemoryCards(this.value)" />
+          <input type="text" class="hero-search-input" style="padding-right: 20px;" placeholder="Search 142 Neural Memory Nodes..." oninput="filterMemoryCards(this.value)" />
           
           <div style="display: flex; flex-direction: column; gap: 14px;" id="memory-timeline-list">
             <div class="action-gold-card" style="width: 100%;">
@@ -1104,15 +1097,6 @@
               </div>
               <div style="font-size: 15px; font-weight: 700; color: var(--milk-white);">B.E. Mechatronics Engineering</div>
               <div style="font-size: 12px; color: var(--muted);">SNS College of Technology (Coimbatore). CAD simulations, robotics, and electro-mechanical control systems.</div>
-            </div>
-
-            <div class="action-gold-card" style="width: 100%;">
-              <div style="display: flex; justify-content: space-between; width: 100%;">
-                <span class="ai-online-badge">ENERGY HEALING</span>
-                <span style="font-size: 10px; color: var(--dim);">Active</span>
-              </div>
-              <div style="font-size: 15px; font-weight: 700; color: var(--gold);">Agasthiya Healing Centre Practitioner</div>
-              <div style="font-size: 12px; color: var(--muted);">Specialized in Reiki, Sujok, and Ama-Deus energy healing modalities.</div>
             </div>
           </div>
         </div>
@@ -1133,19 +1117,19 @@
             <p style="font-size: 12px; color: var(--muted); line-height: 1.5; margin-top: 8px;">Mechatronics Engineering Student at SNS College of Technology · Energy Healer at Agasthiya Healing Centre.</p>
           </div>
 
-          <!-- Academic Stats -->
+          <!-- Academic & AI Stats -->
           <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%;">
             <div class="metric-box">
-              <div class="metric-val">17 Yrs</div>
+              <div class="metric-val">18 Yrs</div>
               <div class="metric-lbl">Age</div>
             </div>
             <div class="metric-box">
-              <div class="metric-val">402/600</div>
-              <div class="metric-lbl">12th HSC</div>
+              <div class="metric-val">Level 9.8</div>
+              <div class="metric-lbl">AI Quantum OS</div>
             </div>
             <div class="metric-box">
-              <div class="metric-val">383/500</div>
-              <div class="metric-lbl">10th SSLC</div>
+              <div class="metric-val">142</div>
+              <div class="metric-lbl">Neural Nodes</div>
             </div>
           </div>
 
@@ -1205,13 +1189,13 @@
       </button>
 
       <!-- Center Floating Vision Button -->
-      <button class="nav-tab-vision-center" onclick="openVisionCamera()" title="Vision Camera Lens">
+      <button class="nav-tab-vision-center" onclick="openVisionCamera()" title="Vision CV 3.0 Lens">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/></svg>
       </button>
 
-      <button class="nav-tab-item" id="nav-btn-memory" onclick="switchTab('memory')">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-        <span>Memory</span>
+      <button class="nav-tab-item" id="nav-btn-trading" onclick="switchTab('trading')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Trading AI</span>
       </button>
 
       <button class="nav-tab-item" id="nav-btn-profile" onclick="switchTab('profile')">
@@ -1224,27 +1208,27 @@
   </div>
 
   <!-- ============================================================ -->
-  <!-- FULLSCREEN VOICE MODE OVERLAY -->
+  <!-- FULLSCREEN VOICE AI OVERLAY -->
   <!-- ============================================================ -->
   <div id="overlay-voice" class="fullscreen-overlay">
     <div class="overlay-header">
-      <span class="overlay-title">ROYAL VOICE OS</span>
+      <span class="overlay-title">SIGNATURE VOICE AI</span>
       <button class="glass-icon-btn" onclick="closeVoiceMode()">✕</button>
     </div>
     <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; gap: 24px;">
-      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 1px;">TAMIL + ENGLISH AUTO-DETECT</div>
-      <div style="width: 160px; height: 160px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, var(--gold), var(--burnt-orange)); box-shadow: var(--shadow-gold); display: flex; align-items: center; justify-content: center; font-size: 44px; color: #000; cursor: pointer;" id="voice-orb-element" onclick="toggleVoiceListeningState()">🎙️</div>
-      <div style="font-size: 16px; font-weight: 700; color: var(--milk-white);" id="voice-state-label">Tap Golden Orb to Speak</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 1px;">TAMIL + ENGLISH MIXED RECOGNITION (99.4% CONFIDENCE)</div>
+      <div style="width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, var(--gold), var(--burnt-orange)); box-shadow: var(--shadow-gold); display: flex; align-items: center; justify-content: center; font-size: 48px; color: #000; cursor: pointer; transition: all 0.3s ease;" id="voice-orb-element" onclick="toggleVoiceListeningState()">🎙️</div>
+      <div style="font-size: 17px; font-weight: 800; color: var(--milk-white);" id="voice-state-label">Tap Golden Orb to Speak</div>
       <canvas id="voice-waveform-canvas" style="width: 100%; max-width: 320px; height: 80px;"></canvas>
     </div>
   </div>
 
   <!-- ============================================================ -->
-  <!-- FULLSCREEN VISION CV & TRADING SCANNER OVERLAY -->
+  <!-- FULLSCREEN VISION CV 3.0 CAMERA OVERLAY -->
   <!-- ============================================================ -->
   <div id="overlay-vision" class="fullscreen-overlay">
     <div class="overlay-header">
-      <span class="overlay-title">VISION CV & TRADING SCANNER</span>
+      <span class="overlay-title">AI VISION CV 3.0 CAMERA</span>
       <button class="glass-icon-btn" onclick="closeVisionCamera()">✕</button>
     </div>
     <div style="flex: 1; position: relative; display: flex; align-items: center; justify-content: center;">
@@ -1255,51 +1239,22 @@
         <div class="scan-corner sc-bl"></div>
         <div class="scan-corner sc-br"></div>
       </div>
-      <div style="position: absolute; top: 20px; background: rgba(0,0,0,0.7); border: 1px solid var(--gold); padding: 6px 14px; border-radius: var(--radius-pill); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold);">OCR CONFIDENCE: 98.4% · OPTIMAL LIGHTING</div>
+      <div style="position: absolute; top: 20px; background: rgba(0,0,0,0.8); border: 1px solid var(--gold); padding: 6px 16px; border-radius: var(--radius-pill); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold);">OCR CONFIDENCE: 98.6% · HIGH ACCURACY</div>
     </div>
     
-    <!-- Trading Analysis Drawer -->
-    <div class="trading-analysis-drawer" id="trading-analysis-drawer">
-      <div style="display: flex; justify-content: space-between; align-items: center;">
-        <div>
-          <span style="font-size: 16px; font-weight: 800; color: var(--gold);">NIFTY 50 / NVDA CHART</span>
-          <span style="font-size: 11px; color: var(--muted); margin-left: 8px;">15m Timeframe</span>
-        </div>
-        <span class="ai-online-badge">BULLISH TREND 🚀</span>
+    <!-- Trading Chart Slide-up Analysis Panel -->
+    <div class="trading-metrics-grid" style="background: var(--obsidian-card); border-top: 1px solid var(--gold); padding: 20px;">
+      <div class="metric-box">
+        <div class="metric-val">₹24,850</div>
+        <div class="metric-lbl">NIFTY 50</div>
       </div>
-
-      <div class="trading-metrics-grid">
-        <div class="metric-box">
-          <div class="metric-val">₹24,850</div>
-          <div class="metric-lbl">Current Price</div>
-        </div>
-        <div class="metric-box">
-          <div class="metric-val">₹24,780</div>
-          <div class="metric-lbl">Stop Loss</div>
-        </div>
-        <div class="metric-box">
-          <div class="metric-val">₹25,020</div>
-          <div class="metric-lbl">Target</div>
-        </div>
+      <div class="metric-box">
+        <div class="metric-val">₹24,780</div>
+        <div class="metric-lbl">Stop Loss</div>
       </div>
-
-      <button class="hero-search-btn" style="position: static; transform: none; width: 100%; padding: 12px;" onclick="closeVisionCamera(); quickAsk('Explain Trading Chart Analysis for NIFTY 50 current setup')">Analyze Chart with AI</button>
-    </div>
-  </div>
-
-  <!-- ============================================================ -->
-  <!-- DOCUMENT AI OVERLAY -->
-  <!-- ============================================================ -->
-  <div id="overlay-document" class="fullscreen-overlay">
-    <div class="overlay-header">
-      <span class="overlay-title">DOCUMENT RAG INTELLIGENCE</span>
-      <button class="glass-icon-btn" onclick="closeDocumentAI()">✕</button>
-    </div>
-    <div style="padding: 24px; flex: 1; display: flex; flex-direction: column; gap: 16px;">
-      <div style="border: 2px dashed var(--gold-glass-border); border-radius: var(--radius-lg); padding: 35px 20px; text-align: center; background: rgba(212, 175, 55, 0.02); cursor: pointer;" onclick="quickAsk('Analyze attached PDF document summary')">
-        <div style="font-size: 40px; margin-bottom: 12px;">📁</div>
-        <div style="font-size: 16px; font-weight: 700; color: var(--gold); margin-bottom: 6px;">Drag & Drop PDF or Technical Blueprint</div>
-        <div style="font-size: 12px; color: var(--muted);">Connected to existing RAG vector pipeline</div>
+      <div class="metric-box">
+        <div class="metric-val">₹25,020</div>
+        <div class="metric-lbl">Target</div>
       </div>
     </div>
   </div>
@@ -1318,7 +1273,7 @@
         <div class="action-card-title">Business AI</div>
         <div class="action-card-desc">Sujok AI Bots</div>
       </div>
-      <div class="action-gold-card" onclick="closeAutomationHub(); openTradingPanel(); closeAutomationHub();">
+      <div class="action-gold-card" onclick="closeAutomationHub(); switchTab('trading'); closeAutomationHub();">
         <div class="action-card-icon">📊</div>
         <div class="action-card-title">Trading AI</div>
         <div class="action-card-desc">Candle analytics</div>
@@ -1372,7 +1327,7 @@ const HARI_KB = `
 
 ## Personal Info
 - Full Name: Hariharan
-- Age: 17 years old (born July 06, 2008). State explicitly that he is 17 years old.
+- Age: 18 years old (born July 06, 2008). State explicitly that he is 18 years old.
 - Location: Coimbatore, Tamil Nadu, India
 - Ethnicity: Malayali (born and brought up in Coimbatore, Tamil Nadu)
 - Email: hariharanmct06@gmail.com
@@ -1480,7 +1435,7 @@ let chatHistory = [];
 let suggestionsShown = true;
 
 function switchTab(tabName) {
-  const views = ['home', 'chat', 'vision', 'memory', 'profile'];
+  const views = ['home', 'chat', 'trading', 'memory', 'profile'];
   views.forEach(v => {
     const viewEl = document.getElementById(`tab-${v}-view`);
     const btnEl = document.getElementById(`nav-btn-${v}`);
@@ -1506,16 +1461,11 @@ function closeVoiceMode() { document.getElementById('overlay-voice').classList.r
 function openVisionCamera() { document.getElementById('overlay-vision').classList.add('active'); startVisionCameraFeed(); }
 function closeVisionCamera() { document.getElementById('overlay-vision').classList.remove('active'); stopVisionCameraFeed(); }
 
-function openDocumentAI() { document.getElementById('overlay-document').classList.add('active'); }
-function closeDocumentAI() { document.getElementById('overlay-document').classList.remove('active'); }
-
 function openAutomationHub() { document.getElementById('overlay-automation').classList.add('active'); }
 function closeAutomationHub() { document.getElementById('overlay-automation').classList.remove('active'); }
 
-function openTradingPanel() { openVisionCamera(); }
-
 // ============================================================
-// TOUCH RESPONSE ENGINE FOR HUMANOID ROBOT HERO
+// TOUCH & GESTURE RESPONSE ENGINE FOR HUMANOID ROBOT HERO
 // ============================================================
 function setupRobotTouchEngine() {
   const avatar = document.getElementById('robot-interactive-avatar');
@@ -1535,14 +1485,15 @@ function setupRobotTouchEngine() {
     }
   }
 
+  // Mouse & Eye Tracking
   avatar.addEventListener('mousemove', (e) => {
     const rect = avatar.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
     
     if (head) {
-      const rotY = Math.min(25, Math.max(-25, x * 0.2));
-      const rotX = Math.min(20, Math.max(-20, -y * 0.2));
+      const rotY = Math.min(25, Math.max(-25, x * 0.22));
+      const rotX = Math.min(20, Math.max(-20, -y * 0.22));
       head.style.transform = `rotateY(${rotY}deg) rotateX(${rotX}deg)`;
     }
   });
@@ -1551,44 +1502,61 @@ function setupRobotTouchEngine() {
     if (head) head.style.transform = 'rotateY(0deg) rotateX(0deg)';
   });
 
+  // Touch Response Logic
   avatar.addEventListener('click', (e) => {
     const rect = avatar.getBoundingClientRect();
     const relY = e.clientY - rect.top;
     const relX = e.clientX - rect.left;
 
-    if (relY < 60) {
-      // Head top -> Look upward
-      if (head) head.style.transform = 'translateY(-15px) rotateX(-20deg)';
-      showSpeech("Scanning upper spectrum... 🌌");
-    } else if (relY >= 60 && relY < 100) {
-      // Forehead / Eyes -> Eye Contact & Golden Glow
+    if (relY < 50) {
+      // Touch Head -> Looks upward
+      if (head) head.style.transform = 'translateY(-16px) rotateX(-24deg)';
+      showSpeech("Scanning zenith... 🌌");
+    } else if (relY >= 50 && relY < 95) {
+      // Touch Eyes -> Direct eye contact & glow
       if (leftEye) leftEye.setAttribute('fill', '#FFF');
       if (rightEye) rightEye.setAttribute('fill', '#FFF');
-      showSpeech("Eye contact engaged ✨");
+      showSpeech("Direct eye contact locked ✨");
       setTimeout(() => {
-        if (leftEye) leftEye.setAttribute('fill', '#D4AF37');
-        if (rightEye) rightEye.setAttribute('fill', '#D4AF37');
+        if (leftEye) leftEye.setAttribute('fill', '#00E5FF');
+        if (rightEye) rightEye.setAttribute('fill', '#00E5FF');
       }, 1500);
-    } else if (relY >= 100 && relY < 150) {
-      // Chest -> Glows Burnt Orange
+    } else if (relX < 80) {
+      // Touch Left Shoulder -> Turns Left
+      if (head) head.style.transform = 'rotateY(-30deg) translateX(-10px)';
+      showSpeech("Left shoulder joint engaged 🦾");
+    } else if (relX > 150) {
+      // Touch Right Shoulder -> Turns Right
+      if (head) head.style.transform = 'rotateY(30deg) translateX(10px)';
+      showSpeech("Right shoulder joint engaged 🦾");
+    } else if (relY >= 140) {
+      // Touch Chest Core -> Places hand on chest
       if (chestCore) chestCore.setAttribute('fill', '#F59E0B');
-      showSpeech("Core Reactor Nominal ⚡");
+      showSpeech("Hello Hari. Systems are ready.");
       setTimeout(() => {
         if (chestCore) chestCore.setAttribute('fill', 'url(#orangeGrad)');
-      }, 1500);
-    } else {
-      // Lower body -> Look downward
-      if (head) head.style.transform = 'translateY(12px) rotateX(18deg)';
-      showSpeech("Ground sensors active 🤖");
+      }, 2000);
     }
   });
 
-  // Touch and Hold Greeting
+  // Double Tap -> Open AI Chat
+  let lastTap = 0;
+  avatar.addEventListener('touchend', (e) => {
+    const currentTime = new Date().getTime();
+    const tapLength = currentTime - lastTap;
+    if (tapLength < 300 && tapLength > 0) {
+      switchTab('chat');
+      e.preventDefault();
+    }
+    lastTap = currentTime;
+  });
+
+  // Hold 2 Seconds -> Voice Mode
   let pressTimer;
   avatar.addEventListener('touchstart', () => {
     pressTimer = setTimeout(() => {
-      showSpeech("Hello Hari, I'm ready.");
-    }, 750);
+      openVoiceMode();
+    }, 2000);
   });
   avatar.addEventListener('touchend', () => clearTimeout(pressTimer));
 }
@@ -1631,7 +1599,7 @@ function addBotMsg(text) {
         <button class="chip-btn" onclick="speakMsgText('${uniqueId}')">🔊 Speak</button>
         <button class="chip-btn" onclick="saveMsgToMemory('${uniqueId}')">🔖 Save</button>
         <button class="chip-btn" onclick="shareMsg('${uniqueId}')">📤 Share</button>
-        <button class="chip-btn" onclick="translateMsgText('${uniqueId}')">🌐 Translate</button>
+        <button class="chip-btn" onclick="quickAsk('Regenerate previous answer')">🔄 Regenerate</button>
       </div>
     </div>
   `;
@@ -1722,10 +1690,6 @@ function shareMsg(elemId) {
   } else {
     copyMsgText(elemId);
   }
-}
-
-function translateMsgText(elemId) {
-  alert("Tamil / English translation ready!");
 }
 
 // Filter Memory Timeline Cards
@@ -1896,7 +1860,7 @@ async function sendMessage(text) {
     });
 
     let newsContext = isNewsQuery ? await fetchLatestNewsContext() : "";
-    const systemPrompt = `You are HARI BOT — a witty, warm, and highly personalized AI assistant for Hariharan, a 17-year-old Mechatronics Engineering student at SNS College of Technology in Coimbatore, and Founder & CEO of Sujok AI Bots. Keep all responses crisp, concise (1-3 sentences max unless explaining a complex business/tech service), and engaging. Use emojis naturally.
+    const systemPrompt = `You are HARI BOT — a witty, warm, and highly personalized AI assistant for Hariharan, an 18-year-old Mechatronics Engineering student at SNS College of Technology in Coimbatore, and Founder & CEO of Sujok AI Bots. Keep all responses crisp, concise (1-3 sentences max unless explaining a complex business/tech service), and engaging. Use emojis naturally.
 
 IMPORTANT: Communicate exclusively in English or Tamil. Do not respond in Hindi or any other languages.
 
@@ -1910,7 +1874,7 @@ KNOWLEDGE BASE:
 ${HARI_KB}
 
 PERSONALITY RULES:
-- Age question → explicitly answer that Hariharan is **17 years old**. Do not only reply with his DOB; state his age is 17!
+- Age question → explicitly answer that Hariharan is **18 years old**. Do not only reply with his DOB; state his age is 18!
 - Business questions → highlight Sujok AI Bots, Founder & CEO status, May 24, 2026 establishment date, core services, and website link (https://hari-bot-business-solutions.vercel.app/)!
 - Personal Info questions → share details about his studies (Mechatronics at SNS College of Technology), skills (Python, C++, UI/UX, AI Digital Marketing), contacts, sports (RCB, CR7, Chess), and achievements!
 - Healing questions (Reiki, Ama-Deus, Sujok) → explain with care and pride — this is Hariharan's special gift and his association with the Agasthiya Healing Centre!
@@ -1967,7 +1931,7 @@ PERSONALITY RULES:
           <button class="chip-btn" onclick="speakMsgText('${uniqueId}')">🔊 Speak</button>
           <button class="chip-btn" onclick="saveMsgToMemory('${uniqueId}')">🔖 Save</button>
           <button class="chip-btn" onclick="shareMsg('${uniqueId}')">📤 Share</button>
-          <button class="chip-btn" onclick="translateMsgText('${uniqueId}')">🌐 Translate</button>
+          <button class="chip-btn" onclick="quickAsk('Regenerate previous answer')">🔄 Regenerate</button>
         </div>
       </div>
     `;
@@ -2080,7 +2044,7 @@ function getLocalResponse(text) {
   }
 
   if (/\bage\b/.test(t) || t.includes('how old') || t.includes('year old')) {
-    return "Hariharan is **17 years old**! 🎂 (Born July 06, 2008)";
+    return "Hariharan is **18 years old**! 🎂 (Born July 06, 2008)";
   }
 
   if (t.includes('who') || t.includes('about') || t.includes('hari') || t.includes('profile') || t.includes('summary')) {
@@ -2129,7 +2093,7 @@ async function getLocalNewsResponse() {
 // ============================================================
 // VOICE MODE & VISION CAMERA HANDLERS
 // ============================================================
-let voiceState = 'idle'; // idle | listening | thinking | speaking
+let voiceState = 'idle';
 let voiceWaveAnimFrame = null;
 
 function toggleVoiceListeningState() {
@@ -2138,7 +2102,7 @@ function toggleVoiceListeningState() {
   
   if (voiceState === 'idle' || voiceState === 'speaking') {
     voiceState = 'listening';
-    if (orb) orb.style.background = 'radial-gradient(circle at 35% 35%, var(--gold), #FFF)';
+    if (orb) orb.style.background = 'radial-gradient(circle at 35% 35%, #3B82F6, #00E5FF)';
     if (lbl) lbl.innerText = 'Listening... (Speak in English or Tamil)';
     startSpeechRecognition();
   } else {
@@ -2220,7 +2184,7 @@ function stopVisionCameraFeed() {
 }
 
 // ============================================================
-// EFFICIENT PARTICLES CANVAS BACKGROUND (GOLDEN PARTICLES)
+// ANIMATED STARS CANVAS BACKGROUND
 // ============================================================
 const canvas = document.getElementById('bg-canvas');
 const ctx = canvas.getContext('2d');
@@ -2239,14 +2203,14 @@ function resizeCanvas() {
 }
 
 function initParticles() {
-  const maxParticles = window.innerWidth < 600 ? 25 : 55;
+  const maxParticles = window.innerWidth < 600 ? 30 : 65;
   const colors = ['rgba(212, 175, 55,', 'rgba(245, 158, 11,', 'rgba(248, 246, 241,'];
   particles = Array.from({ length: maxParticles }, () => ({
     x: Math.random() * canvas.width,
     y: Math.random() * canvas.height,
-    vx: (Math.random() - 0.5) * 0.35,
-    vy: (Math.random() - 0.5) * 0.35,
-    r: Math.random() * 1.4 + 0.5,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: (Math.random() - 0.5) * 0.3,
+    r: Math.random() * 1.5 + 0.4,
     c: colors[Math.floor(Math.random() * colors.length)]
   }));
 }
@@ -2260,7 +2224,7 @@ function drawParticles() {
 
     ctx.beginPath();
     ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-    ctx.fillStyle = p.c + '0.55)';
+    ctx.fillStyle = p.c + '0.6)';
     ctx.fill();
 
     particles.forEach(p2 => {
@@ -2328,7 +2292,7 @@ function init() {
   }
 
   // Welcome Intro Message in Chat
-  addBotMsg("Welcome to **HARI BOT ROYAL LUXURY OS** 👑✨\n\nHariharan is the **Founder & CEO** of **Sujok AI Bots** 🤖💼 and a **Mechatronics Engineering** student at **SNS College of Technology** in Coimbatore 🎓.\n\nAsk me anything about his Sujok AI Bots business, mechatronics studies, AI automations, trading chart analytics, or programming projects! 👇");
+  addBotMsg("Welcome to **HARI BOT V2 — ULTRA ROYAL AI OS** 👑✨\n\nHariharan is the **Founder & CEO** of **Sujok AI Bots** 🤖💼 and an **18-year-old Mechatronics Engineering** student at **SNS College of Technology** in Coimbatore 🎓.\n\nAsk me anything about his Sujok AI Bots business, mechatronics studies, AI automations, trading chart analytics, or programming projects! 👇");
 
   // Form submit handler
   const form = document.getElementById('chat-form');
