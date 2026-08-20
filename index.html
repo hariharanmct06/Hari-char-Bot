@@ -1184,15 +1184,27 @@
       <span class="overlay-title">VISION AI (CV 4.0) OBJECT RECOGNITION</span>
       <button class="glass-icon-btn" onclick="closeVisionCamera()">✕</button>
     </div>
+
+    <!-- Object Category Selector Bar -->
+    <div style="padding: 10px 16px; display: flex; gap: 8px; overflow-x: auto; background: rgba(12,12,15,0.9); border-bottom: 1px solid var(--gold-glass-border); flex-shrink: 0;" id="vision-object-tabs">
+      <button class="chip-btn active" style="border-color: var(--gold); color: var(--gold);" onclick="selectObjectPreset('laptop')">💻 Laptop</button>
+      <button class="chip-btn" onclick="selectObjectPreset('phone')">📱 Smartphone</button>
+      <button class="chip-btn" onclick="selectObjectPreset('robot')">🤖 Mechatronics Robot</button>
+      <button class="chip-btn" onclick="selectObjectPreset('circuit')">🔌 Circuit Board</button>
+      <button class="chip-btn" onclick="selectObjectPreset('book')">📚 Tech Book</button>
+      <button class="chip-btn" onclick="selectObjectPreset('plant')">🌿 Herbal Plant</button>
+      <button class="chip-btn" onclick="selectObjectPreset('ev')">🚗 EV Module</button>
+    </div>
+
     <div style="flex: 1; position: relative; display: flex; align-items: center; justify-content: center;">
       <video id="vision-video-feed" style="width: 100%; height: 100%; object-fit: cover;" autoplay playsinline muted></video>
-      <div class="vision-scanner-frame">
+      <div class="vision-scanner-frame" id="vision-frame-box">
         <div class="scan-corner sc-tl"></div>
         <div class="scan-corner sc-tr"></div>
         <div class="scan-corner sc-bl"></div>
         <div class="scan-corner sc-br"></div>
       </div>
-      <div style="position: absolute; top: 20px; background: rgba(0,0,0,0.8); border: 1px solid var(--gold); padding: 6px 16px; border-radius: var(--radius-pill); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold);">OBJECT SCANNER · 98.4% CONFIDENCE</div>
+      <div style="position: absolute; top: 20px; background: rgba(0,0,0,0.85); border: 1px solid var(--gold); padding: 6px 16px; border-radius: var(--radius-pill); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold);" id="ocr-confidence-badge">OBJECT SCANNER · 98.8% CONFIDENCE</div>
     </div>
     
     <!-- Vision Object Detection Analysis Panel -->
@@ -1200,16 +1212,16 @@
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <div>
           <span style="font-size: 18px; font-weight: 800; color: var(--gold);" id="detected-object-name">Laptop Computer</span>
-          <div style="font-size: 11px; color: var(--muted);" id="detected-object-cat">Electronic Device / Computer Hardware</div>
+          <div style="font-size: 11px; color: var(--muted);" id="detected-object-cat">Electronic Device / Workstation</div>
         </div>
-        <span class="ai-online-badge">98.4% CONFIDENCE</span>
+        <span class="ai-online-badge" id="detected-confidence-chip">98.8% CONFIDENCE</span>
       </div>
 
       <p style="font-size: 12px; color: var(--milk-white); line-height: 1.5;" id="detected-object-desc">
-        A portable personal computer used for programming in Python/C++, UI/UX design in Figma, and running AI automation workflows.
+        A portable personal computer used for programming in Python and C++, UI/UX design, and running AI automation workflows.
       </p>
 
-      <button class="hero-search-btn" style="position: static; transform: none; width: 100%; padding: 12px;" onclick="closeVisionCamera(); quickAsk('Tell me more about this detected object')">Ask HARI BOT About Object</button>
+      <button class="hero-search-btn" style="position: static; transform: none; width: 100%; padding: 12px;" onclick="askAboutDetectedObject()">Ask HARI BOT About Object</button>
     </div>
   </div>
 
@@ -1377,32 +1389,31 @@ const HARI_KB = `
 // ============================================================
 function checkAndOpenLink(text) {
   const t = text.toLowerCase();
-  const hasContact = t.includes('whatsapp') || t.includes('linkedin') || t.includes('linkdin') || t.includes('gmail') || t.includes('email') || t.includes('contact') || t.includes('reach');
-  const hasPortfolio = t.includes('portfolio') || t.includes('website') || t.includes('more detail') || t.includes('more about') || t.includes('personal link') || t.includes('detail about');
   
-  const hasGithub = t.includes('github') || t.includes('git ');
-  const hasLeetcode = t.includes('leetcode') || t.includes('leet code');
-  const hasProfile = t.includes('profile') || t.includes('profiles');
-  const hasBusiness = t.includes('business') || t.includes('soltions') || t.includes('solutions') || t.includes('company') || t.includes('venture') || t.includes('creative director') || t.includes('ceo') || t.includes('founder') || t.includes('director') || t.includes('hari-bot-business-solutions') || t.includes('sujok') || t.includes('sujok ai') || t.includes('sujok ai bots');
+  // Only open external URLs if explicitly requested with 'open' or 'visit' directives
+  const explicitOpen = t.includes('open ') || t.includes('visit ') || t.includes('show link') || t.includes('open link');
+  if (!explicitOpen) return;
+
+  const hasPortfolio = t.includes('portfolio website') || t.includes('portfolio link') || t.includes('my portfolio');
+  const hasGithub = t.includes('github profile') || t.includes('github link');
+  const hasLeetcode = t.includes('leetcode profile') || t.includes('leetcode link');
+  const hasProfile = t.includes('all profiles') || t.includes('social links');
+  const hasBusiness = t.includes('business website') || t.includes('company site') || t.includes('hari bot business site');
+  const hasContact = t.includes('whatsapp contact') || t.includes('phone number');
 
   if (hasBusiness) {
     window.open('https://hari-bot-business-solutions.vercel.app/', '_blank');
-  }
-
-  if (hasPortfolio) {
+  } else if (hasPortfolio) {
     window.open('https://portfolio-new-psi-ten-33.vercel.app/', '_blank');
-  }
-
-  if (hasProfile) {
+  } else if (hasProfile) {
     window.open('https://github.com/hariharanmct06', '_blank');
     window.open('https://leetcode.com/u/gwbXy6iSHY/', '_blank');
     window.open('https://www.linkedin.com/in/hariharan-m-4a8533407', '_blank');
-  } else {
-    if (hasGithub) window.open('https://github.com/hariharanmct06', '_blank');
-    if (hasLeetcode) window.open('https://leetcode.com/u/gwbXy6iSHY/', '_blank');
-  }
-
-  if (hasContact && !hasBusiness && !hasPortfolio && !hasProfile) {
+  } else if (hasGithub) {
+    window.open('https://github.com/hariharanmct06', '_blank');
+  } else if (hasLeetcode) {
+    window.open('https://leetcode.com/u/gwbXy6iSHY/', '_blank');
+  } else if (hasContact) {
     window.open('https://wa.me/918667808803', '_blank');
   }
 }
@@ -2163,19 +2174,94 @@ function stopVisionCameraFeed() {
   }
 }
 
-function simulateObjectDetection() {
-  setTimeout(() => {
-    const objName = document.getElementById('detected-object-name');
-    const objCat = document.getElementById('detected-object-cat');
-    const objDesc = document.getElementById('detected-object-desc');
+const VISION_OBJECTS = {
+  laptop: {
+    name: "Laptop Workstation",
+    cat: "Electronic Device / Computer Hardware",
+    conf: "98.8% CONFIDENCE",
+    desc: "High-performance laptop workstation used by Hariharan M for Python/C++ development, UI/UX designing, and AI automation engineering."
+  },
+  phone: {
+    name: "Smartphone",
+    cat: "Mobile Device / Telecommunications",
+    conf: "99.1% CONFIDENCE",
+    desc: "Personal smartphone used for client communications, testing mobile AI OS interfaces, and managing Sujok AI Bot workflows."
+  },
+  robot: {
+    name: "Mechatronics Robotic Arm",
+    cat: "Robotics & Industrial Automation",
+    conf: "97.6% CONFIDENCE",
+    desc: "6-DOF Servo-driven robotic manipulator engineered for Mechatronics research, Kinematics calculations, and automated assembly tasks at SNS College."
+  },
+  circuit: {
+    name: "Microcontroller Circuit Board",
+    cat: "Embedded Systems & Electronics",
+    conf: "98.2% CONFIDENCE",
+    desc: "Custom PCB with Arduino/ESP32 microcontroller, sensor interfaces, and motor driver ICs used in IoT automation projects."
+  },
+  book: {
+    name: "Mechatronics & CAD Manual",
+    cat: "Academic Reference & Engineering Doc",
+    conf: "96.9% CONFIDENCE",
+    desc: "Technical engineering literature covering 3D CAD design, mechanical kinematics, electronic control systems, and automated machinery."
+  },
+  plant: {
+    name: "Medicinal Herbal Specimen",
+    cat: "Holistic Health / Botanical Specimen",
+    conf: "95.4% CONFIDENCE",
+    desc: "Therapeutic herbal specimen associated with energy healing practices, Sujok therapy, and Agasthiya Healing Centre modalities."
+  },
+  ev: {
+    name: "EV Battery Sensor Module",
+    cat: "Automotive Mechatronics",
+    conf: "98.0% CONFIDENCE",
+    desc: "Electric vehicle diagnostic module featuring CAN bus telemetry, thermal management sensors, and battery health diagnostics."
+  }
+};
 
-    if (objName && objCat && objDesc) {
-      objName.innerText = "Laptop Computer";
-      objCat.innerText = "Electronic Device";
-      objDesc.innerText = "A portable personal computer used for programming in Python and C++, UI/UX design, and business technology solutions.";
-      speakTextAloud("Detected Laptop Computer: Electronic Device. Used for programming, business, and creative work.");
-    }
-  }, 1800);
+let currentDetectedObjectKey = 'laptop';
+
+function selectObjectPreset(key) {
+  if (!VISION_OBJECTS[key]) return;
+  currentDetectedObjectKey = key;
+  const obj = VISION_OBJECTS[key];
+
+  // Animate bounding frame
+  const box = document.getElementById('vision-frame-box');
+  if (box) {
+    box.style.borderColor = '#00E5FF';
+    box.style.boxShadow = '0 0 60px #00E5FF';
+    setTimeout(() => {
+      box.style.borderColor = 'rgba(212, 175, 55, 0.6)';
+      box.style.boxShadow = '0 0 50px rgba(212, 175, 55, 0.3)';
+    }, 450);
+  }
+
+  // Update text
+  const objName = document.getElementById('detected-object-name');
+  const objCat = document.getElementById('detected-object-cat');
+  const objDesc = document.getElementById('detected-object-desc');
+  const objConf = document.getElementById('detected-confidence-chip');
+  const ocrBadge = document.getElementById('ocr-confidence-badge');
+
+  if (objName) objName.innerText = obj.name;
+  if (objCat) objCat.innerText = obj.cat;
+  if (objDesc) objDesc.innerText = obj.desc;
+  if (objConf) objConf.innerText = obj.conf;
+  if (ocrBadge) ocrBadge.innerText = `OBJECT SCANNER · ${obj.conf}`;
+
+  speakTextAloud(`Detected ${obj.name}: ${obj.cat}. ${obj.desc}`);
+}
+
+function askAboutDetectedObject() {
+  const obj = VISION_OBJECTS[currentDetectedObjectKey] || VISION_OBJECTS.laptop;
+  closeVisionCamera();
+  switchTab('chat');
+  sendMessage(`Tell me technical details about ${obj.name} (${obj.cat})`);
+}
+
+function simulateObjectDetection() {
+  selectObjectPreset(currentDetectedObjectKey);
 }
 
 // ============================================================
