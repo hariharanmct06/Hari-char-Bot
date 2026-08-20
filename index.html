@@ -611,60 +611,78 @@
     }
     .chip-btn:active { transform: scale(0.92); }
 
-    /* Input Area */
+    /* Floating 30px Glass Input Bar */
     #input-area {
-      padding: 14px 18px;
-      padding-bottom: max(14px, env(safe-area-inset-top));
+      padding: 10px 16px;
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+      background: rgba(12, 12, 15, 0.94);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
       border-top: 1px solid var(--gold-glass-border);
-      background: rgba(12, 12, 15, 0.9);
-      backdrop-filter: blur(25px);
-      z-index: 15;
+      z-index: 35;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      flex-shrink: 0;
     }
+
     #chat-form {
       display: flex;
       gap: 10px;
-      align-items: center;
+      align-items: flex-end;
     }
 
     .input-box-wrapper {
       flex: 1;
       position: relative;
       display: flex;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.03);
+      align-items: flex-end;
+      background: rgba(22, 22, 26, 0.88);
       border: 1px solid var(--gold-glass-border);
-      border-radius: var(--radius-md);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 30px; /* 30px rounded glass design */
+      padding: 4px 10px 4px 16px;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
     }
+
     .input-box-wrapper:focus-within {
       border-color: var(--gold);
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
-      background: rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+      background: rgba(26, 26, 32, 0.95);
+    }
+    
+    .input-box-wrapper.is-typing {
+      border-color: var(--burnt-orange);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
     }
 
     #chat-input {
       flex: 1;
       background: transparent;
       border: none;
-      padding: 14px 18px;
+      padding: 10px 0;
       color: var(--milk-white);
       font-size: 15px;
       font-family: inherit;
       outline: none;
+      resize: none; /* Auto-growing 1 to 6 lines */
+      min-height: 24px;
+      max-height: 135px;
+      line-height: 1.45;
+      overflow-y: auto;
+      scrollbar-width: none;
     }
+    #chat-input::-webkit-scrollbar { display: none; }
     #chat-input::placeholder { color: var(--dim); }
 
     .input-inner-actions {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding-right: 12px;
+      gap: 4px;
+      padding-bottom: 6px;
     }
 
     #send-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-md);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       background: linear-gradient(135deg, var(--gold), var(--burnt-orange));
       border: none;
       color: #000;
@@ -673,14 +691,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.25s ease;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
       box-shadow: var(--shadow-gold);
       outline: none;
       flex-shrink: 0;
+      opacity: 0.4;
+      pointer-events: none;
+    }
+    #send-btn.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: scale(1);
     }
     #send-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.45);
+      transform: scale(1.06);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.55);
     }
     #send-btn:active { transform: scale(0.92); }
 
@@ -1040,14 +1065,14 @@
         <!-- Suggestions bar -->
         <section id="suggestions" aria-label="Suggested Questions"></section>
 
-        <!-- Input Panel -->
+        <!-- Floating 30px Glass Input Panel -->
         <section id="input-area">
           <form id="chat-form">
             <div class="input-box-wrapper">
-              <input id="chat-input" type="text" placeholder="Ask HARI BOT anything..." maxlength="300" autocomplete="off" autocapitalize="sentences" spellcheck="true" />
+              <textarea id="chat-input" rows="1" placeholder="Ask HARI BOT anything..." autocomplete="off" autocapitalize="sentences" spellcheck="true"></textarea>
               <div class="input-inner-actions">
-                <button type="button" class="glass-icon-btn" style="width: 32px; height: 32px; border: none;" onclick="openVisionCamera()" title="Camera Lens">📷</button>
-                <button type="button" class="glass-icon-btn" style="width: 32px; height: 32px; border: none;" onclick="openVoiceMode()" title="Voice Input">🎙️</button>
+                <button type="button" class="glass-icon-btn" style="width: 32px; height: 32px; border: none; background: transparent;" onclick="openVisionCamera()" title="Camera Lens">📷</button>
+                <button type="button" class="glass-icon-btn" style="width: 32px; height: 32px; border: none; background: transparent;" onclick="openVoiceMode()" title="Voice Input">🎙️</button>
               </div>
             </div>
             <button id="send-btn" type="submit" aria-label="Send message">
@@ -1586,6 +1611,10 @@ function scrollBottom() {
   }
 }
 
+function getFormattedTimestamp() {
+  return new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+}
+
 function addBotMsg(text) {
   const msgs = document.getElementById('messages');
   const div = document.createElement('div');
@@ -1593,11 +1622,13 @@ function addBotMsg(text) {
   
   const isShout = text.includes("EE SALA CUP NAMDU");
   const uniqueId = 'msg-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5);
+  const timeStr = getFormattedTimestamp();
 
   div.innerHTML = `
     <div class="msg-icon">🤖</div>
     <div class="bubble-wrapper">
       <div class="bubble ${isShout ? 'shout-bubble' : ''}" id="${uniqueId}">${formatMarkdown(text)}</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(148, 163, 184, 0.7); margin-top: 2px;">${timeStr}</div>
       <div class="msg-action-chips">
         <button class="chip-btn" onclick="copyMsgText('${uniqueId}')">📋 Copy</button>
         <button class="chip-btn" onclick="speakMsgText('${uniqueId}')">🔊 Speak</button>
@@ -1615,10 +1646,12 @@ function addUserMsg(text) {
   const msgs = document.getElementById('messages');
   const div = document.createElement('div');
   div.className = 'msg user';
+  const timeStr = getFormattedTimestamp();
   div.innerHTML = `
     <div class="msg-icon">👤</div>
     <div class="bubble-wrapper">
       <div class="bubble">${escapeHtml(text)}</div>
+      <div style="font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(0, 0, 0, 0.65); text-align: right; margin-top: 2px;">${timeStr}</div>
     </div>
   `;
   msgs.appendChild(div);
@@ -2350,6 +2383,75 @@ function updateBannerStatus() {
   }
 }
 
+function setupVisualViewportKeyboard() {
+  if (!window.visualViewport) return;
+
+  const appEl = document.getElementById('app');
+
+  function handleViewportResize() {
+    const vv = window.visualViewport;
+    const windowH = window.innerHeight;
+    const keyboardH = Math.max(0, windowH - vv.height);
+
+    if (keyboardH > 100) {
+      document.body.classList.add('keyboard-active');
+      if (appEl) {
+        appEl.style.height = `${vv.height}px`;
+      }
+      scrollBottom();
+    } else {
+      document.body.classList.remove('keyboard-active');
+      if (appEl) {
+        appEl.style.height = '';
+      }
+    }
+  }
+
+  window.visualViewport.addEventListener('resize', handleViewportResize);
+  window.visualViewport.addEventListener('scroll', handleViewportResize);
+}
+
+function setupAutoGrowingInput() {
+  const input = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('send-btn');
+  const boxWrapper = document.querySelector('.input-box-wrapper');
+
+  if (!input) return;
+
+  function updateInputState() {
+    input.style.height = 'auto';
+    const newH = Math.min(input.scrollHeight, 135); // 1 to 6 lines max
+    input.style.height = `${newH}px`;
+
+    const val = input.value.trim();
+    if (val.length > 0) {
+      if (sendBtn) sendBtn.classList.add('active');
+      if (boxWrapper) boxWrapper.classList.add('is-typing');
+    } else {
+      if (sendBtn) sendBtn.classList.remove('active');
+      if (boxWrapper) boxWrapper.classList.remove('is-typing');
+    }
+  }
+
+  input.addEventListener('input', updateInputState);
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      const val = input.value.trim();
+      if (val) {
+        sendMessage(val);
+        input.value = '';
+        updateInputState();
+      }
+    }
+  });
+
+  input.addEventListener('focus', () => {
+    setTimeout(scrollBottom, 200);
+  });
+}
+
 function init() {
   window.addEventListener('online', updateBannerStatus);
   window.addEventListener('offline', updateBannerStatus);
@@ -2358,6 +2460,8 @@ function init() {
   setInterval(updateLiveGreeting, 30000);
 
   setupRobotTouchEngine();
+  setupVisualViewportKeyboard();
+  setupAutoGrowingInput();
 
   // Populate suggestion buttons in Chat screen
   const sugBox = document.getElementById('suggestions');
@@ -2385,6 +2489,11 @@ function init() {
       if (val) {
         sendMessage(val);
         inp.value = '';
+        inp.style.height = 'auto';
+        const sendBtn = document.getElementById('send-btn');
+        const boxWrapper = document.querySelector('.input-box-wrapper');
+        if (sendBtn) sendBtn.classList.remove('active');
+        if (boxWrapper) boxWrapper.classList.remove('is-typing');
       }
     });
   }
