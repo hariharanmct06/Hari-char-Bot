@@ -358,14 +358,44 @@
     }
     @keyframes platformPulse { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(1.08); opacity: 1; } }
 
-    /* SVG Titanium Robot Frame */
+    /* SVG Titanium Robot Frame with Idle Breathing Animation */
     .robot-svg-container {
       width: 220px;
       height: 220px;
       position: relative;
       z-index: 5;
       cursor: pointer;
+      animation: robotBreathing 3.5s ease-in-out infinite alternate;
       transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes robotBreathing {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-3px); }
+    }
+
+    /* Floating Corner Assistant Orb for Computer Vision HUD */
+    .corner-assistant-orb {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, var(--gold), var(--burnt-orange));
+      border: 1.5px solid var(--gold);
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      z-index: 20;
+      transition: transform 0.3s ease;
+      animation: orbPulse 3s ease-in-out infinite alternate;
+    }
+    @keyframes orbPulse {
+      0% { transform: scale(1); box-shadow: 0 0 15px rgba(212, 175, 55, 0.5); }
+      100% { transform: scale(1.08); box-shadow: 0 0 30px rgba(245, 158, 11, 0.8); }
     }
 
     .robot-head-group {
@@ -1036,7 +1066,7 @@
                 <rect x="88" y="118" width="24" height="16" rx="4" fill="url(#titaniumGrad)" stroke="#D4AF37" stroke-width="1.5" />
                 <path d="M42 134 C42 128, 158 128, 158 134 L172 195 C172 200, 28 200, 28 195 Z" fill="#121318" stroke="#D4AF37" stroke-width="2" />
                 <circle id="robot-chest-core" cx="100" cy="162" r="18" fill="url(#orangeGrad)" stroke="#D4AF37" stroke-width="2" filter="drop-shadow(0 0 12px #F59E0B)" />
-                <circle cx="100" cy="162" r="9" fill="#FFF" opacity="0.9" />
+                <text x="100" y="167" font-family="'Plus Jakarta Sans', sans-serif" font-weight="900" font-size="14" fill="#050505" text-anchor="middle">H</text>
 
                 <defs>
                   <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
@@ -1278,6 +1308,7 @@
     </div>
 
     <div style="flex: 1; position: relative; display: flex; align-items: center; justify-content: center;">
+      <div class="corner-assistant-orb" id="corner-ai-orb">🤖</div>
       <video id="vision-video-feed" style="width: 100%; height: 100%; object-fit: cover;" autoplay playsinline muted></video>
       <div class="vision-scanner-frame" id="vision-frame-box">
         <div class="scan-corner sc-tl"></div>
@@ -1286,7 +1317,7 @@
         <div class="scan-corner sc-br"></div>
         <div class="scan-laser-line"></div>
       </div>
-      <div style="position: absolute; top: 20px; background: rgba(0,0,0,0.85); border: 1px solid var(--gold); padding: 6px 16px; border-radius: var(--radius-pill); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold);" id="ocr-confidence-badge">OBJECT SCANNER · 98.8% CONFIDENCE</div>
+      <div style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.85); border: 1px solid var(--gold); padding: 6px 16px; border-radius: var(--radius-pill); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold);" id="ocr-confidence-badge">OBJECT SCANNER · 98.8% CONFIDENCE</div>
     </div>
     
     <!-- Vision Object Detection Analysis Panel -->
@@ -1599,25 +1630,38 @@ function setupRobotTouchEngine() {
     if (head) head.style.transform = 'rotateY(0deg) rotateX(0deg)';
   });
 
-  // Touch Response Logic
-  avatar.addEventListener('click', (e) => {
+  let clickCount = 0;
+  let clickTimer = null;
+
+  function triggerTapResponse(e) {
     const rect = avatar.getBoundingClientRect();
     const relY = e.clientY - rect.top;
     const relX = e.clientX - rect.left;
+
+    // Halo pulse animation
+    const halo = document.querySelector('.robot-hero-halo');
+    if (halo) {
+      halo.style.transform = 'scale(1.28)';
+      halo.style.opacity = '1';
+      setTimeout(() => {
+        halo.style.transform = '';
+        halo.style.opacity = '';
+      }, 600);
+    }
 
     if (relY < 50) {
       // Touch Head -> Looks upward
       if (head) head.style.transform = 'translateY(-16px) rotateX(-24deg)';
       showSpeech("Scanning upper spectrum... 🌌");
     } else if (relY >= 50 && relY < 95) {
-      // Touch Eyes -> Direct eye contact & glow
+      // Touch Eyes -> Direct eye contact & blink
       if (leftEye) leftEye.setAttribute('fill', '#FFF');
       if (rightEye) rightEye.setAttribute('fill', '#FFF');
       showSpeech("Direct eye contact locked ✨");
       setTimeout(() => {
-        if (leftEye) leftEye.setAttribute('fill', '#00E5FF');
-        if (rightEye) rightEye.setAttribute('fill', '#00E5FF');
-      }, 1500);
+        if (leftEye) leftEye.setAttribute('fill', '#D4AF37');
+        if (rightEye) rightEye.setAttribute('fill', '#D4AF37');
+      }, 1200);
     } else if (relX < 80) {
       // Touch Left -> Turns Left
       if (head) head.style.transform = 'rotateY(-30deg) translateX(-10px)';
@@ -1626,23 +1670,47 @@ function setupRobotTouchEngine() {
       // Touch Right -> Turns Right
       if (head) head.style.transform = 'rotateY(30deg) translateX(10px)';
       showSpeech("Right joints engaged 🦾");
-    } else if (relY >= 140) {
-      // Touch Chest Core -> Places hand on chest & Tamil greeting!
+    } else {
+      // Touch Chest Core / Robot -> Greeting starts
+      if (head) head.style.transform = 'rotateZ(4deg) translateY(-5px)';
+      if (leftEye) leftEye.setAttribute('fill', '#FFF');
+      if (rightEye) rightEye.setAttribute('fill', '#FFF');
       if (chestCore) chestCore.setAttribute('fill', '#F59E0B');
+      
       showSpeech("Vanakkam Hari! I'm ready to help.");
       speakTextAloud("Vanakkam Hari! I'm ready to help.");
+      
       setTimeout(() => {
+        if (head) head.style.transform = 'rotateY(0deg) rotateX(0deg)';
+        if (leftEye) leftEye.setAttribute('fill', '#00E5FF');
+        if (rightEye) rightEye.setAttribute('fill', '#00E5FF');
         if (chestCore) chestCore.setAttribute('fill', 'url(#orangeGrad)');
-      }, 2500);
+      }, 2200);
+    }
+  }
+
+  // Click & Double Tap Response Logic
+  avatar.addEventListener('click', (e) => {
+    clickCount++;
+    if (clickCount === 1) {
+      clickTimer = setTimeout(() => {
+        clickCount = 0;
+        triggerTapResponse(e);
+      }, 260);
+    } else if (clickCount === 2) {
+      clearTimeout(clickTimer);
+      clickCount = 0;
+      showSpeech("Morphing into Computer Vision HUD... 👁️");
+      setTimeout(openVisionCamera, 200);
     }
   });
 
-  // Hold 2 Seconds -> Voice Mode
+  // Hold 1.5 Seconds -> Voice Mode
   let pressTimer;
   avatar.addEventListener('touchstart', () => {
     pressTimer = setTimeout(() => {
       openVoiceMode();
-    }, 2000);
+    }, 1500);
   });
   avatar.addEventListener('touchend', () => clearTimeout(pressTimer));
 }
