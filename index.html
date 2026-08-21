@@ -18,29 +18,29 @@
 
   <style>
     :root {
-      --gold: #D4AF37; /* Royal Gold */
-      --gold-light: #F3E5AB;
-      --gold-dark: #AA7C11;
-      --obsidian: #090909; /* Obsidian Black */
-      --obsidian-surface: rgba(15, 15, 18, 0.85); /* Glassmorphism Black */
-      --obsidian-card: rgba(22, 22, 26, 0.92);
-      --burnt-orange: #F59E0B; /* Burnt Orange Accent */
-      --milk-white: #F8F6F1; /* Milk White Typography */
+      --gold: #D4AF37; /* Luxury Metallic Gold */
+      --gold-light: #F7E7B4;
+      --gold-dark: #A4811F;
+      --obsidian: #050505; /* Deep Matte Black */
+      --obsidian-surface: rgba(14, 14, 18, 0.88); /* Soft Glass Morphism */
+      --obsidian-card: rgba(18, 18, 22, 0.94);
+      --burnt-orange: #F59E0B; /* Accent Glow */
+      --milk-white: #F7F5F2; /* Milky White Typography */
       
       --muted: #94A3B8;
       --dim: #64748B;
       
       --gold-glass-border: rgba(212, 175, 55, 0.3);
-      --gold-border-hover: rgba(212, 175, 55, 0.7);
+      --gold-border-hover: rgba(212, 175, 55, 0.75);
       
-      --radius-sm: 14px;
-      --radius-md: 24px;
+      --radius-sm: 16px;
+      --radius-md: 26px; /* 24-28px luxury radius */
       --radius-lg: 32px;
       --radius-pill: 9999px;
       
-      --shadow-gold: 0 10px 35px rgba(212, 175, 55, 0.3);
-      --shadow-orange: 0 10px 35px rgba(245, 158, 11, 0.3);
-      --shadow-card: 0 25px 60px rgba(0, 0, 0, 0.95);
+      --shadow-gold: 0 12px 40px rgba(212, 175, 55, 0.35);
+      --shadow-orange: 0 12px 40px rgba(245, 158, 11, 0.35);
+      --shadow-card: 0 30px 70px rgba(0, 0, 0, 0.98);
     }
 
     *, *::before, *::after {
@@ -308,6 +308,23 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    /* Animated Gold Assistant Halo */
+    .robot-hero-halo {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.28) 0%, rgba(245, 158, 11, 0.08) 50%, transparent 75%);
+      animation: haloPulse 4s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes haloPulse {
+      0% { transform: scale(0.92); opacity: 0.5; }
+      100% { transform: scale(1.15); opacity: 0.95; filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.45)); }
     }
 
     .robot-aura-ring {
@@ -749,6 +766,7 @@
       border-radius: var(--radius-md);
       box-shadow: 0 0 50px rgba(212, 175, 55, 0.3);
       pointer-events: none;
+      overflow: hidden;
     }
     .scan-corner {
       position: absolute;
@@ -761,6 +779,40 @@
     .sc-tr { top: -2px; right: -2px; border-width: 4px 4px 0 0; border-top-right-radius: 8px; }
     .sc-bl { bottom: -2px; left: -2px; border-width: 0 0 4px 4px; border-bottom-left-radius: 8px; }
     .sc-br { bottom: -2px; right: -2px; border-width: 0 4px 4px 0; border-bottom-right-radius: 8px; }
+
+    /* Laser Scan Effect */
+    .scan-laser-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 3.5px;
+      background: linear-gradient(90deg, transparent, var(--gold), var(--burnt-orange), var(--gold), transparent);
+      box-shadow: 0 0 16px var(--gold), 0 0 32px var(--burnt-orange);
+      animation: laserScan 2.4s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes laserScan {
+      0% { top: 4px; opacity: 0.85; }
+      50% { opacity: 1; }
+      100% { top: calc(100% - 8px); opacity: 0.85; }
+    }
+
+    /* Sound Ripple Animations for Voice AI */
+    .voice-ripple-ring {
+      position: absolute;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      animation: ripplePulse 2.4s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+      pointer-events: none;
+    }
+
+    @keyframes ripplePulse {
+      0% { transform: scale(1); opacity: 0.85; }
+      100% { transform: scale(1.85); opacity: 0; }
+    }
 
     /* Vision CV 4.0 Analysis Panel */
     .vision-result-panel {
@@ -958,6 +1010,7 @@
 
           <!-- Robot Hero Stage -->
           <div class="robot-stage-wrapper">
+            <div class="robot-hero-halo"></div>
             <div class="robot-aura-ring"></div>
             <div class="robot-aura-ring robot-aura-ring-2"></div>
             <div class="floating-platform"></div>
@@ -1193,9 +1246,12 @@
       <span class="overlay-title">SIGNATURE VOICE AI</span>
       <button class="glass-icon-btn" onclick="closeVoiceMode()">✕</button>
     </div>
-    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; gap: 24px;">
+    <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; text-align: center; gap: 24px; position: relative;">
       <div style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 1px;">TAMIL + ENGLISH BI-LINGUAL VOICE AI</div>
-      <div style="width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, var(--gold), var(--burnt-orange)); box-shadow: var(--shadow-gold); display: flex; align-items: center; justify-content: center; font-size: 48px; color: #000; cursor: pointer; transition: all 0.3s ease;" id="voice-orb-element" onclick="toggleVoiceListeningState()">🎙️</div>
+      <div style="position: relative; width: 170px; height: 170px; display: flex; align-items: center; justify-content: center;">
+        <div class="voice-ripple-ring"></div>
+        <div style="width: 170px; height: 170px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, var(--gold), var(--burnt-orange)); box-shadow: var(--shadow-gold); display: flex; align-items: center; justify-content: center; font-size: 48px; color: #000; cursor: pointer; transition: all 0.3s ease; position: relative; z-index: 5;" id="voice-orb-element" onclick="toggleVoiceListeningState()">🎙️</div>
+      </div>
       <div style="font-size: 17px; font-weight: 800; color: var(--milk-white);" id="voice-state-label">Tap Golden Orb to Speak</div>
       <canvas id="voice-waveform-canvas" style="width: 100%; max-width: 320px; height: 80px;"></canvas>
     </div>
@@ -1228,6 +1284,7 @@
         <div class="scan-corner sc-tr"></div>
         <div class="scan-corner sc-bl"></div>
         <div class="scan-corner sc-br"></div>
+        <div class="scan-laser-line"></div>
       </div>
       <div style="position: absolute; top: 20px; background: rgba(0,0,0,0.85); border: 1px solid var(--gold); padding: 6px 16px; border-radius: var(--radius-pill); font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold);" id="ocr-confidence-badge">OBJECT SCANNER · 98.8% CONFIDENCE</div>
     </div>
@@ -2365,7 +2422,7 @@ drawParticles();
 // ============================================================
 function updateLiveGreeting() {
   const hr = new Date().getHours();
-  const greeting = hr < 12 ? "Good Morning, Hari" : hr < 17 ? "Good Afternoon, Hari" : "Good Evening, Hari";
+  const greeting = hr < 12 ? "Good Morning, Hariharan" : hr < 17 ? "Good Afternoon, Hariharan" : "Good Evening, Hariharan";
   const el = document.getElementById('greeting-text');
   if (el) el.innerText = greeting;
 }
