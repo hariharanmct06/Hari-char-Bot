@@ -18,27 +18,28 @@
 
   <style>
     :root {
-      --gold: #D4AF37; /* Luxury Metallic Gold */
-      --gold-light: #F7E7B4;
-      --gold-dark: #A4811F;
-      --obsidian: #050505; /* Deep Matte Black */
-      --obsidian-surface: rgba(14, 14, 18, 0.88); /* Soft Glass Morphism */
-      --obsidian-card: rgba(18, 18, 22, 0.94);
-      --burnt-orange: #F59E0B; /* Accent Glow */
-      --milk-white: #F7F5F2; /* Milky White Typography */
+      --obsidian: #070B0F; /* Matte Black Primary Background */
+      --milk-white: #F8FAFC; /* Milky White Typography & Cards */
+      --sky-blue: #38BDF8; /* Sky Blue AI Glow & Highlights */
+      --burnt-orange: #F59E0B; /* Orange CTA & Energy Accents */
+      --emerald-green: #22C55E; /* Emerald Green Active Indicators */
+      --gold: #D4AF37; /* Metallic Gold Accent */
+      
+      --obsidian-surface: rgba(12, 18, 26, 0.88); /* Dark Glassmorphism */
+      --obsidian-card: rgba(15, 23, 34, 0.94);
       
       --muted: #94A3B8;
       --dim: #64748B;
       
-      --gold-glass-border: rgba(212, 175, 55, 0.3);
-      --gold-border-hover: rgba(212, 175, 55, 0.75);
+      --gold-glass-border: rgba(56, 189, 248, 0.35); /* Sky Blue Glass Border */
+      --gold-border-hover: rgba(56, 189, 248, 0.75);
       
       --radius-sm: 16px;
-      --radius-md: 26px; /* 24-28px luxury radius */
+      --radius-md: 26px; /* 22-28px luxury radius */
       --radius-lg: 32px;
       --radius-pill: 9999px;
       
-      --shadow-gold: 0 12px 40px rgba(212, 175, 55, 0.35);
+      --shadow-gold: 0 12px 40px rgba(56, 189, 248, 0.35);
       --shadow-orange: 0 12px 40px rgba(245, 158, 11, 0.35);
       --shadow-card: 0 30px 70px rgba(0, 0, 0, 0.98);
     }
@@ -327,11 +328,129 @@
       100% { transform: scale(1.15); opacity: 0.95; filter: drop-shadow(0 0 25px rgba(212, 175, 55, 0.45)); }
     }
 
+    /* Robotic Arms Styling & Hydraulic Motion */
+    .robotic-arm-left-wrapper {
+      position: absolute;
+      left: -48px;
+      top: 30px;
+      pointer-events: none;
+      animation: armHydraulicLeft 4s ease-in-out infinite alternate;
+      z-index: 4;
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4));
+    }
+
+    .robotic-arm-right-wrapper {
+      position: absolute;
+      right: -48px;
+      top: 30px;
+      pointer-events: none;
+      animation: armHydraulicRight 4s ease-in-out infinite alternate;
+      z-index: 4;
+      filter: drop-shadow(0 0 10px rgba(56, 189, 248, 0.4));
+    }
+
+    @keyframes armHydraulicLeft {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(-3deg); }
+      100% { transform: translateY(5px) rotate(2deg); }
+    }
+
+    @keyframes armHydraulicRight {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-7px) rotate(3deg); }
+      100% { transform: translateY(5px) rotate(-2deg); }
+    }
+
+    /* Holographic Projector Beam */
+    .holo-projector-beam {
+      position: absolute;
+      top: 75px;
+      right: 15px;
+      width: 150px;
+      height: 170px;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.3) 0%, rgba(56, 189, 248, 0.03) 80%, transparent 100%);
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+      opacity: 0.75;
+      pointer-events: none;
+      animation: holoBeam 3.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes holoBeam {
+      0% { opacity: 0.45; transform: scaleY(0.95); }
+      100% { opacity: 0.9; transform: scaleY(1.05); filter: drop-shadow(0 0 15px rgba(56, 189, 248, 0.5)); }
+    }
+
+    /* Robotic Boot Sequence Overlay */
+    #robotic-boot-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: #070B0F;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s ease;
+    }
+
+    .boot-box {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      padding: 30px;
+      border-radius: var(--radius-md);
+      background: rgba(12, 18, 26, 0.9);
+      border: 1px solid var(--gold-glass-border);
+      box-shadow: 0 0 50px rgba(56, 189, 248, 0.2);
+    }
+
+    .boot-logo {
+      font-size: 24px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #F8FAFC, #38BDF8, #F59E0B);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .boot-subtitle {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: #38BDF8;
+      letter-spacing: 1px;
+    }
+
+    .boot-progress-track {
+      width: 250px;
+      height: 5px;
+      border-radius: 99px;
+      background: rgba(56, 189, 248, 0.15);
+      overflow: hidden;
+      position: relative;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .boot-progress-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #38BDF8, #F59E0B, #22C55E);
+      box-shadow: 0 0 14px #38BDF8;
+      animation: bootProgress 1.6s ease-out forwards;
+    }
+
+    @keyframes bootProgress {
+      0% { width: 0%; }
+      50% { width: 68%; }
+      100% { width: 100%; }
+    }
+
     .robot-aura-ring {
       position: absolute;
       inset: 10px;
       border-radius: 50%;
-      border: 1.5px dashed rgba(212, 175, 55, 0.35);
+      border: 1.5px dashed rgba(56, 189, 248, 0.35);
       animation: rotateRing 20s linear infinite;
       pointer-events: none;
     }
@@ -982,6 +1101,18 @@
 </head>
 <body>
 
+  <!-- Futuristic Robotic Boot Sequence Overlay -->
+  <div id="robotic-boot-overlay">
+    <div class="boot-box">
+      <div class="boot-logo">HARI BOT QUANTUM OS</div>
+      <div class="boot-subtitle">INITIALIZING ROBOTIC ARMS &amp; AI CORE...</div>
+      <div class="boot-progress-track">
+        <div class="boot-progress-bar"></div>
+      </div>
+      <div class="boot-badge" style="font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #22C55E; display: flex; align-items: center; gap: 6px;"><span class="status-pulse-dot" style="background:#22C55E; box-shadow: 0 0 10px #22C55E;"></span> EMERALD AI ACTIVE</div>
+    </div>
+  </div>
+
   <!-- Ambient Blobs -->
   <div class="ambient-blob blob-gold"></div>
   <div class="ambient-blob blob-orange"></div>
@@ -1038,8 +1169,31 @@
             <p class="hero-subtext">Building intelligent AI solutions, automation systems and next-generation digital experiences.</p>
           </div>
 
-          <!-- Robot Hero Stage -->
+          <!-- Robot Hero Stage with Robotic Arms -->
           <div class="robot-stage-wrapper">
+            <!-- Left Robotic Arm -->
+            <div class="robotic-arm-left-wrapper">
+              <svg width="60" height="140" viewBox="0 0 60 140" fill="none">
+                <path d="M10 10 L40 40 L30 90 L10 130" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" />
+                <circle cx="10" cy="10" r="7" fill="#F59E0B" />
+                <circle cx="40" cy="40" r="6" fill="#38BDF8" />
+                <circle cx="30" cy="90" r="5" fill="#38BDF8" />
+                <path d="M10 130 L5 138 M10 130 L15 138" stroke="#38BDF8" stroke-width="3" />
+              </svg>
+            </div>
+
+            <!-- Right Robotic Arm with Holographic Projector Beam -->
+            <div class="robotic-arm-right-wrapper">
+              <div class="holo-projector-beam"></div>
+              <svg width="60" height="140" viewBox="0 0 60 140" fill="none">
+                <path d="M50 10 L20 40 L30 90 L50 130" stroke="#38BDF8" stroke-width="4" stroke-linecap="round" />
+                <circle cx="50" cy="10" r="7" fill="#F59E0B" />
+                <circle cx="20" cy="40" r="6" fill="#38BDF8" />
+                <circle cx="30" cy="90" r="5" fill="#38BDF8" />
+                <path d="M50 130 L45 138 M50 130 L55 138" stroke="#38BDF8" stroke-width="3" />
+              </svg>
+            </div>
+
             <div class="robot-hero-halo"></div>
             <div class="robot-aura-ring"></div>
             <div class="robot-aura-ring robot-aura-ring-2"></div>
@@ -2583,6 +2737,16 @@ function init() {
   updateBannerStatus();
   updateLiveGreeting();
   setInterval(updateLiveGreeting, 30000);
+
+  // Robotic boot sequence power-up under 2s
+  setTimeout(() => {
+    const bootOverlay = document.getElementById('robotic-boot-overlay');
+    if (bootOverlay) {
+      bootOverlay.style.opacity = '0';
+      bootOverlay.style.pointerEvents = 'none';
+      setTimeout(() => bootOverlay.remove(), 600);
+    }
+  }, 1650);
 
   setupRobotTouchEngine();
   setupVisualViewportKeyboard();
